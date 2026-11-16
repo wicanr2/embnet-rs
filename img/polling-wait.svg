@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 285" width="900" height="285" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="900" height="285" fill="#ffffff"/>
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e07b00"/>
+    </marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">輪詢的等待時間：資料何時就緒，主端並不知道</text>
+
+  <!-- time axis -->
+  <line x1="60" y1="140" x2="860" y2="140" stroke="#555" stroke-width="2"/>
+  <g stroke="#3b7dc4" stroke-width="3">
+    <line x1="100" y1="110" x2="100" y2="150"/><line x1="340" y1="110" x2="340" y2="150"/>
+    <line x1="580" y1="110" x2="580" y2="150"/><line x1="820" y1="110" x2="820" y2="150"/>
+  </g>
+  <g font-size="12" fill="#3b7dc4" text-anchor="middle">
+    <text x="100" y="100">輪詢</text><text x="340" y="100">輪詢</text><text x="580" y="100">輪詢</text><text x="820" y="100">輪詢</text>
+  </g>
+  <g font-size="12" fill="#666" text-anchor="middle">
+    <text x="100" y="170">0</text><text x="340" y="170">T</text><text x="580" y="170">2T</text><text x="820" y="170">3T</text>
+  </g>
+
+  <!-- data ready event -->
+  <circle cx="420" cy="140" r="7" fill="#ffffff" stroke="#e07b00" stroke-width="3"/>
+  <text x="420" y="196" font-size="12" fill="#a65c00" text-anchor="middle">資料就緒</text>
+  <path d="M428,124 H572" stroke="#e07b00" stroke-width="2" fill="none" marker-end="url(#a2)"/>
+  <text x="500" y="116" font-size="13" fill="#a65c00" text-anchor="middle">等待 W</text>
+
+  <!-- brace for period -->
+  <path d="M340,206 V214 H580 V206" stroke="#999" fill="none"/>
+  <text x="460" y="232" font-size="12" fill="#666" text-anchor="middle">就緒時刻落在這個週期內的任何位置，機率相同</text>
+
+  <text x="30" y="272" font-size="13" fill="#333">W 在 0 到 T 之間均勻分布：平均 T/2，最壞 T。還要再加上詢問與回應本身的 Wire time，以及從端的處理時間。</text>
+</svg>

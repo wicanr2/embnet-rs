@@ -18,7 +18,7 @@
 |---|---|---|---|
 | 0 | `docs/plans/001` 到 `003` | 計畫、safety 與 security、風險評估 | 完成 |
 | 1 | `docs/10-buses/01-can-arbitration.md` | CAN 的仲裁、填充位元、錯誤處理與 bus-off；bxCAN 與 FDCAN 的差異 | 完成 |
-| 2 | `docs/10-buses/02-wire-time.md` | Wire time 怎麼推算，延遲由哪幾段組成 | 未開始 |
+| 2 | `docs/10-buses/02-wire-time.md` | Wire time 怎麼推算，延遲由哪幾段組成 | 完成 |
 | 3 | `docs/10-buses/03-who-may-talk.md` | UART、RS-485、SPI、I²C、Modbus：誰能發話，半雙工與輪詢 | 未開始 |
 | 4 | `docs/20-protocol/01-cyphal-design.md` | Cyphal 的設計：去中心化、Subject 與 Service、Transfer | 未開始 |
 | 5 | `docs/20-protocol/02-fragmentation.md` | 分片、重組與 Tail byte | 未開始 |

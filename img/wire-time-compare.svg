@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" width="1000" height="380" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="380" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">一筆訊息在各種 Link 上的 Wire time（對數刻度）</text>
+  <text x="30" y="52" font-size="12" fill="#777">最壞填充或含協定必要間隔；Modbus 不含從站處理時間</text>
+
+  <!-- grid -->
+  <g stroke="#e8e8e8" stroke-width="1">
+    <line x1="330" y1="70" x2="330" y2="320"/><line x1="430" y1="70" x2="430" y2="320"/>
+    <line x1="530" y1="70" x2="530" y2="320"/><line x1="630" y1="70" x2="630" y2="320"/>
+    <line x1="730" y1="70" x2="730" y2="320"/><line x1="830" y1="70" x2="830" y2="320"/>
+    <line x1="930" y1="70" x2="930" y2="320"/>
+  </g>
+  <g font-size="12" fill="#888" text-anchor="middle">
+    <text x="330" y="340">1 µs</text><text x="430" y="340">10 µs</text><text x="530" y="340">100 µs</text>
+    <text x="630" y="340">1 ms</text><text x="730" y="340">10 ms</text><text x="830" y="340">100 ms</text>
+    <text x="930" y="340">1 s</text>
+  </g>
+
+  <!-- labels -->
+  <g font-size="13" fill="#333" text-anchor="end">
+    <text x="320" y="91">Ethernet 100M，最小框 84 B</text>
+    <text x="320" y="125">I²C 400 kHz，讀 2 B 暫存器</text>
+    <text x="320" y="159">Ethernet 100M，最大框 1538 B</text>
+    <text x="320" y="193">CAN 1M，延伸框 8 B</text>
+    <text x="320" y="227">CAN FD 500k/2M，64 B</text>
+    <text x="320" y="261">UART 115200 8N1，16 B</text>
+    <text x="320" y="295">Modbus RTU 19200，讀 125 個暫存器</text>
+  </g>
+
+  <!-- bars: start at 1 µs baseline (x=330), rounded data end -->
+  <g fill="#3b7dc4">
+    <path d="M330,79 H408.7 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 H330 z"/>
+    <path d="M330,113 H531.1 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 H330 z"/>
+    <path d="M330,147 H535.0 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 H330 z"/>
+    <path d="M330,181 H546.4 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 H330 z"/>
+    <path d="M330,215 H586.9 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 H330 z"/>
+    <path d="M330,249 H640.3 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 H330 z"/>
+    <path d="M330,283 H844.9 a4,4 0 0 1 4,4 v6 a4,4 0 0 1 -4,4 H330 z"/>
+  </g>
+
+  <!-- values -->
+  <g font-size="12" fill="#333">
+    <text x="420" y="91">6.7 µs</text>
+    <text x="543" y="125">約 113 µs</text>
+    <text x="547" y="159">123 µs</text>
+    <text x="558" y="193">160 µs</text>
+    <text x="599" y="227">406 µs</text>
+    <text x="652" y="261">1.39 ms</text>
+    <text x="857" y="295">約 155 ms</text>
+  </g>
+
+  <text x="30" y="368" font-size="12" fill="#777">各列推算方式見本文第三節。前五列落在同一個數量級（約 0.1 ms），慢速序列與 Modbus 則差了 1 到 3 個數量級。</text>
+</svg>

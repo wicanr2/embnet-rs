@@ -102,6 +102,8 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 | K-05 | 軟體 AES 太慢 | 晶片沒有硬體 AES | P1 實測週期數 | 見 1.2；選有硬體 AES 的晶片 |
 | K-06 | MTU 不同的 Link 之間轉送時，分片語意不清 | CAN FD 的 64 B 轉成 classic 的 8 B 要重新分片，Transfer-ID 要不要保留、CRC 要不要重算都要定義 | P1 寫規格時 | 規格明定：Transfer-ID 與 E2E 保護欄位端到端保留，只有 Link 層的分片與 Tail byte 由 Bridge 重做 |
 | K-07 | Polled link 的 Native node 要多寫 Mailbox 韌體 | SPI、I²C 從端沒有主動發話的能力 | P4 | Mailbox 格式寫成規格，`embnet-node` 提供從端實作 |
+| K-08 | I²C 交易時間沒有上限 | 從端可以用 clock stretching 讓主端無限期等待 | P4 | Polled link 規格限制或禁止 clock stretching；Bridge 對每筆交易設逾時（原理見 `docs/10-buses/02` 第 3.3 節） |
+| K-09 | RS-485 的最後一個 byte 被截斷，或方向切換太慢 | driver 在 stop bit 送完前就被關掉；或軟體切換延遲沒算進預算 | P3 | 用 transmission complete 旗標控制方向；切換時間實測後算進流量預算 |
 
 ## 三、規格與驗證
 

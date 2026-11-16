@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" width="1000" height="330" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="330" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">一筆 Transfer 從 CAN 經 Bridge 送到 UDP：延遲由哪幾段組成</text>
+  <text x="30" y="52" font-size="12" fill="#777">示意圖，寬度未依比例</text>
+
+  <!-- legend -->
+  <rect x="600" y="40" width="14" height="14" rx="3" fill="#3b7dc4"/>
+  <text x="620" y="52" font-size="13" fill="#333">由物理決定：Wire time、傳播</text>
+  <rect x="800" y="40" width="14" height="14" rx="3" fill="#e07b00"/>
+  <text x="820" y="52" font-size="13" fill="#333">由實作決定</text>
+
+  <!-- lanes -->
+  <g font-size="13" fill="#555">
+    <text x="30" y="106">發送端 Node</text>
+    <text x="30" y="166">CAN 匯流排</text>
+    <text x="30" y="226">Bridge</text>
+    <text x="30" y="286">UDP 與接收端</text>
+  </g>
+  <g stroke="#eee"><line x1="140" y1="130" x2="970" y2="130"/><line x1="140" y1="190" x2="970" y2="190"/><line x1="140" y1="250" x2="970" y2="250"/></g>
+
+  <!-- segments (2px surface gaps between) -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="150" y="88" width="90" height="28" rx="4" fill="#e07b00"/>
+    <text x="195" y="107" fill="#fff">處理</text>
+    <rect x="242" y="88" width="110" height="28" rx="4" fill="#e07b00"/>
+    <text x="297" y="107" fill="#fff">排隊與仲裁</text>
+
+    <rect x="354" y="148" width="190" height="28" rx="4" fill="#3b7dc4"/>
+    <text x="449" y="167" fill="#fff">Wire time（最壞 160 µs）</text>
+    <rect x="546" y="148" width="14" height="28" rx="3" fill="#3b7dc4"/>
+
+    <rect x="562" y="208" width="120" height="28" rx="4" fill="#e07b00"/>
+    <text x="622" y="227" fill="#fff">Bridge 處理</text>
+    <rect x="684" y="208" width="80" height="28" rx="4" fill="#e07b00"/>
+    <text x="724" y="227" fill="#fff">出口排隊</text>
+
+    <rect x="766" y="268" width="50" height="28" rx="4" fill="#3b7dc4"/>
+    <text x="791" y="287" fill="#fff">7 µs</text>
+    <rect x="818" y="268" width="14" height="28" rx="3" fill="#3b7dc4"/>
+    <rect x="834" y="268" width="90" height="28" rx="4" fill="#e07b00"/>
+    <text x="879" y="287" fill="#fff">處理</text>
+  </g>
+  <g font-size="11" fill="#3b7dc4" text-anchor="middle">
+    <text x="553" y="142">傳播</text>
+    <text x="825" y="262">傳播</text>
+  </g>
+
+  <text x="30" y="318" font-size="12" fill="#555">傳播在 10 m 銅線上約 50 ns，在嵌入式匯流排上可以忽略。Wire time 由框長除以速率決定，其餘各段才是設計可以改善的部分。</text>
+</svg>
