@@ -42,4 +42,4 @@
 | P0 既有實作對照 | `docs/plans/004-p0-execution.md`，結果在 `005-prior-art.md` | 完成，`vcan` 直連的處理時間延後 |
 | P1 規格 | `docs/spec/`，結果在 `docs/plans/006-p1-results.md` | 程式部分完成：規格 0.2、89 個 test vector、embnet-core、embnet-config、每步成本。尚有決定未定（`006` 第五節） |
 | P2 單一匯流排 | `crates/embnet-node`，結果在 `docs/plans/007-p2-results.md` | 軟體部分完成；兩個 Node 的真實匯流排、`vcan` 延後 |
-| P3 Bridge | `crates/embnet-bridge`、`embnet-link-can` | 未開始 |
+| P3 Bridge | `crates/embnet-bridge`，結果在 `docs/plans/008-p3-results.md` | Bridge 核心完成，模擬與實板 loopback 驗證通過；`embnet-link-can` 驅動整理、實體 UDP 與 UART 待續 |

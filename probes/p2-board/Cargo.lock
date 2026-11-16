@@ -583,6 +583,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "embnet-bridge"
+version = "0.1.0"
+dependencies = [
+ "embnet-core",
+]
+
+[[package]]
 name = "embnet-core"
 version = "0.1.0"
 dependencies = [
@@ -590,6 +597,13 @@ dependencies = [
  "cmac",
  "cobs",
  "subtle",
+]
+
+[[package]]
+name = "embnet-node"
+version = "0.1.0"
+dependencies = [
+ "embnet-core",
 ]
 
 [[package]]
@@ -722,7 +736,9 @@ dependencies = [
  "embassy-stm32",
  "embassy-time",
  "embedded-can",
+ "embnet-bridge",
  "embnet-core",
+ "embnet-node",
 ]
 
 [[package]]

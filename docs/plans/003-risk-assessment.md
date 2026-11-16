@@ -161,7 +161,7 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 | K-30 | 主機要載入 `vcan` 模組、容器要 `CAP_NET_ADMIN` | SocketCAN 在核心裡 | P0 | 已同意；模組由使用者手動載入，只在測試容器開這項權限 |
 | K-31 | 模擬器的 bxCAN 模型不完整 | Renode 有 `nucleo_f767zi.repl` 與 bxCAN 模型 `STMCAN.cs`，但 TXFP 只存不用、mailbox 一請求就送出，錯誤計數器不會累加、不會進 bus off；DWT 頻率設為 72 MHz | P0 已確認（`005` 第四節）：loopback 可用，送出順序不依 ID，DWT 為 72 MHz；embassy 的計時原本不前進，原因是平台檔缺 TIM2，已用補充平台檔解決 | Renode 只做功能與回歸測試；K-23、K-29 與週期數只在實板測 |
 | K-32 | 主機上的延遲數字被誤當成真實延遲 | `vcan` 與 pty 沒有 Wire time | 每次報告 | 通過行標明環境；主機數字只稱為處理時間 |
-| K-33 | 實板缺 CAN 收發器或邏輯分析儀 | NUCLEO-F767ZI 板上沒有 CAN 收發器；CAN2 的一組腳位被板上乙太網路的 RMII 占用 | P3 | 每條 CAN 外接收發器模組（例如 SN65HVD230，3.3 V）；腳位依 UM1974 排定；邏輯分析儀另行準備 |
+| K-33 | 實板缺 CAN 收發器或邏輯分析儀 | NUCLEO-F767ZI 板上沒有 CAN 收發器；CAN2 的一組腳位被板上乙太網路的 RMII 占用 | P3 | 每條 CAN 外接收發器模組（例如 SN65HVD230，3.3 V）；腳位依 UM1974 排定；邏輯分析儀另行準備；沒有收發器時 CANRX 浮接，要開內部上拉控制器才離得開 sleep 與初始化模式（`008` 第五節） |
 | K-34 | DMA 緩衝與 D-cache 不一致 | Cortex-M7 有 16 KB D-cache；DMA 寫進 RAM 後 CPU 可能讀到快取中的舊值，CPU 寫的資料也可能還沒寫回 RAM；write-through 模式另有勘誤（ES0334 第 2.1.1 節，二手） | P5 | DMA 緩衝放在 MPU 設為 non-cacheable 的區域，或放在 DTCM（F7 的 DMA 可經 AHBS 存取 DTCM，RM0410 第 2.1.6 節）；緩衝依 32 B cache line 對齊 |
 | K-35 | 沿用的 Cyphal 實作需要配置器 | canadensis 是 `no_std` 但 `extern crate alloc`，README 寫明會動態配置；與核心「不配置記憶體」的原則不合 | P0 | P0 量體積時把配置器與 heap 大小一併計入並分開列出；emcyphal 只用靜態配置，作為零配置的對照 |
 | K-36 | 舊有的 CAN 設備接到 embnet 的匯流排上 | 29 位元 ID 的設備（例如 J1939）與 embnet 的 CAN ID 撞號；11 位元的標準框仲裁時贏過同前綴的延伸框，建置期的延遲上限沒有算到它們 | 第一次整合舊設備時 | 舊設備一律接在 Bridge 的獨立 CAN 上，由 Adapter 對應；`embnet-config` 之後加檢查：embnet 的 CAN Link 上不得有非 embnet 的設備 |
