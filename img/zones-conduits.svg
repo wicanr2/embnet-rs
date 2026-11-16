@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="1000" height="420" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="420" fill="#ffffff"/>
+  <defs>
+    <marker id="zc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2e7d32"/></marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">Zone 與 conduit：Trust zone 之間只經 Bridge，逐條白名單、其餘拒絕</text>
+
+  <!-- zones -->
+  <rect x="30" y="60" width="260" height="230" rx="14" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="160" y="86" font-size="14" font-weight="bold" text-anchor="middle" fill="#2e7d32">板內 zone</text>
+  <text x="160" y="106" font-size="12" text-anchor="middle" fill="#555">SPI、I²C</text>
+  <rect x="380" y="60" width="260" height="230" rx="14" fill="#e3f0fb" stroke="#3b7dc4" stroke-width="2"/>
+  <text x="510" y="86" font-size="14" font-weight="bold" text-anchor="middle" fill="#2a5d94">機內 zone</text>
+  <text x="510" y="106" font-size="12" text-anchor="middle" fill="#555">CAN、UART、RS-485、Modbus</text>
+  <rect x="730" y="60" width="240" height="230" rx="14" fill="#fdecea" stroke="#c62828" stroke-width="2"/>
+  <text x="850" y="86" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">對外 zone</text>
+  <text x="850" y="106" font-size="12" text-anchor="middle" fill="#555">Ethernet / UDP</text>
+
+  <!-- nodes -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="60" y="130" width="90" height="34" rx="6" fill="#ffffff" stroke="#999"/><text x="105" y="152">感測器 Node</text>
+    <rect x="170" y="130" width="90" height="34" rx="6" fill="#ffffff" stroke="#999"/><text x="215" y="152">馬達 Node</text>
+    <rect x="410" y="130" width="90" height="34" rx="6" fill="#ffffff" stroke="#999"/><text x="455" y="152">控制器</text>
+    <rect x="520" y="130" width="90" height="34" rx="6" fill="#ffffff" stroke="#999"/><text x="565" y="152">Modbus 設備</text>
+    <rect x="760" y="130" width="180" height="34" rx="6" fill="#ffffff" stroke="#999"/><text x="850" y="152">Linux 主機、維修筆電</text>
+  </g>
+
+  <!-- conduits (bridges) -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="296" y="196" width="78" height="56" rx="8" fill="#fde7cc" stroke="#e07b00" stroke-width="2"/><text x="335" y="220">Bridge</text><text x="335" y="238" font-size="10" fill="#666">conduit</text>
+    <rect x="646" y="196" width="78" height="56" rx="8" fill="#fde7cc" stroke="#e07b00" stroke-width="2"/><text x="685" y="220">Bridge</text><text x="685" y="238" font-size="10" fill="#666">conduit</text>
+  </g>
+  <g stroke="#2e7d32" stroke-width="2" fill="none" marker-end="url(#zc)">
+    <path d="M290,212 H296"/><path d="M374,212 H380"/>
+    <path d="M640,212 H646"/><path d="M724,212 H730"/>
+    <path d="M730,240 H724"/><path d="M646,240 H640"/>
+  </g>
+
+  <rect x="30" y="306" width="940" height="104" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="330">• Zone：依風險、功能、位置等條件分組的資產；conduit：連接兩個以上 zone、安全需求相同的通訊通道（ISA Quick Start Guide 第 7 頁，IEC 62443）。</text>
+    <text x="48" y="354">• 每個 conduit 的轉送規則逐條列出方向與 Subject，例如「主機到控制器：只准速度設定值」，其餘一律拒絕（NIST SP 800-41 第 4 節：deny by default）。</text>
+    <text x="48" y="378">• 劃 zone 的目的是限制攻擊成功時的影響範圍。IEC 62443 依攻擊者的手段、資源、技能與動機分 SL 1 到 4，每個 zone 與 conduit 各有目標等級。</text>
+    <text x="48" y="400" fill="#777">同一個 zone 內的 Node 直接互通，不經 Bridge；跨 zone 的流量只能走 conduit。</text>
+  </g>
+</svg>

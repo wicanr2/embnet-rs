@@ -135,6 +135,7 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 | K-22 | Bridge 成為攻擊跳板 | 原本隔離的乙太網路與 CAN 被接通 | P1 的轉送表設計 | 跨 Trust zone 預設拒絕；P6 測試未列入的轉送全部被拒 |
 | K-23 | CAN 的 bus-off 攻擊無法用軟體擋 | 攻擊者與受害者同時送同一個 ID，讓受害者反覆發生 bit error，錯誤計數超限而離線（Cho & Shin 2016）；攻擊發生在資料驗證之前，MAC 防不了 | P6 | 只能偵測：TEC、REC 與 bus off 狀態納入 Heartbeat；控制器與收發器層的防護不在本專案範圍，文件寫明（原理見 `docs/10-buses/01` 第 6.3 節） |
 | K-14 | 重組 slot 被耗盡 | 攻擊者或故障的 Node 不斷送「永遠缺一片」的多框 Transfer，占住 Bridge 或接收端的重組緩衝（RFC 8900 第 3.7 節） | P2 的故障注入 | 每個來源的 slot 數有上限；殘框用短逾時清除；slot 用完的次數計入 security 事件（原理見 `docs/20-protocol/02` 第五節） |
+| K-25 | Bridge 自己被重刷或改設定，成為跳板 | Jeep Cherokee 案例：橋接晶片的韌體可由上游更新且沒有簽章，轉送不過濾（Miller & Valasek 2015） | P1 | 韌體與轉送表不能從對外 zone 更新；更新須經平台的簽章驗證，來源限定為攻擊面最小的介面；執行期只能切換預先定義的轉送表組（原理見 `docs/30-safety-security/03`） |
 | K-24 | 解析器漏洞 | Bridge 直接面對對外 Link 的輸入 | P2 起的 fuzz | 核心 `forbid(unsafe_code)`；fuzz 覆蓋率列入通過行 |
 
 ## 五、工具與環境

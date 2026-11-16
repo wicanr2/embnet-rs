@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="400" fill="#ffffff"/>
+  <defs>
+    <marker id="jp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c62828"/></marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">2015 年 Jeep Cherokee 遠端入侵：橋接晶片成為跳板</text>
+  <text x="30" y="52" font-size="12" fill="#777">依 Miller &amp; Valasek《Remote Exploitation of an Unaltered Passenger Vehicle》第 29、33、48、49、64、70 到 72 頁整理</text>
+
+  <g font-size="13" text-anchor="middle">
+    <rect x="30" y="90" width="150" height="70" rx="10" fill="#f2f2f2" stroke="#666"/>
+    <text x="105" y="120">蜂巢式網路</text><text x="105" y="140" font-size="11" fill="#666">Sprint</text>
+
+    <rect x="250" y="90" width="190" height="70" rx="10" fill="#fde7cc" stroke="#e07b00"/>
+    <text x="345" y="116">車機主處理器（OMAP）</text><text x="345" y="136" font-size="11" fill="#666">D-Bus 在 6667 埠</text><text x="345" y="152" font-size="11" fill="#666">接受匿名存取</text>
+
+    <rect x="510" y="90" width="190" height="70" rx="10" fill="#fdecea" stroke="#c62828" stroke-width="2"/>
+    <text x="605" y="116">CAN 協處理器（V850）</text><text x="605" y="136" font-size="11" fill="#666">經 SPI 連到主處理器</text><text x="605" y="152" font-size="11" fill="#666">同時接兩條 CAN</text>
+
+    <rect x="770" y="70" width="200" height="50" rx="10" fill="#e3f0fb" stroke="#3b7dc4"/><text x="870" y="100">CAN-C（動力、轉向）</text>
+    <rect x="770" y="130" width="200" height="50" rx="10" fill="#e3f0fb" stroke="#3b7dc4"/><text x="870" y="160">CAN-IHS（車身）</text>
+  </g>
+  <g stroke="#c62828" stroke-width="2.5" fill="none" marker-end="url(#jp)">
+    <path d="M180,125 H246"/><path d="M440,125 H506"/><path d="M700,110 H766"/><path d="M700,145 H766"/>
+  </g>
+  <g font-size="12" fill="#c62828" text-anchor="middle">
+    <text x="213" y="182">① 找到車的 IP</text>
+    <text x="473" y="182">② 經 D-Bus 執行程式</text>
+    <text x="605" y="182">③ 重刷 V850 韌體</text>
+    <text x="735" y="200">④ 送任意 CAN 框</text>
+  </g>
+
+  <rect x="30" y="220" width="460" height="170" rx="10" fill="#fdecea" stroke="#e5a0a0"/>
+  <text x="48" y="246" font-size="14" font-weight="bold" fill="#c62828">讓跳板成立的三個條件</text>
+  <g font-size="12" fill="#333">
+    <text x="48" y="272">• V850 的韌體可以由上游的車機更新，而且沒有簽章（第 64 頁）。</text>
+    <text x="48" y="296">• 改過的韌體依 SPI 封包內容送出任意 CAN ID 與資料，</text>
+    <text x="60" y="314">沒有方向或 ID 的白名單（第 70 到 71 頁）。</text>
+    <text x="48" y="338">• 動力與車身沒有實體隔離，車機同時接觸兩條匯流排（第 8 頁）。</text>
+    <text x="48" y="366" fill="#777">結果：FCA 召回 140 萬輛車（第 90 頁）。</text>
+  </g>
+
+  <rect x="510" y="220" width="460" height="170" rx="10" fill="#e8f5e9" stroke="#9fd3a3"/>
+  <text x="528" y="246" font-size="14" font-weight="bold" fill="#2e7d32">對應到 embnet-rs 的 Bridge</text>
+  <g font-size="12" fill="#333">
+    <text x="528" y="272">• Bridge 的結構相同：一邊接對外的 Link，一邊接 CAN。</text>
+    <text x="528" y="296">• 轉送表在建置期固定，執行中不能新增規則。</text>
+    <text x="528" y="320">• 跨 Trust zone 依方向逐條白名單，其餘一律拒絕。</text>
+    <text x="528" y="344">• Bridge 的韌體與設定不能從對外的 Link 更新；</text>
+    <text x="540" y="362">只接受經過驗證的更新，來源是攻擊面最小的介面</text>
+    <text x="540" y="380">（Checkoway 等人 2011 第 7.1 節）。</text>
+  </g>
+</svg>
