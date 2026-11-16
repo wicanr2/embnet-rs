@@ -51,7 +51,7 @@ Cyphal 是為車載與航空的內部匯流排設計的 pub/sub 協定。它的�
 | 介面 | 誰能主動發話 | 單框 payload | 鏈路自帶完整性檢查 | Bridge 要做的事 |
 |---|---|---|---|---|
 | CAN / CAN FD | 任何 Node，按 ID 仲裁 | 8 B（classic）、64 B（FD） | 有 CRC | 本身就是主要傳輸，Bridge 只在跨 Link 時介入 |
-| UART / RS-485 | 點對點雙方都可以；RS-485 多點時要仲裁或輪詢 | 由 framing 決定 | 無，靠 framing 的 CRC（HDLC） | framing；多點時排程 |
+| UART / RS-485 | 點對點雙方都可以；RS-485 多點時要仲裁或輪詢 | 由 framing 決定 | 無，靠 framing 的 CRC（HDLC 或 COBS，P1 定案） | framing；多點時排程 |
 | Ethernet / UDP | 任何 Node | 約 1472 B | 有 FCS 與 UDP checksum | 對外 Trust zone 的邊界 |
 | SPI / I²C | 只有主端 | 由交易長度決定 | **沒有** | 當主端輪詢 Mailbox，或由 Node 拉中斷線通知 |
 | Modbus RTU | 只有主端 | 一次最多讀 125 個暫存器（250 B） | 有 CRC-16 | Adapter 輪詢，把暫存器對應成 Subject |
@@ -85,7 +85,7 @@ P1 定案前，這一節都是草案。
    CAN 匯流排：Node A ⇄ Node B        （同匯流排直接互通，不經 Bridge）
         │
      Bridge ──── Ethernet/UDP ──── Linux 主機          （對外 Trust zone）
-        ├── UART/HDLC ──────────── Node C
+        ├── UART/framing ───────── Node C
         ├── SPI（輪詢 Mailbox）─── Node D
         └── Modbus RTU（Adapter）─ Legacy device E
 ```
@@ -99,7 +99,7 @@ P1 定案前，這一節都是草案。
 | Subject | Priority 3、種類 1、Subject-ID 13、來源 Node-ID 7 | 24 | 5 |
 | Service | Priority 3、種類 1、request/response 1、Service-ID 9、目的 Node-ID 7、來源 Node-ID 7 | 28 | 1 |
 
-剩餘位元的用途在 `002` 第四節討論。Node-ID 用 7 位元，全系統最多 128 個 Node。
+剩餘位元保留，固定送 0；不拿來放 MAC（`002` 第 4.2 節）。Node-ID 用 7 位元，全系統最多 128 個 Node。
 
 ### 5.2 模組切法
 
@@ -109,7 +109,7 @@ P1 定案前，這一節都是草案。
 |---|---|---|
 | `embnet-core` | 線格式、Transfer 的分片與重組、去重複、E2E 保護。`no_std`、不配置記憶體、`forbid(unsafe_code)` | 編碼與解碼函式，不碰 I/O 與時鐘 |
 | `embnet-node` | Native node 端：publish、subscribe、call，以及 Heartbeat | 緩衝由呼叫者持有 |
-| `embnet-bridge` | 轉送表、Trust zone 檢查、限流、每條出口的有界佇列、Adapter | `on_frame(link, now, bytes)`、`handle_timeout(now)` 輸入；`poll_transmit(buf)` 把一個 Frame 寫進呼叫者的緩衝，`poll_timeout()` 回報下次時刻（`docs/40-rust-embedded/02`） |
+| `embnet-bridge` | 轉送表、Trust zone 檢查、限流、每條出口的有界佇列、Adapter | `on_frame(link, now, bytes)`、`handle_timeout(now)` 輸入；`poll_transmit(link, now, buf)` 由外層在該 Link 的發送端有空位時呼叫，把一個 Frame 寫進呼叫者的緩衝（帶 `now` 才能做逾期丟棄，指定 Link 才不會讓忙碌的 Link 擋住其他出口），`poll_timeout()` 回報下次時刻（`docs/40-rust-embedded/02`） |
 | `embnet-config` | 從設定檔產生 ID、型別雜湊、轉送表與 Adapter 對應表，並在建置期驗證 | 建置期工具，輸出常數表 |
 | `embnet-link-*` | 各 Link 的 framing 與驅動：`can`、`uart`、`udp`、`spi`、`i2c`、`modbus` | 實作同一個 Link trait |
 
@@ -138,7 +138,7 @@ P1 定案前，這一節都是草案。
 |---|---|---|
 | P0 | 量第六節的實作：體積、配置方式、CAN 直連延遲；確認工具鏈 | `EMBNET_PRIOR_ART impl=<名稱> no_alloc=<0\|1> text_kb=<N> ram_kb=<N>` |
 | P1 | 規格寫進 `docs/spec/`：線格式、CAN ID、Tail byte、E2E 保護，附 test vector；`002`、`003` 定案 | 無，這是取捨 |
-| P2 | 單一匯流排：兩個 Native node 在 SocketCAN `vcan` 上直接 pub/sub 與 service | `EMBNET_BUS PASS link=can samples=<N> p50_us=<N> p99_us=<N> max_us=<N>` |
+| P2 | 單一匯流排：兩個 Native node 在 SocketCAN `vcan` 上直接 pub/sub 與 service | `EMBNET_BUS PASS link=can env=host samples=<N> p50_us=<N> p99_us=<N> p99_ci_us=<低>-<高> max_us=<N>` |
 | P3 | Bridge：CAN 與 UDP、CAN 與 UART 之間轉送，加上負載測試 | `EMBNET_HOP PASS ...` 與 `EMBNET_LOAD ...` |
 | P4 | Polled link：SPI 或 I²C 的 Mailbox；Modbus Adapter 對模擬從站 | `EMBNET_POLL PASS link=<名稱> period_us=<N> p99_us=<N>` |
 | P5 | Node 程式庫與 Bridge 以 `no_std` 跑在 MCU，先模擬器後實板 | `EMBNET_SIZE target=thumbv7em part=<node\|bridge> text_kb=<N> ram_kb=<N>` |
@@ -172,7 +172,7 @@ P1 定案前，這一節都是草案。
   6. 用 Python 寫獨立的 test vector 產生器（K-10）。
 - **產出：** `docs/spec/` 第一版、test vector、`002` 與 `003` 改為定案。
 - **完成條件：** 規格中的每個欄位都有 test vector；待審查決定都有答案。
-- **風險：** K-01、K-02、K-03、K-05、K-06、K-10。
+- **風險：** K-01、K-02、K-03、K-05、K-06、K-10、K-13、K-15、K-16、K-18、K-19、K-25、K-27、K-28、K-29。
 
 ### P2：單一匯流排
 
@@ -180,16 +180,16 @@ P1 定案前，這一節都是草案。
 - **工作：** 實作編解碼、分片與重組、去重複、E2E CRC、Heartbeat；Link trait 與 `embnet-link-can`（SocketCAN）；
   每個解析器的 fuzz target；在 Link 層注入遺失、重複、亂序與毀損。
 - **完成條件：** 通過所有 test vector；`EMBNET_BUS PASS`；`EMBNET_FAULT` 各類型都被偵測；fuzz 有覆蓋率數字。
-- **風險：** K-24、K-32。
+- **風險：** K-14、K-24、K-32。
 
 ### P3：Bridge
 
 - **目標：** 跨 Link 轉送可用，並找出負載的轉折點。
 - **工作：** `embnet-bridge` 的轉送表、Trust zone 檢查、入口限流、依 Priority 排序的出口佇列；
-  `embnet-link-udp`、`embnet-link-uart`（HDLC）；負載測試（`003` 第 1.6 節）。
+  `embnet-link-udp`、`embnet-link-uart`（framing 依 P1 定案）；負載測試（`003` 第 1.6 節）。
 - **完成條件：** CAN 與 UDP、CAN 與 UART 雙向都有 `EMBNET_HOP PASS`；有 `EMBNET_LOAD` 的轉折點數字；
   未列入轉送表的 Transfer 全部被拒。
-- **風險：** `003` 第一節、K-06、K-22。
+- **風險：** `003` 第一節、K-06、K-09、K-22。
 
 ### P4：Polled link
 
@@ -198,14 +198,14 @@ P1 定案前，這一節都是草案。
   Modbus Adapter 與暫存器對應設定（逐欄位的 word 與 byte 順序、逐台逾時）；
   用模擬從站測試逾時與重試。
 - **完成條件：** SPI 或 I²C 至少一種、Modbus RTU 一種有 `EMBNET_POLL PASS`；輪詢佔用算進流量預算。
-- **風險：** K-07、`003` 第 1.4 節。
+- **風險：** K-07、K-08、`003` 第 1.4 節。
 
 ### P5：MCU
 
 - **目標：** Node 程式庫與 Bridge 在 `thumbv7em` 上以 `no_std` 執行。
 - **工作：** 先在模擬器上跑（若 K-31 確認支援），再上實板；量體積、最壞中斷延遲與 FIFO 溢位次數。
 - **完成條件：** `EMBNET_SIZE` 兩行；實板上的 `EMBNET_HOP` 與溢位次數為 0。
-- **風險：** K-31、K-33、`003` 第 1.3 節。
+- **風險：** K-26、K-31、K-33、`003` 第 1.3 節。
 
 ### P6：Security
 

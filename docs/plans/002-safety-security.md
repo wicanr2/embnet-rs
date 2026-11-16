@@ -12,7 +12,8 @@ Safety 處理系統自己出錯的情況：線路雜訊、記憶體錯誤、某�
   IEC 62443（工業控制系統資安）、AUTOSAR 的 E2E 與 SecOC。
 - **Bridge 預設不擔任安全功能。** 急停、馬達過流保護這類安全迴路留在本地或硬接線上。
   Bridge 是多條 Link 的交會點，它出錯時所有經過它的 Transfer 都受影響。
-  沿用 Cyphal 的去中心化設計有一個好處：同匯流排上的 Node 直接互通，Bridge 故障不會中斷同匯流排內的通訊。
+  沿用 Cyphal 的去中心化設計有一個好處：同匯流排上的 Node 直接互通，Bridge 確實停止發送（fail-silent）時，
+  同匯流排內的通訊不受影響。這個前提要靠 2.2 節的機制保證：Bridge 的錯誤若讓它在 CAN 上洪泛，同匯流排一樣會被拖累。
 - Subject 分成兩級，在設定檔標註：
   - `normal`：一般資料。
   - `protected`：錯了會造成設備或人員風險的資料，例如運動指令。強制使用 E2E 保護與期限檢查，
@@ -22,16 +23,19 @@ Safety 處理系統自己出錯的情況：線路雜訊、記憶體錯誤、某�
 
 ### 2.1 通訊故障與對策
 
-故障分類依 IEC 61784-3。原則是發送端加保護、接收端檢查。Bridge 轉送時不改寫 E2E 保護欄位，
-所以 Bridge 自己出錯，接收端也能發現。
+故障分類依 IEC 61784-3。原則是發送端加保護、接收端檢查。保護分兩層：
+
+- **E2E 層**：只綁與 Link 無關的邏輯標頭，也就是 Subject-ID、來源 Node-ID、E2E 序號與 payload，以 Transfer 為單位。
+  Bridge 轉送時不改寫這一層，所以 Bridge 自己出錯，接收端也能發現。
+- **Link 層**：Transfer-ID、Tail byte、多框 CRC 與分片。跨格式轉送時由 Bridge 重做（`003` K-06、K-13）。
 
 | 故障 | 例子 | 對策 |
 |---|---|---|
 | 資料毀損 | SPI、I²C 沒有鏈路 CRC；Bridge 記憶體錯誤 | E2E CRC。Subject-ID 與 Type hash 一起算進 CRC，但不上線傳送（做法同 AUTOSAR E2E 的 Data ID） |
-| 重複 | 重傳或迴路造成同一筆收兩次 | Transfer-ID，接收端拒收重複或回退的值 |
-| 遺失 | 佇列滿、鏈路斷線 | Transfer-ID 跳號計數；`protected` Subject 的期限檢查 |
-| 順序錯亂 | 多框 Transfer 的框交錯 | Tail byte 的 toggle 與 Transfer-ID；重組有上限與逾時 |
-| 延遲過大 | 低優先序資料卡在佇列 | 每個 Subject 設定期限。預設以接收端本地的接收間隔判斷；各 Node 的時鐘沒有同步，需要絕對時間的 Subject 才加對時（見 `003` K-03） |
+| 重複 | 重傳或迴路造成同一筆收兩次 | E2E 序號，接收端拒收重複或回退的值。序號用完整寬度的隱含計數算進 CRC，線上只送低位（`003` K-16） |
+| 遺失 | 佇列滿、鏈路斷線 | E2E 序號跳號計數；`protected` Subject 的停止更新偵測 |
+| 順序錯亂 | 多框 Transfer 的框交錯 | Link 層的 toggle 與 Transfer-ID；重組有上限與逾時；同一 session 的發送順序由發送端的緩衝配置保證（`003` K-29） |
+| 延遲過大 | 低優先序資料卡在佇列；中間元件把資料壓住再送 | 接收端本地計時只能偵測停止更新，不能限制資料的年齡。要限制年齡的 `protected` Subject，採一問一答式的序號回送或加對時（`003` K-03） |
 | 插入 | 不該出現的 Transfer | Bridge 只轉送轉送表內的 Transfer，其餘丟棄 |
 | 冒充 | 錯誤的 Node 送出某 Subject | 轉送表綁定來源 Node-ID 與來源 Link；要對抗惡意時改用 MAC（第四節） |
 | 定址錯誤 | ID 設定衝突 | 建置期檢查 ID 唯一性與 Type hash |
@@ -41,12 +45,12 @@ Safety 處理系統自己出錯的情況：線路雜訊、記憶體錯誤、某�
 | 故障 | 對策 |
 |---|---|
 | Node 當機 | Heartbeat 逾時，訂閱端與 Bridge 都能發現 |
-| Bridge 當機或卡死 | 硬體看門狗偵測卡死。panic 時停止所有 Link 的輸出（fail-silent），取消控制器中尚未送出的框，不送出半成品 |
+| Bridge 當機或卡死 | 硬體看門狗偵測卡死。panic 時停止所有 Link 的輸出（fail-silent），取消控制器中尚未送出的框，不送出半成品。規格要涵蓋 panic 以外的路徑：HardFault（flip-link 擋下的堆疊溢位走這裡）、核心 lockup、看門狗重設；CPU 停住後 CAN 控制器仍會把 mailbox 中的框送完並自動重送，必要時用 GPIO 控制收發器的 standby 腳從硬體切斷（`003` K-26） |
 | panic 之後的紀錄 | 把 panic 的位置與訊息寫進重設後仍保留的 RAM 區；平台有預留快閃區時再複製過去，只保留最近幾筆，避免耗盡寫入壽命 |
 | 通知上位系統 | 快閃中有未讀的異常紀錄時，Heartbeat 帶一個「有未讀的異常 log」旗標；上位系統看到後用 Service 讀取紀錄，讀完再用 Service 清除旗標。欄位與 Service 的格式在 P1 定義 |
 | panic 之後的恢復 | 由部署設定選擇：停住並持續餵看門狗、等人處理；或讓看門狗逾時重設，開機時讀回紀錄，連續重設超過上限就改為停住。同匯流排的 Node 不受影響，只有跨 Link 的轉送中斷 |
 | Bridge 重啟後狀態遺失 | 轉送表在建置期固定，重啟後不需 Node 重新註冊就能恢復；重組中的 Transfer 丟棄 |
-| 某個 Node 狂發（babbling idiot） | 在 CAN 上由 Priority 限制它對高優先序流量的影響；Bridge 入口對每個（來源、Subject）限流 |
+| 某個 Node 狂發（babbling idiot） | CAN 沒有匯流排守衛，失控的 Node 可以送任何 ID，包括最高優先序，所以同匯流排上只能偵測（Heartbeat、錯誤計數、間隔檢查），不能隔離；跨匯流排由 Bridge 入口對每個（來源、Subject）限流 |
 | 一條慢 Link 拖住其他 Link | 每條出口 Link 有獨立的有界佇列 |
 | 佇列滿時丟哪筆 | 每個 Subject 在設定檔指定：狀態類丟最舊的，指令類丟最新的並計數 |
 | 執行時間不可預期 | 核心不配置記憶體，佇列與迴圈都有上限，最壞處理時間可以量測 |
@@ -57,7 +61,7 @@ Safety 處理系統自己出錯的情況：線路雜訊、記憶體錯誤、某�
 - 收發兩端的 Type hash 一致。
 - 每條 Link 上，Transfer 加上保護欄位後的框數不超過上限。
 - `protected` Subject 一定設定了期限與 E2E 保護。
-- 轉送表沒有迴路。
+- 轉送表沒有迴路，且每個（Subject、來源）進入每條匯流排的路徑唯一（`003` K-27）。
 
 ## 三、Security
 
@@ -79,10 +83,10 @@ Safety 處理系統自己出錯的情況：線路雜訊、記憶體錯誤、某�
 | 類別 | 威脅 | 對策 |
 |---|---|---|
 | 冒充 | 從乙太網路假冒某個 Node 送運動指令 | 對外 Link 強制認證；跨 Trust zone 的 `protected` Subject 帶 MAC |
-| 竄改 | 中間人修改 payload | MAC 涵蓋 ID、FV 與 payload |
+| 竄改 | 中間人修改 payload | MAC 涵蓋 E2E 邏輯標頭（Subject-ID、來源 Node-ID、FV）與 payload，不涵蓋 CAN ID 等 Link 層欄位 |
 | 重放 | 錄下合法指令事後重送 | MAC 計算納入 FV |
 | 資訊洩漏 | 竊聽感測資料 | 對外 Link 可選加密；板內與機內先不加密（待審查） |
-| 阻斷服務 | 洪泛乙太網路埠；在 CAN 上故意製造錯誤讓節點進入 bus-off | 入口限流與有界佇列；Link 之間隔離；CAN 錯誤計數納入 Heartbeat 的健康狀態 |
+| 阻斷服務 | 洪泛乙太網路埠；在 CAN 上故意製造錯誤讓節點進入 bus-off；亂送 MAC 或重放舊框，耗盡 MAC 的失敗預算 | 入口限流與有界佇列；Link 之間隔離；CAN 錯誤計數納入 Heartbeat 的健康狀態；失敗預算依來源、Link 與時間窗分開計算（`003` K-28） |
 | 權限提升 | 解析器漏洞讓攻擊者在 Bridge 上執行程式 | 核心用 Rust 且 `forbid(unsafe_code)`；解析路徑 fuzz；不支援執行時下載設定 |
 
 否認這一類先不處理。Security 事件（MAC 錯誤、限流丟棄、未知 ID）以計數的形式隨 Heartbeat 或專用 Subject 發佈。
@@ -110,12 +114,11 @@ classic CAN（包括 STM32F4 的 bxCAN）每框只有 8 B 資料，所以值得�
 | 保留位元（r0、r1） | 1 到 2 | 不可用 | 由控制器硬體產生，軟體寫不到；CAN FD 把這個位置拿去當 FDF（標準框是原 r0、延伸框是原 r1），改了會讓接收端誤判框型 |
 | CRC、ACK、EOF | 無 | 不可用 | 由硬體產生與檢查 |
 | DLC 9 到 15 | 約 3 | 不建議 | classic CAN 中這些值都代表 8 B，各控制器是否原樣收送不一致，位元也太少 |
-| 29 位元 ID 剩下的位元 | Subject 5、Service 1（見 `001` 5.1） | 可用，當作 MAC 的延伸 | 放在 ID 最低位、來源 Node-ID 之下。只有來源與 Subject 都相同的框才會比到這幾位，而這些框來自同一個 Node，不會互相競爭仲裁。接收端的過濾器要遮掉這幾位 |
+| 29 位元 ID 剩下的位元 | Subject 5、Service 1（見 `001` 5.1） | 不採用 | 仲裁本身不受影響，但 MAC 位元會讓同一筆 Transfer 的各框 ID 不同，控制器依 ID 決定送出順序時會把它們重排，toggle 檢查失敗（`003` K-29）；而且 MAC 不能綁 CAN ID 這類 Link 層欄位，否則跨格式轉送後就驗不過 |
 | Tail byte 的 Transfer-ID | 5 | 不當 FV | Bridge 轉送時可能改寫（`003` K-13），也太短（K-16）；FV 改由 E2E 序號兼任 |
 | 沒用完的資料 bytes | 0 到 7 | 主要做法 | 截短 MAC 放這裡，做法同 AUTOSAR SecOC |
 
-結論：只用未使用的位元放不下足夠的 MAC。ID 剩下的 5 位元若單獨當 MAC，攻擊者平均猜 32 次就能成功；
-在 1 Mbit/s 下只要幾毫秒。這些位元適合用來延伸放在資料區的 MAC。
+結論：未使用的位元放不下足夠的 MAC，CAN ID 的剩餘位元也不適合拿來延伸。MAC 放在資料區。
 
 ### 4.3 截短 MAC 的強度由失敗次數上限決定
 
@@ -130,22 +133,25 @@ NIST SP 800-38B 附錄 A.2 給出條件：n ≥ lg(容許的驗證失敗次數 �
 | 32 位元 | 4,096 |
 | 64 位元 | 約 1.8 × 10¹³ |
 
-NIST 規定 64 位元以下的 tag 只能在協定確實限制失敗次數、並經風險分析後使用；Ascon 的規範（SP 800-232 第 4.3 節）要求 tag 至少 32 位元。
+NIST 的用語：短於 64 位元的 tag 必須經過仔細的風險分析才能使用（shall），而且除非協定確實限制了驗證失敗的次數，否則不應使用（should not）。
 推導與圖見 `docs/30-safety-security/02`。
 
-所以截短 MAC 一定要搭配失敗計數：每個接收端分配到一部分失敗預算，用完就發警報、把該 Subject 判為 INVALID，並要求換金鑰。
-門檻與換金鑰的流程在 P1 決定。
+所以截短 MAC 一定要搭配失敗計數。但失敗計數本身也是阻斷服務的槓桿：攻擊者不必偽造成功，亂送就能把預算用完（`003` K-28）。
+因此失敗預算依來源、Link 與時間窗分開計算；「判 INVALID」與「要求換金鑰」各自的觸發條件與恢復路徑，在 P1 與平台的換金鑰流程一起定義。
 
 ### 4.4 CAN 上的配置候選
 
 E2E 序號兼任 FV 的低位（做法同 SecOC 的 `SecOCUseAuthDataFreshness`），完整 FV、Data ID、Type hash 只參與 MAC 計算，不上線。
 
-| 方案 | 每框開銷 | 單框可放資料 | MAC 長度 | 代價 |
+MAC 以 Transfer 為單位，綁在 E2E 邏輯標頭上（2.1 節）。這樣 Transfer 跨格式轉送、被 Bridge 重新分片時，MAC 不必重算，Bridge 也不必持有同一 zone 內的金鑰。
+「每框一個 MAC」只在 Transfer 本來就是單框、而且不會被轉到其他格式的 Link 時成立，此時它和「每個 Transfer 一個 MAC」相同。
+
+| 方案 | 開銷 | 單框可放資料 | MAC 長度 | 代價 |
 |---|---|---|---|---|
-| A：classic CAN，每框 MAC 32 位元 | Tail 1 B + 序號 1 B + MAC 4 B | 2 B | 32 位元，容許約 4,096 次失敗 | 資料很少；長資料要多框 |
-| B：classic CAN，每個 Transfer 一個 32 位元 MAC，放在最後一框 | 最後一框多 5 B | 多框攤提 | 32 位元 | 要收齊整筆才能驗證 |
-| C：CAN FD，每框 MAC 64 位元 | Tail 1 B + 序號 2 B + MAC 8 B | 53 B | 64 位元，達到 NIST 對多數應用的建議 | bxCAN 不支援 CAN FD，要換有 FDCAN 的晶片 |
-| D：classic CAN，每框 MAC 24 位元 | Tail 1 B + 序號 1 B + MAC 3 B | 3 B | 24 位元，只容許約 16 次失敗 | 必須有換金鑰的機制；低於 Ascon 規範的下限 |
+| A：classic CAN 單框 Transfer，MAC 32 位元 | Tail 1 B + 序號 1 B + MAC 4 B | 2 B | 32 位元，容許約 4,096 次失敗 | 資料很少 |
+| B：classic CAN 多框 Transfer，一個 32 位元 MAC，放在最後一框 | 最後一框多 5 B | 多框攤提 | 32 位元 | 要收齊整筆才能驗證 |
+| C：CAN FD 單框 Transfer，MAC 64 位元 | Tail 1 B + 序號 2 B + MAC 8 B | 53 B | 64 位元，達到 NIST 對多數應用的建議 | bxCAN 不支援 CAN FD，要換有 FDCAN 的晶片；轉到 classic CAN 時變成多框，等同 B 的形式 |
+| D：classic CAN 單框 Transfer，MAC 24 位元 | Tail 1 B + 序號 1 B + MAC 3 B | 3 B | 24 位元，只容許約 16 次失敗 | 必須有換金鑰的機制 |
 
 建議以 C 為主、A 或 B 為 classic CAN 的替代，D 只在有換金鑰機制時才考慮。所有方案都需要：
 
@@ -189,7 +195,8 @@ Safety 與 security 共用：
 |---|---|
 | 是否有 Subject 需要 `protected` 等級，預期的安全等級 | E2E 保護的長度、期限檢查，以及要不要做雙通道 |
 | 板內與機內 Link 是否需要認證或加密 | 第四節的方案選擇，以及 bxCAN 是否夠用 |
-| MAC 錯誤的門檻與反應 | 4.3 節的時間要搭配偵測才有意義 |
+| MAC 錯誤的門檻與反應 | 4.3 節的失敗預算；預算本身會被拿來做阻斷服務（`003` K-28） |
+| 要限制年齡的 `protected` Subject 採一問一答還是對時 | 接收端本地計時只能偵測停止更新（`003` K-03） |
 | 對外 Link 用什麼認證協定 | 候選要在 P1 依 MCU 體積與延遲比較，目前不預設 |
 | Bridge 重啟期間接收端的行為 | 期限過後進入什麼狀態，由應用端定義或由本專案提供預設 |
 

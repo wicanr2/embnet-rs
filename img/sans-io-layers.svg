@@ -14,7 +14,7 @@
     <text x="370" y="176">• on_frame(link, now, bytes)</text>
     <text x="370" y="194">• handle_timeout(now)</text>
     <text x="360" y="216">輸出</text>
-    <text x="370" y="236">• poll_transmit → 要送的 Frame</text><text x="370" y="256">• poll_timeout → 下次時刻</text>
+    <text x="370" y="236">• poll_transmit(link, now) → Frame</text><text x="370" y="256">• poll_timeout → 下次時刻</text>
   </g>
 
   <!-- shells -->
@@ -38,8 +38,8 @@
     <text x="727" y="198">延遲；失敗時用同一個 seed 重現</text>
     <text x="715" y="220">• fuzz 直接餵 on_frame 任意位元組</text>
   </g>
-  <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#si)">
-    <path d="M300,110 H336"/><path d="M300,218 H336"/><path d="M696,165 H664"/>
+  <g stroke="#555" stroke-width="2" fill="none" marker-start="url(#si)" marker-end="url(#si)">
+    <path d="M304,110 H336"/><path d="M304,218 H336"/><path d="M696,165 H664"/>
   </g>
 
   <rect x="30" y="286" width="940" height="144" rx="10" fill="#f7f7f7" stroke="#ccc"/>
@@ -48,6 +48,6 @@
     <text x="48" y="334">• quinn-proto：「不含網路程式碼，也不向作業系統取得任何時間戳」，因此完全決定性。str0m：「從不自己呼叫 Instant::now()，所有時間都是外部輸入」。</text>
     <text x="48" y="358">• smoltcp：Interface::poll(timestamp, device, sockets) 的時間由呼叫者給；poll_at 回報下次該呼叫的時刻。embassy-net 就是包住 smoltcp 的 async 外層。</text>
     <text x="48" y="382">• 同一份核心換三個外層，就同時得到 Linux 的 Bridge、MCU 的 Bridge 與可重現的模擬測試。</text>
-    <text x="48" y="406" fill="#777">函式名稱是 embnet-rs 的草案；P2 實作時定案。</text>
+    <text x="48" y="406" fill="#777">雙向箭頭：外層把 Frame 與時間餵進核心，再從核心取出要送的 Frame 與下次時刻。函式名稱是 embnet-rs 的草案；P2 實作時定案。</text>
   </g>
 </svg>

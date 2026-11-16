@@ -53,10 +53,12 @@ Bosch 規格的說法是仲裁時「neither information nor time is lost」。�
 
 <p align="center"><img src="../../img/can-frame-extended.svg" width="900" alt="classic CAN 延伸框的欄位：SOF、Base ID、SRR、IDE、Extended ID、RTR、r1、r0、DLC、Data、CRC、delimiter、ACK、EOF、IFS，以及填充範圍"></p>
 
+CAN 框有兩種：ID 為 11 位元的標準框，與 29 位元的延伸框，由 IDE 位元區分。embnet-rs 用延伸框。CRC 是附在資料後的校驗碼，接收端重算後比對，原理見 [CRC 與 framing](../20-protocol/03-crc-and-framing.md)。
+
 | 欄位 | 位元數 | 作用 |
 |---|---|---|
 | SOF | 1 | dominant，讓所有 Node 對齊框的起點 |
-| Base ID、SRR、IDE、Extended ID、RTR | 11、1、1、18、1 | 仲裁欄位。SRR 固定為 recessive，所以 Base ID 相同時標準框贏延伸框 |
+| Base ID、SRR、IDE、Extended ID、RTR | 11、1、1、18、1 | 仲裁欄位。SRR 固定為 recessive，所以 Base ID 相同時標準框贏延伸框。RTR 標示 remote frame（向別人要資料的框），本專案不用 |
 | r1、r0 | 1、1 | 保留位元，發送端送 dominant |
 | DLC | 4 | 資料長度。Bosch 2.0 只定義 0 到 8，「Other values may not be used」 |
 | Data | 0 到 64 | 0 到 8 bytes |
@@ -84,7 +86,7 @@ CAN 的解法是：發送端每遇到 5 個連續相同的位元，就插入 1 �
 就知道出錯了，這叫 stuff error。（Bosch 2.0 Part B 第 6 節）
 
 填充的範圍是 SOF 到 CRC sequence。CRC delimiter、ACK、EOF 是固定格式，不填充。
-error flag 正好是 6 個相同位元，它利用的就是「6 個相同位元一定是錯誤」這條規則，故意讓所有 Node 都看到 stuff error。
+第五節的 error flag（偵測到錯誤的 Node 送出的警告訊號）正好是 6 個相同位元，它利用的就是「6 個相同位元一定是錯誤」這條規則，故意讓所有 Node 都看到 stuff error。
 
 ### 4.2 最壞情況多出幾個位元
 
@@ -157,7 +159,7 @@ Cho 與 Shin（ACM CCS 2016）展示了 bus-off 攻擊。攻擊者算準受害�
 同時送出同一個 ID 的框，並讓某個位元是受害者送 1、攻擊者送 0。依 2.2 節的性質，受害者發生 bit error，TEC + 8。
 重複幾輪之後，受害者先進入 error passive，接著 TEC 每輪淨增 7，最後被逼進 bus off。
 
-這個攻擊在資料被驗證之前就發生了，所以 MAC 擋不住，而且攻擊者不需要知道資料內容。
+這個攻擊在資料被驗證之前就發生了，所以 MAC（以金鑰計算的訊息認證碼，見 `docs/30-safety-security/02`；不是乙太網路的 MAC 位址）擋不住，而且攻擊者不需要知道資料內容。
 後續的 CANnon（IEEE S&P 2021）更進一步，利用 MCU 周邊的時脈控制，不必送完整的框就能達到同樣效果
 （目前只讀到論文摘要與海報）。
 
@@ -193,7 +195,7 @@ G4 各型號有幾個 FDCAN instance、message RAM 的確切大小，手冊內�
 | ID 同時是優先序 | Priority 放在 CAN ID 最高位，由硬體保證優先序（`001` 第 5.1 節） |
 | 同一 ID 不能有兩個發送者 | CAN ID 必須包含來源 Node-ID，草案已經這樣配置 |
 | 框長隨填充變動，最壞約多 20% | Wire time 與流量預算一律用最壞框長；8 B 延伸框以 160 µs 計 |
-| 出錯的框由硬體自動重送，原則上所有 Node 一起丟棄 | 同匯流排內不需要應用層重送；但 EOF 的例外與自動重送可能造成重複，接收端要靠 Transfer-ID 去除 |
+| 出錯的框由硬體自動重送，原則上所有 Node 一起丟棄 | 線上出錯的框不需要應用層重送；但接收端 FIFO 溢位造成的遺失不會重送（控制器已回 ACK，`003` 第 1.3 節），EOF 的例外與自動重送可能造成重複，接收端要靠 Transfer-ID 去除 |
 | 接收 FIFO 只有 3 格（bxCAN 與 G4） | 中斷只搬框不處理，風險見 `003` 第 1.3 節 |
 | bus-off 攻擊擋不住 | 只能偵測，TEC、REC 與 bus off 狀態放進 Heartbeat（`003` K-23） |
 | 保留位元由硬體產生 | 不能拿來放 MAC（`002` 第 4.2 節） |

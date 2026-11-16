@@ -13,7 +13,7 @@ Cyphal 原名 UAVCAN v1。UAVCAN 最早用在無人機的 CAN 匯流排上，v1 
 v0 則由另一群人以 DroneCAN 的名字繼續維護，因為 v1 對既有部署「沒有平順的遷移路徑」（DroneCAN 官網；論壇公告「UAVCAN v1 is now Cyphal」）。
 
 兩者在 CAN 線上的主要差別：Cyphal 拿掉了 data type ID 與 data type signature，CAN ID 的位元配置不同，
-多框傳輸的 toggle 位元從 1 開始而不是 0，硬體不需要改（The Cyphal Guide，Migration from DroneCAN 段）。
+多框傳輸的 toggle 位元（第六節）從 1 開始而不是 0，硬體不需要改（The Cyphal Guide，Migration from DroneCAN 段）。
 
 ## 二、設計原則
 
@@ -90,8 +90,8 @@ Transfer-ID 的寬度依傳輸而不同：
 | Cyphal/UDP、serial | 64 位元，只增不減 | monotonic（規格定義：不同值的個數至少 2^48） |
 
 CAN 的框太小，只放得下 5 位元。5 位元會循環，所以接收端要靠逾時判斷「這是新的一輪，還是舊的重複」：
-同一個 session 太久沒收到東西，就把下一筆當成新的。規格沒有規定逾時多久，非規範的建議是取接收間隔移動平均的 2 倍；
-參考實作 libcanard 的預設值是 2 秒（第 4.1.4 節；libcanard `canard.h`）。
+同一個 session 太久沒收到東西，就把下一筆當成新的。規格沒有規定逾時多久，非規範的建議是取接收間隔指數移動平均的 2 倍（第 4.1.4 節）。
+常見的「2 秒」是參考實作 libcanard 的預設值（`canard.h`），規格本身沒有寫。
 
 ### 5.2 Priority
 
@@ -164,6 +164,7 @@ Cyphal 用一種型別定義語言 DSDL 描述每個 Message 與 Service 的欄�
 ### 8.1 型別怎麼演進
 
 系統會升級，新舊版本的 Node 常常同時存在。DSDL 用兩條規則讓雙方都能讀：
+兩個名詞先說明：extent 是接收端為這個型別預留的最大長度；型別宣告為 sealed 時表示不再演進，長度固定，不需要預留。
 
 <p align="center"><img src="../../img/dsdl-evolution.svg" width="900" alt="型別演進：新版送舊版收時多出的欄位被截掉，舊版送新版收時缺的欄位當成 0，以及成立的條件"></p>
 
@@ -208,7 +209,7 @@ Guide 說明 Cyphal 拿掉 data type ID 的理由：它把資料的語法（型�
 
 | Cyphal 的設計 | embnet-rs | 理由 |
 |---|---|---|
-| 民主網路，同匯流排的 Node 直接互通 | 借用 | Bridge 故障不影響同匯流排的通訊（`002` 第一節） |
+| 民主網路，同匯流排的 Node 直接互通 | 借用 | Bridge 確實停止發送時，不影響同匯流排的通訊（`002` 第一節） |
 | Subject 廣播、Service 單播 | 借用 | 與 ROS 2 的 topic 和 service 對應，使用端容易理解 |
 | 數字 port-ID，在設計期指定 | 借用，由 `embnet-config` 在建置期產生 | 線上不送名稱；轉送表可以在建置期檢查。v1.1 改用名稱的方向值得追蹤 |
 | Transfer-ID 的五種用途 | 借用 | 同一個欄位同時處理去重複、重組與配對 |

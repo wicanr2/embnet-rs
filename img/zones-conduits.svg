@@ -41,6 +41,6 @@
     <text x="48" y="330">• Zone：依風險、功能、位置等條件分組的資產；conduit：連接兩個以上 zone、安全需求相同的通訊通道（ISA Quick Start Guide 第 7 頁，IEC 62443）。</text>
     <text x="48" y="354">• 每個 conduit 的轉送規則逐條列出方向與 Subject，例如「主機到控制器：只准速度設定值」，其餘一律拒絕（NIST SP 800-41 第 4 節：deny by default）。</text>
     <text x="48" y="378">• 劃 zone 的目的是限制攻擊成功時的影響範圍。IEC 62443 依攻擊者的手段、資源、技能與動機分 SL 1 到 4，每個 zone 與 conduit 各有目標等級。</text>
-    <text x="48" y="400" fill="#777">同一個 zone 內的 Node 直接互通，不經 Bridge；跨 zone 的流量只能走 conduit。</text>
+    <text x="48" y="400" fill="#777">同一個 zone 內的 Node 直接互通；跨 zone 只能走 conduit。箭頭是轉送規則允許的方向（舉例），兩個 Bridge 可以是同一台設備。</text>
   </g>
 </svg>

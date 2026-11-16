@@ -33,7 +33,7 @@
     <!-- miri -->
     <text x="650" y="296">●</text>
     <!-- kani -->
-    <text x="390" y="334">●</text><text x="520" y="334">○</text><text x="650" y="334">●</text>
+    <text x="390" y="334">●</text><text x="520" y="334">○</text><text x="650" y="334">○</text>
   </g>
   <g font-size="12" fill="#555" text-anchor="middle">
     <text x="910" y="142">固定的幾組</text>

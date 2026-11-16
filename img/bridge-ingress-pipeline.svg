@@ -12,7 +12,7 @@
     <rect x="290" y="70" width="110" height="64" rx="8" fill="#e3f0fb" stroke="#3b7dc4"/><text x="345" y="96">查轉送表</text><text x="345" y="114" font-size="11" fill="#666">不在表內就丟</text>
     <rect x="420" y="70" width="110" height="64" rx="8" fill="#e3f0fb" stroke="#3b7dc4"/><text x="475" y="96">方向與 zone</text><text x="475" y="114" font-size="11" fill="#666">只准列出的方向</text>
     <rect x="550" y="70" width="110" height="64" rx="8" fill="#e3f0fb" stroke="#3b7dc4"/><text x="605" y="96">限流</text><text x="605" y="114" font-size="11" fill="#666">每個 Subject 一個桶</text>
-    <rect x="680" y="70" width="110" height="64" rx="8" fill="#e3f0fb" stroke="#3b7dc4"/><text x="735" y="96">間隔檢查</text><text x="735" y="114" font-size="11" fill="#666">比設定週期快太多</text>
+    <rect x="680" y="70" width="110" height="64" rx="8" fill="#e3f0fb" stroke="#3b7dc4"/><text x="735" y="96">間隔檢查</text><text x="735" y="114" font-size="11" fill="#666">超出 token bucket</text>
     <rect x="810" y="70" width="110" height="64" rx="8" fill="#ede7f6" stroke="#7b5ea7"/><text x="865" y="96">驗證 MAC</text><text x="865" y="114" font-size="11" fill="#666">只在跨 zone 時</text>
   </g>
   <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#bp)">
@@ -31,7 +31,7 @@
   <rect x="30" y="292" width="940" height="80" rx="10" fill="#f7f7f7" stroke="#ccc"/>
   <g font-size="12" fill="#333">
     <text x="48" y="314">• 順序依成本排：查表與限流遠比 MAC 便宜，MAC 一次要數百到上千個週期（docs/30-safety-security/02 第七節），放最後，洪泛時才不會被拖垮。</text>
-    <text x="48" y="336">• 間隔檢查重用設定檔裡的發佈週期：同一 Subject 來得比週期快太多，就是被注入的跡象（Song、Kim、Kim 2016 的時間間隔 IDS 思路）。</text>
+    <text x="48" y="336">• 間隔檢查用設定檔的 (b, r) 做 token bucket 檢查，同一 Subject 超量就是被注入的跡象（Song、Kim、Kim 2016 的入侵偵測 IDS 思路）。</text>
     <text x="48" y="358">• AUTOSAR Firewall 也是同一套做法：規則依序比對、未符合者走預設動作、每條規則可限流，丟棄時送 security 事件（RS_Firewall 第 4.1 節）。</text>
   </g>
 </svg>

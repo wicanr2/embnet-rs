@@ -37,7 +37,7 @@
   <!-- legend -->
   <g font-size="12" fill="#444">
     <text x="160" y="214">第 25 位：0 = message、1 = service。A：anonymous。R：1 = request、0 = response。</text>
-    <text x="160" y="234">虛線格是保留位元：送出固定值；第 23、7 位收到 1 時整框丟棄。</text>
+    <text x="160" y="234">虛線格是保留位元：第 22、21 位固定送 1，收到時忽略；第 23、7 位固定送 0，收到 1 時整框丟棄。</text>
   </g>
 
   <!-- consequences -->

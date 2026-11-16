@@ -7,6 +7,16 @@ embnet-rs 的核心要跑在 STM32F4 這類 MCU 上，而且不配置記憶體�
 延伸閱讀：The Embedded Rust Book（Collections、Panicking、Optimizations 各章）；The Embedonomicon 的 DMA 章；
 Holzmann《The Power of Ten》；`heapless`、`static_cell`、`flip-link` 的文件。
 
+## 零、MCU 的記憶體長相
+
+寫一般 Rust 程式時，程式和資料都在 RAM，heap 由作業系統給。MCU 上不一樣：
+
+- 程式碼與常數放在快閃記憶體（flash），幾百 KB 到幾 MB，斷電不消失。連結後對應 `.text` 與 `.rodata` 區段。
+- 變數放在 RAM，通常只有幾十到幾百 KB。有初值的全域變數在 `.data`，開機時從快閃複製過來；初值為 0 的全域變數在 `.bss`，開機時清零，不占快閃。
+- 剩下的 RAM 給堆疊。沒有作業系統替你檢查堆疊有沒有長過頭（第六節）。
+
+所以「緩衝放在哪裡」直接決定它占快閃還是 RAM、開機要花多少時間初始化。
+
 ## 一、為什麼不用 heap
 
 在桌面程式裡，`Vec` 不夠就再要一塊記憶體。在 MCU 上這會帶來三個問題（The Embedded Rust Book，Collections 章）：
@@ -44,7 +54,7 @@ match v.push(42) {
 |---|---|---|
 | `spsc::Queue<T, N>` | 單一生產者、單一消費者的無鎖佇列，例如中斷收框、主迴圈處理 | 實際可用容量是 N − 1；官方範例用 `static mut`，見第四節 |
 | `mpmc` | 多生產者、多消費者的無鎖佇列 | 需要 8 位元的原子操作 |
-| `pool` | 無鎖的記憶體池 | ARM 上需要 LDREX/STREX 指令；Cortex-M4 有（推論，文件只舉 thumbv7m） |
+| `pool` | 無鎖的記憶體池 | ARM 上需要 LDREX/STREX 指令（不可分割地讀改寫記憶體的指令對）；Cortex-M4 有（推論，文件只舉 thumbv7m） |
 
 ## 三、緩衝由呼叫者持有
 
@@ -66,14 +76,14 @@ match v.push(42) {
 
 緩衝總要有人真正配置。最外層的韌體 crate 在開機時配置一次，之後一直存在，生命週期是 `'static`。
 
-最直覺的寫法 `static mut BUF: [u8; 1024]` 在 Rust 2024 edition 會被擋下：`static_mut_refs` lint 預設為 deny。理由是取 `static mut` 的參考本身就是未定義行為，
-即使從來沒有讀寫；要保證「可變就不能有別名」，需要整個程式的推理（Edition Guide）。
+最直覺的寫法 `static mut BUF: [u8; 1024]` 在 Rust 2024 edition 會被擋下：`static_mut_refs` lint 預設為 deny。理由是 `static mut` 的參考很容易違反「可變就不能有別名」的規則，違反時就是未定義行為，
+而要確認沒有違反，需要對整個程式推理（Edition Guide）。
 
 替代做法：
 
 - **`static_cell`**（2.1.1）：`StaticCell` 在開機時初始化一次，取得 `&'static mut T`；`ConstStaticCell` 的值在編譯期就決定，
   全零的大緩衝會落在 `.bss`，不占快閃記憶體，也不經過堆疊。兩者重複取用時會 panic，有 `try_` 版本可以改用。
-- **RTIC**（2.4.0）：`#[local]` 資源只屬於一個 task，不需要鎖；`#[shared]` 資源經 `lock` 存取，用優先序天花板協定避免死結。
+- **RTIC**（2.4.0，以中斷優先序排程 task 的並行框架）：`#[local]` 資源只屬於一個 task，不需要鎖；`#[shared]` 資源經 `lock` 存取，用優先序天花板協定避免死結。
   只有 `#[init]` 與 `#[idle]` 的 local 資源是 `'static`。
 
 ## 五、DMA 緩衝為什麼必須是 `'static`
@@ -83,7 +93,8 @@ DMA 是周邊硬體直接讀寫記憶體，CPU 只負責啟動。The Embedonomic
 所以不能靠 `Drop` 保證安全。解法是要求緩衝的生命週期是 `'static`。`embedded-dma` crate 把這個要求寫成 trait。
 
 記憶體順序也要處理：啟動 DMA 前放一個 Release 的 compiler fence，等待完成後放 Acquire。Cortex-M4 通常 compiler fence 就夠；
-有資料快取的 Cortex-M7 需要硬體 barrier（Embedonomicon）。
+有資料快取的 Cortex-M7 另外要處理快取一致性：DMA 前後對緩衝做 cache clean 與 invalidate，或用 MPU 把緩衝設成 non-cacheable，光靠 barrier 不夠。
+STM32H7 的 DMA 也碰不到 DTCM。選 H7 當參考板時要把這些列入（Embedonomicon；ST AN4839，待查證）。
 
 需要連續寫入區的 DMA 收發，可以用 `bbqueue`（0.7.0）。它基於 BipBuffer：一種永遠能提供一段連續空間的環形緩衝，
 因為 DMA 只認「起始位址加長度」，不懂環形緩衝會繞回開頭（Ferrous Systems 的部落格，2019）。
@@ -161,7 +172,7 @@ Power of Ten 第 1 條禁止遞迴，理由之一就是：沒有遞迴，堆疊�
 | DMA 緩衝必須是 `'static`，`link_section` 屬於 unsafe | DMA 與記憶體區段只在 Link crate 處理（`CLAUDE.md` 的 unsafe 規則補上韌體 crate） |
 | 堆疊溢位在 Cortex-M 上是靜默的 | 韌體一律用 `flip-link`；P5 用 `paint-stack` 量高水位，並嘗試 `cargo-call-stack` 靜態分析（`003` K-26） |
 | 解析外部輸入不得 panic | 核心啟用 `indexing_slicing`、`arithmetic_side_effects`、`unwrap_used`；解析函式在主機端 unwind 建置加 `#[no_panic]` 驗證；fuzz 補足剩下的（`docs/40-rust-embedded/03`） |
-| Bridge 要 fail-silent | panic 處理器先停止所有 Link 的輸出，取消控制器中尚未送出的框；再把 panic 的位置與訊息寫進重設後仍保留的 RAM 區，平台有預留快閃區時再複製過去，只保留最近幾筆。有快閃紀錄時設一個「有未讀的異常 log」旗標，隨 Heartbeat 發佈，上位系統看到後用 Service 讀取並清除。恢復方式由部署設定選擇：停住等人處理，或由看門狗重設、連續重設超過上限就停住（`002` 第 2.2 節）。寫保留 RAM 需要 `#[link_section]`，放在韌體 crate |
+| Bridge 要 fail-silent | 出錯時先停止所有 Link 的輸出，再記錄；涵蓋 panic、HardFault、lockup、看門狗四條路徑，細節在 `002` 第 2.2 節。寫保留 RAM 需要 `#[link_section]`，放在韌體 crate |
 | 程式大小要可比較 | `001` 的 `EMBNET_SIZE` 通過行用 `cargo size` 的 `.text`、`.rodata`、`.data`、`.bss`，profile 固定為 `opt-level = "z"`、`lto = "fat"`、`codegen-units = 1` |
 
 ## 來源

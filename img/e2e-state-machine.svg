@@ -3,7 +3,7 @@
   <defs>
     <marker id="sm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
   </defs>
-  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">接收端的狀態機：單筆檢查結果累積成「這個 Subject 現在能不能用」</text>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">接收端的狀態機：單筆檢查結果累積成「這個資料流（Subject）現在能不能用」</text>
 
   <g text-anchor="middle">
     <rect x="40" y="150" width="160" height="70" rx="14" fill="#f2f2f2" stroke="#666" stroke-width="2"/>
@@ -36,7 +36,7 @@
 
   <rect x="30" y="320" width="940" height="90" rx="10" fill="#f7f7f7" stroke="#ccc"/>
   <g font-size="12" fill="#333">
-    <text x="48" y="344">• 每個接收週期的單筆檢查結果是 OK、REPEATED、WRONGSEQUENCE、ERROR、NONEWDATA 之一，放進一個固定長度的滑動窗。</text>
+    <text x="48" y="344">• 每個接收週期的單筆檢查結果是 OK、OKSOMELOST、REPEATED、WRONGSEQUENCE、ERROR、NONEWDATA 之一，放進一個固定長度的滑動窗。</text>
     <text x="48" y="368">• 每個狀態各有窗長、最少 OK 數、最多錯誤數三個參數，用來決定轉移（AUTOSAR E2E R24-11 第 6.20 節）。</text>
     <text x="48" y="392">• 狀態機只負責判斷；進入 INVALID 之後要做什麼，由接收端的應用決定（第 9.4 節）。依 AUTOSAR 第 6.20 節簡化，省略 DEINIT。</text>
   </g>

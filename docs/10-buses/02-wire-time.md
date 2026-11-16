@@ -13,7 +13,7 @@ NXP UM10204（I²C 規格）；CAN 的部分見上一篇 [CAN：仲裁、填充�
 | 組成 | 定義 | 由什麼決定 |
 |---|---|---|
 | 處理（processing） | 檢查標頭、決定往哪裡送 | 程式與 CPU |
-| 排隊（queuing） | 在輸出佇列等前面的訊息送完 | 流量與排程策略 |
+| 排隊（queuing） | 在輸出佇列等前面的訊息送完；CAN 上還包括仲裁輸掉後的等待 | 流量與排程策略 |
 | 序列化（transmission） | 把整個框的所有位元推上線，等於框長 L 除以速率 R | 框格式與 Link 速率 |
 | 傳播（propagation） | 一個位元從線的一端走到另一端，等於線長 d 除以訊號速度 s | 線長與線材 |
 
@@ -62,11 +62,11 @@ UART 只傳 byte，不知道一個訊息從哪裡開始、到哪裡結束，所�
 
 做最壞延遲預算時，這個差別很重要：同樣 64 B 的資料，HDLC 式最壞要送約 130 B，COBS 最多 65 B 加框界。
 
-RS-485 讓多個裝置共用一對線，所以是半雙工：同一時間只能有一個 driver 在線上，否則會發生 bus contention
+RS-485 讓多個裝置共用一對線，所以是半雙工：同一時間只能有一個線路驅動器（line driver，收發器裡負責把訊號送上線的部分）在線上，否則會發生 bus contention
 （TI SLLA272D 第 3 節）。每次換人發話，都要切換收發器的方向：
 
 - 收發器本身的切換時間在奈秒到微秒級。例如 TI SN65HVD72 的 driver enable 最長 1 µs，SN65HVD75 最長 20 ns（SLLSE11H 第 7.7 到 7.9 節）。
-- 軟體才是容易出錯的地方：必須等最後一個 stop bit 真的送完（UART 的 transmission complete 旗標），才能關掉 driver。
+- 軟體才是容易出錯的地方：必須等最後一個 stop bit 真的送完（UART 的 transmission complete 旗標），才能關掉線路驅動器。
   若在發送暫存器一空就關，最後一個 byte 會被截斷。這段軟體延遲沒有找到原廠的數量級資料，待查證。
 
 ### 3.2 Modbus RTU
@@ -76,7 +76,7 @@ Modbus RTU 跑在 RS-485 上，規格對時序寫得很明確（Modbus over Seri
 - **每個字元固定 11 位元。** 1 start、8 data、1 even parity、1 stop；不用 parity 時改成 2 個 stop，仍是 11 位元（第 2.5.1 節）。
 - **框界靠靜默。** 框與框之間至少靜默 3.5 個字元時間（t3.5）；框內字元之間的空隙超過 1.5 個字元時間（t1.5），整個框就作廢（第 2.5.1.1 節）。
 - **高速率時用固定值。** baud 超過 19200 時，建議 t1.5 用 750 µs、t3.5 用 1.75 ms。
-- **框最長 256 B**，一次最多讀 125 個 holding register（Modbus Application Protocol V1.1b3 第 6.3 節）。
+- **框最長 256 B**，一次最多讀 125 個 holding register（Modbus 從站上可讀寫的 16 位元暫存器，見下一篇第 6.1 節）（Modbus Application Protocol V1.1b3 第 6.3 節）。
 - **一次只進行一筆交易。** 只有一個主站，主站送出請求後要等回應或逾時，才能問下一個（第 2.1 節）。
 
 以 19200 baud 讀 125 個暫存器為例：
@@ -181,8 +181,8 @@ SPI、I²C、Modbus 的從端不能主動發話，資料就緒後要等主端下
 |---|---|
 | 傳播延遲可以忽略 | 延遲預算只算 Wire time、處理、排隊與輪詢等待 |
 | 慢速 Link 上 Wire time 主導延遲；快速 Link 上換成處理時間主導 | 經 CAN 的路徑，Bridge 處理時間要遠小於 160 µs；經 100 Mbit/s 乙太網路時，一框只要 6.7 µs，Bridge 的處理時間會直接決定延遲。P1 要分別量這兩種情況 |
-| HDLC 式跳脫最壞讓長度加倍，COBS 最多每 254 B 多 1 B | UART 的 framing 選擇要在 P1 重新評估：`xrce-rs` 用的是 HDLC，COBS 的最壞值比較好算進預算 |
-| RS-485 必須等最後一個 stop bit 送完才能放開 driver | `embnet-link-uart` 的 RS-485 模式要用 transmission complete 旗標，並把方向切換時間算進預算 |
+| HDLC 式跳脫最壞讓長度加倍，COBS 最多每 254 B 多 1 B | UART 的 framing 選擇要在 P1 重新評估：作者的另一個專案 `xrce-rs` 用的是 HDLC，COBS 的最壞值比較好算進預算 |
+| RS-485 必須等最後一個 stop bit 送完才能放開線路驅動器 | `embnet-link-uart` 的 RS-485 模式要用 transmission complete 旗標，並把方向切換時間算進預算 |
 | Modbus 一次一筆，逾時可達數秒 | Adapter 的逾時與重試次數要寫進設定檔，並算進流量預算；一個不回應的從站不能拖住其他 Link（`003` 第 1.4 節） |
 | I²C 的 clock stretching 讓交易時間沒有上限 | Polled link 規格要限制或禁止 clock stretching，否則該 Link 的延遲無法保證 |
 | 小 UDP 封包效率不到 10% | Bridge 往 UDP 的方向要打包 |

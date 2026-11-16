@@ -11,18 +11,27 @@
 
 ## 從哪裡開始讀
 
-- 想知道這個專案要做什麼：`docs/plans/001-plan.md` 的第一、二節。
-- 想知道會遇到什麼問題：`docs/plans/003-risk-assessment.md`，第一節是 Bridge 會不會成為瓶頸。
-- 不熟嵌入式匯流排：從知識庫的「匯流排與時序」讀起。
-- 遇到不認得的術語：`CONTEXT.md`。
+- 想知道這個專案要做什麼：[001 計畫](docs/plans/001-plan.md) 的第一、二節。
+- 想知道會遇到什麼問題：[003 風險評估](docs/plans/003-risk-assessment.md)，第一節是 Bridge 會不會成為瓶頸。
+- 不熟嵌入式：知識庫依下表由上而下讀。[Polled link](docs/10-buses/03-polled-links.md) 用到 Subject 等 pub/sub 概念，可以放到 [Cyphal 的設計](docs/20-protocol/01-cyphal-design.md) 之後再讀。
+- 遇到不認得的術語：[CONTEXT.md](CONTEXT.md)。
+
+文章裡常見的簡寫：
+
+| 簡寫 | 意思 |
+|---|---|
+| `001`、`002`、`003` | `docs/plans/` 下的三份計畫：總計畫、Safety 與 Security、風險評估 |
+| P0 到 P6 | `001` 第七節的里程碑 |
+| K-xx | `003` 的風險編號 |
+| 通過行 | 測試或量測結束時印出的一行固定格式結果，例如 `EMBNET_BUS PASS ...`，可以 grep，作為里程碑的驗收依據 |
 
 ## 計畫
 
 | 文件 | 內容 |
 |---|---|
-| `docs/plans/001-plan.md` | 借用 Cyphal 的部分與差異、四類介面、架構草案、里程碑與各階段的工作 |
-| `docs/plans/002-safety-security.md` | 通訊故障與對策、威脅模型、CAN 上的截短 MAC、驗證方式 |
-| `docs/plans/003-risk-assessment.md` | Bridge 的瓶頸分析與各類風險 |
+| [001-plan.md](docs/plans/001-plan.md) | 借用 Cyphal 的部分與差異、四類介面、架構草案、里程碑與各階段的工作 |
+| [002-safety-security.md](docs/plans/002-safety-security.md) | 通訊故障與對策、威脅模型、CAN 上的截短 MAC、驗證方式 |
+| [003-risk-assessment.md](docs/plans/003-risk-assessment.md) | Bridge 的瓶頸分析與各類風險 |
 
 ## 知識庫
 

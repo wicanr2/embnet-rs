@@ -13,7 +13,7 @@
     <text x="500" y="96">② 餵給核心</text><text x="500" y="118" font-size="11" fill="#555">on_frame 或 handle_timeout，帶上 now</text>
 
     <rect x="380" y="190" width="240" height="64" rx="10" fill="#e3f0fb" stroke="#3b7dc4"/>
-    <text x="500" y="216">③ 排空輸出</text><text x="500" y="238" font-size="11" fill="#555">反覆 poll_transmit，直到沒有東西可送</text>
+    <text x="500" y="216">③ 排空輸出</text><text x="500" y="238" font-size="11" fill="#555">對每條有空位的 Link 反覆 poll_transmit</text>
 
     <rect x="60" y="190" width="240" height="64" rx="10" fill="#e3f0fb" stroke="#3b7dc4"/>
     <text x="180" y="216">④ 問下次時間</text><text x="180" y="238" font-size="11" fill="#555">poll_timeout，重設計時器</text>

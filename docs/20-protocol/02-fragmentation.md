@@ -2,7 +2,7 @@
 
 一筆 Transfer 比一個框大時，要拆成多框送，接收端再拼回來。拼的過程有三個問題要解決：
 每一框屬於哪一筆 Transfer、有沒有缺框、拼出來的對不對。這篇從這三個問題出發，看 Cyphal 的實作怎麼寫重組狀態機、
-IP 分片留下了什麼教訓、不配置記憶體時緩衝怎麼開，最後討論 Bridge 在不同 MTU 的 Link 之間轉送時，要先重組還是逐框直通。
+IP 分片留下了什麼教訓、不配置記憶體時緩衝怎麼開，最後討論 Bridge 在不同 MTU（一個框最多能帶的資料量）的 Link 之間轉送時，要先重組還是逐框直通。
 
 延伸閱讀：上一篇 [Cyphal 的設計](01-cyphal-design.md) 第六節的 Tail byte 與多框 CRC；RFC 4963、RFC 8900、RFC 8930。
 
@@ -34,7 +34,9 @@ RFC 8900 進一步整理了 IP 分片的其他問題：只有第一片帶埠號�
 
 Cyphal/CAN 的 Transfer-ID 只有 5 位元，每 32 筆就繞一圈，比 IPv4 短得多。它沒有拼錯，靠的是另外幾條性質與規則：
 
-- **CAN 保證同一個 ID 的框依序到達**，而來源 Node-ID 在 CAN ID 裡，所以同一個 session 的框不會亂序。
+- **同一個 session 的框依序上線。** CAN 線上一次只有一個框，而且同一個 CAN ID 只有一個發送者（來源 Node-ID 在 ID 裡），
+  所以線上的順序就是發送端送出的順序。這個保證來自發送端，CAN 協定本身不保證：控制器有多個發送 mailbox 時會依 ID 或 mailbox 編號決定先送哪一個，
+  同一 session 的框若同時放進不同 mailbox 就可能被重排。所以實作要讓同一 session 同時只占一個發送 mailbox（`003` K-29）。
 - **只有 start 框能開始一筆 Transfer。** 沒有對應狀態的中間框直接丟掉，殘框無法被「接上」。
 - **toggle 逐框交替**，重複的框和跳過的框都會被發現。
 - **多框 Transfer 有 CRC-16**，拼錯的結果過不了。
@@ -79,7 +81,7 @@ libcanard 的一個設計值得注意：每個來源 Node 為每個優先等級�
 | RFC 791（IPv4） | 建議初始值 15 秒 |
 | Linux（IPv4 預設） | 30 秒 |
 | RFC 8200（IPv6） | 60 秒 |
-| RFC 4944（6LoWPAN） | 不得超過 60 秒 |
+| RFC 4944（6LoWPAN，低功耗無線網路上的 IPv6） | 不得超過 60 秒 |
 | lwIP（IPv4 預設） | 15 秒 |
 
 IP 的逾時以秒到分鐘計，因為封包可能在網際網路上繞很久。內部匯流排的延遲以毫秒計，逾時可以短得多，殘框也清得更快。
@@ -87,6 +89,9 @@ IP 的逾時以秒到分鐘計，因為封包可能在網際網路上繞很久�
 ## 五、不配置記憶體時，緩衝怎麼開
 
 Cyphal 的接收端在訂閱時就知道每個型別最大多長（extent），所以每個重組 slot 的大小可以事先決定。剩下的問題是 slot 要開幾個、用完怎麼辦。
+
+這裡的 libcanard 是 Cyphal 的 C 參考實作，canadensis 與 emcyphal 是 Rust 實作；lwIP 與 smoltcp 分別是 C 與 Rust 的嵌入式 TCP/IP 堆疊，pbuf 是 lwIP 的封包緩衝。
+session 指同一個（Subject 或 Service、來源 Node-ID）的 Transfer 序列，重組狀態以 session 為單位保存。
 
 | 實作 | slot 的大小與數量 | 用完時 |
 |---|---|---|

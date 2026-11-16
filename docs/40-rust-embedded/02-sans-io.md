@@ -1,7 +1,7 @@
 # sans-IO：把協定和 I/O、時鐘分開
 
 embnet-rs 的核心要同時跑在三個地方：Linux 上的 Bridge、MCU 上的 Bridge 與 Node，以及主機上的測試。三者的 I/O 完全不同：
-socket 與 SocketCAN、硬體驅動與 DMA、模擬的 Link。sans-IO 的做法是讓協定的程式碼完全不碰 I/O 與時鐘，
+socket 與 SocketCAN（Linux 把 CAN 介面包成 socket 的子系統）、硬體驅動與 DMA、模擬的 Link。sans-IO 的做法是讓協定的程式碼完全不碰 I/O 與時鐘，
 只處理「給它位元組與時間，它回答要送什麼、下次何時叫醒它」。這篇說明這個設計的來源、Rust 的實例、外層的事件迴圈怎麼寫，
 以及它帶來的最大好處：決定性的模擬測試。
 
@@ -98,15 +98,15 @@ Firezone 的文章列了三個缺點（The downsides 段）：
 - 循序的流程要拆成一個個狀態，程式碼比 `.await` 長。
 - 這種風格在 Rust 生態中較少見，能借用的函式庫不多。
 
-好處是避開了 async 的「函式顏色」問題，`&mut self` 就夠，不需要 `Arc<Mutex<T>>` 或 channel，也沒有 task 排序帶來的非決定性。
+好處是避開了 async 的「函式顏色」問題（async 函式只能由 async 函式呼叫，這個限制會一路往上傳染），`&mut self` 就夠，不需要 `Arc<Mutex<T>>` 或 channel，也沒有 task 排序帶來的非決定性。
 
 ## 八、對 embnet-rs 的影響
 
 | 觀察 | 對設計的影響 |
 |---|---|
-| 計時器由核心回報、外層排程 | 核心介面草案改為四個入口：`on_frame(link, now, bytes)`、`handle_timeout(now)`、`poll_transmit(buf)`、`poll_timeout()`（`001` 第 5.2 節） |
+| 計時器由核心回報、外層排程 | 核心介面草案改為四個入口：`on_frame(link, now, bytes)`、`handle_timeout(now)`、`poll_transmit(link, now, buf)`、`poll_timeout()`（`001` 第 5.2 節） |
 | 每次呼叫的工作量要有上限 | `on_frame` 一次只處理一個 Frame；`poll_transmit` 一次只產出一個 Frame；外層決定每輪處理多少 |
-| 輸出寫進呼叫者的緩衝 | `poll_transmit` 寫進外層給的 `&mut [u8]`，回傳長度與出口 Link |
+| 輸出寫進呼叫者的緩衝 | `poll_transmit` 由外層對發送端有空位的 Link 呼叫，寫進外層給的 `&mut [u8]`，回傳長度；帶 `now` 讓核心能丟棄逾期的 Transfer |
 | 時間要單調、不綁時鐘 | 核心自訂微秒計數的時間型別；外層負責從 SocketCAN 時戳、`std::time::Instant` 或硬體計時器換算 |
 | 決定性讓測試可重現 | P2 的故障注入用模擬 Link 加固定 seed；失敗時記錄 seed 與 commit，通過行附 seed（`002` 第六節） |
 | 外層的事件迴圈容易寫錯 | Linux 外層與 MCU 外層各寫一份並各自測試；把「排空輸出」「下次時刻前進」寫成外層的斷言 |

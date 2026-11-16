@@ -31,7 +31,7 @@ fuzz_target!(|data: &[u8]| {
 ```
 
 運作方式：fuzzer 從語料庫挑一個輸入、隨機變異、執行；若這個輸入讓程式走到之前沒走過的分支，就把它加回語料庫。
-cargo-fuzz 自動加上 SanitizerCoverage 的插樁，包含比較指令的追蹤，讓 fuzzer 能猜出 magic number 與長度欄位（`src/project.rs`）。
+cargo-fuzz 自動加上 SanitizerCoverage 的插樁（instrumentation：編譯時在每個分支插入記錄程式碼），包含比較指令的追蹤，讓 fuzzer 能猜出 magic number 與長度欄位（`src/project.rs`）。
 預設用 AddressSanitizer 建置，所以 fuzz 也能抓到一部分越界與 use-after-free。
 
 幾個要知道的限制與工具：
@@ -86,7 +86,7 @@ Miri 是 Rust 的直譯器，逐步執行程式並檢查未定義行為（Miri R
 - 越界存取、use-after-free、讀未初始化的記憶體。
 - 未對齊的存取、不合法的值（例如不是 0 或 1 的 `bool`）。
 - 資料競爭，以及部分弱記憶體效應。
-- 別名規則：Stacked Borrows，或用 `-Zmiri-tree-borrows` 改用 Tree Borrows（PLDI 2025）。
+- 別名規則：Rust 規定 `&mut` 參考存在時不能有其他參考指向同一塊記憶體。Stacked Borrows 與 Tree Borrows 是這條規則的兩種形式化模型，預設用前者，`-Zmiri-tree-borrows` 改用後者（PLDI 2025）。
 
 限制：大部分平台 API 與 FFI 不能用，不支援網路，速度很慢；只檢查測試實際走到的路徑，也不保證抓到所有違規。
 Miri 的論文（POPL 2026）說，它能在超過 70% 的函式庫測試上成功執行。
@@ -95,25 +95,25 @@ embnet-rs 的核心是 `forbid(unsafe_code)`，Miri 的價值在 Link crate 的 
 
 ## 五、Kani：在有界範圍內窮舉
 
-Kani 是 AWS 開發的 Rust 模型檢查器（kani-verifier 0.68.0）。它不抽樣，而是在給定範圍內考慮所有可能的輸入：
+Kani 是 AWS 開發的 Rust 模型檢查器（model checker，kani-verifier 0.68.0）：把程式和要檢查的性質轉成邏輯式，由求解器判斷是否存在違反性質的輸入。它不抽樣，而是在給定範圍內考慮所有可能的輸入：
 
 ```rust
 #[cfg(kani)]
 #[kani::proof]
-#[kani::unwind(9)]
 fn tail_byte_never_panics() {
     let byte: u8 = kani::any();          // 代表所有 256 個值
     let _ = embnet_core::TailByte::decode(byte);
 }
 ```
 
-它能證明 panic 不會發生、沒有算術溢位、斷言成立，結果是「成立」「反例」或「資源耗盡」三者之一（Kani 文件）。限制：
+它能證明 panic 不會發生、沒有算術溢位、斷言成立，也檢查一部分記憶體安全問題，例如 unsafe 程式碼中的空指標解參考（Kani README）。
+結果是「成立」「反例」或「資源耗盡」三者之一（Kani 文件）。限制：
 
-- 迴圈要用 `#[kani::unwind(N)]` 給上限，N 要比實際次數多 1；上限不夠時其他性質都無法判定。
+- 有迴圈時要用 `#[kani::unwind(N)]` 給迴圈展開上限（loop unwinding），N 要比實際次數多 1；上限不夠時其他性質都無法判定。上面的例子沒有迴圈，所以不需要。
 - 規模放大後很慢。Kani 的教學提到，解析器常要十幾二十個字元的輸入才會露出問題，這時代價很高。
-- 不支援並行、inline assembly 與 stack unwinding。
+- 不支援並行、inline assembly，以及 panic 時的堆疊展開（stack unwinding，和上面的迴圈展開無關）。
 
-它和 fuzz 是互補的。s2n-quic 的例子：同一個 harness 同時當 fuzz target 與 Kani 證明；一個 libFuzzer 跑了 1,600 多萬次輸入都沒發現的錯誤，
+它和 fuzz 是互補的。s2n-quic 的例子：同一個測試入口函式（harness）同時當 fuzz target 與 Kani 證明；一個 libFuzzer 跑了 1,600 多萬次輸入都沒發現的錯誤，
 Kani 約 20 秒就找到了（Kani 部落格，2023-05-30）。Firecracker 用 Kani 驗證 rate limiter，找到一個讓 guest 多做約 0.01% I/O 的捨入錯誤（2023-08-31）。
 
 適合 embnet-rs 的範圍：固定長度的欄位，例如 CAN ID 解碼、Tail byte、E2E 標頭、COBS 的單一 code byte。整個變長框的解析交給 fuzz。
