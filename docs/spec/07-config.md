@@ -21,6 +21,9 @@ id = 1
 links = ["eth0", "can1"]
 bridge = true           # 可省略，預設 false
 latency_us = 200        # 只有 bridge 需要：處理時間的上限，也就是服務曲線的 T
+cpu_hz = 216_000_000    # 可省略：C10 用，預設參考板的 216 MHz
+cpu_budget = 0.5        # 可省略：可用來驗證 MAC 的 CPU 比例
+mac_verify_cycles = 8_518  # 可省略：驗證一則 MAC 的週期數，預設為實板量測值
 
 [[type]]
 name = "demo.Speed"
@@ -85,6 +88,7 @@ CRC-64/XZ：poly 0x42F0E1EBA9EA3693、init 全 1、refin 與 refout 是、xorout
 | C7 | 每條 Link 的使用率 Σr/R 不超過 `util_limit` | `docs/20-protocol/04` 第三節 |
 | C8 | 每個 `protected` Subject 從發佈者到它出現的每條 Link，沿路徑把各段上限相加，不超過 `deadline_us` | `docs/20-protocol/04` 第 3.3 節、第八節 |
 | C9 | `uart` 的 `max_payload` 不小於經過它的最大 Transfer；`udp` 不超過 1460 B | `04-datagram-links.md` |
+| C10 | 每個 Bridge 每秒要驗證的 MAC 數（跨 Trust zone 轉送的 `mac32`、`mac64` Subject）乘上 `mac_verify_cycles`，不超過 `cpu_hz` × `cpu_budget` | `003` K-05；`docs/plans/007` 第 5.1 節 |
 
 ### C7、C8 的算法
 

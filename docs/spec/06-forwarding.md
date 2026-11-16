@@ -31,4 +31,10 @@
 
 - 入口照 `01-can-transport.md` 第六節去重複；出口不再去重複。
 - 出口佇列滿時，依 Subject 的丟棄策略：狀態類丟最舊的，指令類丟最新的；逾期的 Transfer 在出隊時丟棄（`docs/20-protocol/04` 第六節）。
-- 丟棄、未列入轉送表、Node-ID 超出出口範圍，都計數並隨診斷 Subject 發佈。
+- 丟棄、未列入轉送表、Node-ID 超出出口範圍，都計數並隨診斷 Subject 發佈。協定保留的 Subject（8000 以上，例如 Heartbeat）沒有轉送時另外計數，不算進「未列入轉送表」，避免正常的本地流量灌高 security 事件。
+
+## 五、E2E Sync 跟著 `protected` Subject 轉送
+
+E2E Sync（Subject-ID 8189，`02-e2e.md` 第五節）帶著發佈者所有 `protected` Subject 的下一個序號。接收端沒有收到 Sync 就無法同步，所有結果都是 NOSYNC。
+所以轉送表裡每一條 `protected` Subject 的規則，都自動附帶一條同一發佈者、同一入口與出口的 E2E Sync 規則；同一發佈者、同一路徑只附帶一條。
+這條規則的限流取每秒 1 筆、突發 2 筆。設定檔不必另外列出，`embnet-config` 產生轉送表時加入。

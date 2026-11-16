@@ -85,6 +85,25 @@ pub struct Node {
     pub bridge: bool,
     /// Bridge 的處理時間上限，微秒。
     pub latency_us: Option<u64>,
+    /// Bridge 的 CPU 時脈，Hz；C10 用。預設 216 MHz（參考板）。
+    #[serde(default = "default_cpu_hz")]
+    pub cpu_hz: u64,
+    /// Bridge 可以拿來驗證 MAC 的 CPU 比例；C10 用。預設 0.5。
+    #[serde(default = "default_cpu_budget")]
+    pub cpu_budget: f64,
+    /// 驗證一則 MAC 的週期數；C10 用。預設 8,518（docs/plans/007 第 5.1 節，實板量測）。
+    #[serde(default = "default_mac_cycles")]
+    pub mac_verify_cycles: u64,
+}
+
+fn default_cpu_hz() -> u64 {
+    216_000_000
+}
+fn default_cpu_budget() -> f64 {
+    0.5
+}
+fn default_mac_cycles() -> u64 {
+    8_518
 }
 
 /// 型別。
@@ -263,6 +282,8 @@ pub struct Report {
     pub utilization: BTreeMap<String, f64>,
     /// 各 Subject 在各 Link 上的結果。
     pub flows: Vec<Flow>,
+    /// 各 Bridge 的 MAC 驗證負載，占預算的比例（C10）。
+    pub mac_load: BTreeMap<String, f64>,
 }
 
 impl Report {
@@ -630,5 +651,32 @@ pub fn check(cfg: &Config) -> Report {
         }
     }
     rep.flows = flows;
+
+    // C10：Bridge 每秒要驗證的 MAC 數乘上每則的週期數，不超過 CPU 預算。
+    // 要驗證的是跨 Trust zone 轉送的 mac32 或 mac64 Subject（docs/spec/05-mac.md；003 K-05）。
+    rep.checks += 1;
+    for b in cfg.nodes.iter().filter(|n| n.bridge) {
+        let mut per_s = 0.0f64;
+        for r in cfg.routes.iter().filter(|r| r.bridge == b.name) {
+            let Some(s) = r.subject.as_ref().and_then(|n| cfg.subjects.iter().find(|x| &x.name == n)) else { continue };
+            if !matches!(s.protection, Some(Protection::Mac32 | Protection::Mac64)) {
+                continue;
+            }
+            let zf = links.get(r.from.as_str()).map(|l| l.zone.as_str());
+            let zt = links.get(r.to.as_str()).map(|l| l.zone.as_str());
+            if zf != zt {
+                per_s += 1e6 / s.period_us.max(1) as f64;
+            }
+        }
+        let need = per_s * b.mac_verify_cycles as f64;
+        let have = b.cpu_hz as f64 * b.cpu_budget;
+        rep.mac_load.insert(b.name.clone(), if have > 0.0 { need / have } else { f64::INFINITY });
+        if need > have {
+            rep.fail(
+                "C10",
+                format!("Bridge {} 每秒要驗 {per_s:.0} 則 MAC，需要 {need:.0} 週期/秒，超過預算 {have:.0}", b.name),
+            );
+        }
+    }
     rep
 }

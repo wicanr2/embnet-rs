@@ -1,0 +1,18 @@
+[package]
+name = "embnet-bridge"
+version = "0.1.0"
+description = "embnet 的 Bridge：轉送表、入口檢查、Transfer-ID 對應、依優先序的出口佇列。sans-IO、no_std、不配置記憶體。"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+embnet-core = { path = "../embnet-core" }
+
+[dev-dependencies]
+embnet-node = { path = "../embnet-node" }
+embnet-config = { path = "../embnet-config" }

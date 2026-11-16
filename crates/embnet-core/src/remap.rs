@@ -29,3 +29,10 @@ impl TidRemap {
         self.u.map(|u| (u & modulo_out.wrapping_sub(1)) as u8)
     }
 }
+
+impl TidRemap {
+    /// 目前的 32 位元展開值；尚未見過時為 `None`。
+    pub const fn value(&self) -> Option<u32> {
+        self.u
+    }
+}

@@ -22,7 +22,7 @@ fn good_passes() {
     let cfg = parse(GOOD).unwrap();
     let rep = check(&cfg);
     assert!(rep.passed(), "{:#?}", rep.violations);
-    assert_eq!(rep.checks, 9);
+    assert_eq!(rep.checks, 10);
     // speed_cmd：host 經 eth0、Bridge 轉進 can1，兩段都有上限
     let f: Vec<_> = rep.flows.iter().filter(|f| f.subject == "speed_cmd").collect();
     assert_eq!(f.len(), 2);
@@ -155,4 +155,14 @@ mod serde_json_lite {
             .collect();
         Value { cases }
     }
+}
+
+#[test]
+fn c10_mac_verification_over_budget() {
+    // speed_cmd 改用 mac32 並加速到每 50 µs 一筆：跨 zone（external 到 machine），Bridge 每秒要驗 20,000 則
+    let t = replace_once(GOOD, "protection = \"e2e32\"", "protection = \"mac32\"\nkey = 1");
+    let ok = codes(&t);
+    assert!(!ok.contains(&"C10"), "每 10 ms 一筆應該在預算內：{ok:?}");
+    let t = replace_once(&t, "period_us = 10_000\njitter_us = 1_000", "period_us = 50\njitter_us = 0");
+    assert!(codes(&t).contains(&"C10"));
 }

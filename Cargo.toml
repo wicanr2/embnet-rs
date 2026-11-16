@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/embnet-core", "crates/embnet-config", "crates/embnet-node"]
+members = ["crates/embnet-core", "crates/embnet-config", "crates/embnet-node", "crates/embnet-bridge"]
 exclude = ["probes", "fuzz"]
 
 [workspace.package]

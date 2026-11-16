@@ -119,6 +119,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "embnet-bridge"
+version = "0.1.0"
+dependencies = [
+ "embnet-config",
+ "embnet-core",
+ "embnet-node",
+]
+
+[[package]]
 name = "embnet-config"
 version = "0.1.0"
 dependencies = [
