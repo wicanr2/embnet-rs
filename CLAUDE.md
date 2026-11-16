@@ -31,7 +31,7 @@ SPI、I²C、Modbus。核心同時編成 `std`（Linux）與 `no_std`（MCU，�
 - **[HARD] 規格以 `docs/spec/` 為準，並附 test vector。** 至少一份 test vector 由獨立的非 Rust 程式產生，
   避免實作和規格一起錯。實作與規格不符時先改規格或開 issue。
 - **[HARD] 每個里程碑要有一行可 grep 的通過行，並附 run 目錄。** 單元測試綠不算通過。
-  延遲數字要附 Link 種類、速率與樣本數。
+  延遲數字要附 Link 種類、速率、量測環境與樣本數；p99 至少 10,000 筆，量法依 `docs/40-rust-embedded/04`。
 - **[HARD] 一律在容器裡建置與測試**（`--rm`、限 CPU 與記憶體、預設 `--network none`）。不用主機的 rustup 或 pip。
 - **[HARD] 這是 public repo。** 不帶入任何客戶、車型、場域或主機名稱。不提交金鑰、憑證或 token；
   測試用金鑰放在 `tests/`，檔名標 `test-only`。

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="400" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">Coordinated omission：系統卡住時，量測端也跟著停，最慢的那段就不見了</text>
+
+  <!-- timeline -->
+  <line x1="60" y1="150" x2="940" y2="150" stroke="#555" stroke-width="2"/>
+  <text x="945" y="154" font-size="12" fill="#555">時間</text>
+  <g stroke="#3b7dc4" stroke-width="3">
+    <line x1="80" y1="126" x2="80" y2="150"/><line x1="130" y1="126" x2="130" y2="150"/><line x1="180" y1="126" x2="180" y2="150"/>
+    <line x1="230" y1="126" x2="230" y2="150"/>
+    <line x1="780" y1="126" x2="780" y2="150"/><line x1="830" y1="126" x2="830" y2="150"/><line x1="880" y1="126" x2="880" y2="150"/>
+  </g>
+  <text x="155" y="116" font-size="12" fill="#2a5d94" text-anchor="middle">每 10 ms 送一筆，1 ms 就回來</text>
+  <rect x="240" y="96" width="520" height="54" fill="#fdecea" stroke="#c62828"/>
+  <text x="500" y="128" font-size="13" fill="#c62828" text-anchor="middle">系統停頓 100 s：這一筆等了 100 s</text>
+
+  <!-- what should have been sent -->
+  <g stroke="#c62828" stroke-width="2" stroke-dasharray="3 3">
+    <line x1="290" y1="160" x2="290" y2="182"/><line x1="340" y1="160" x2="340" y2="182"/><line x1="390" y1="160" x2="390" y2="182"/>
+    <line x1="440" y1="160" x2="440" y2="182"/><line x1="490" y1="160" x2="490" y2="182"/><line x1="540" y1="160" x2="540" y2="182"/>
+    <line x1="590" y1="160" x2="590" y2="182"/><line x1="640" y1="160" x2="640" y2="182"/><line x1="690" y1="160" x2="690" y2="182"/>
+  </g>
+  <text x="500" y="202" font-size="12" fill="#c62828" text-anchor="middle">這段時間「本來該送」的 1 萬筆，量測端因為在等而根本沒送，也就沒有被記錄</text>
+
+  <!-- comparison -->
+  <rect x="60" y="226" width="420" height="82" rx="10" fill="#fff3e0" stroke="#e07b00"/>
+  <text x="80" y="252" font-size="14" font-weight="bold" fill="#a65c00">未修正</text>
+  <text x="80" y="276" font-size="12" fill="#333">10,000 筆 1 ms 加上 1 筆 100 s</text>
+  <text x="80" y="296" font-size="12" fill="#333">約 99.99% 在 1 ms 以下：看起來很好</text>
+  <rect x="520" y="226" width="420" height="82" rx="10" fill="#e8f5e9" stroke="#2e7d32"/>
+  <text x="540" y="252" font-size="14" font-weight="bold" fill="#2e7d32">以預期間隔 10 ms 修正後</text>
+  <text x="540" y="276" font-size="12" fill="#333">補上停頓期間每 10 ms 一筆、逐漸遞減的延遲</text>
+  <text x="540" y="296" font-size="12" fill="#333">只剩約 50% 在 1 ms 以下：這才是使用者看到的</text>
+
+  <rect x="30" y="322" width="940" height="70" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="344">• 例子出自 HdrHistogram 的 README（Gil Tene）。修法：依固定時刻表發送，延遲從「本來該送的時刻」起算（wrk2 的做法），</text>
+    <text x="48" y="366">  或記錄時告訴直方圖預期間隔，由它補上遺漏的樣本（Rust hdrhistogram 的 record_correct）。</text>
+  </g>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="1000" height="420" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="420" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">三種量測環境，各自量得到什麼</text>
+
+  <g font-size="12">
+    <rect x="30" y="56" width="300" height="250" rx="12" fill="#e3f0fb" stroke="#3b7dc4" stroke-width="2"/>
+    <text x="180" y="82" font-size="14" font-weight="bold" text-anchor="middle" fill="#2a5d94">主機（vcan、UDP）</text>
+    <text x="46" y="110">• 發送與接收在同一台機器，</text>
+    <text x="58" y="128">用同一個 CLOCK_MONOTONIC</text>
+    <text x="46" y="152">• SocketCAN 可取得核心的接收時戳</text>
+    <text x="58" y="170">（SO_TIMESTAMP，以系統時間計）</text>
+    <text x="46" y="194">• 量到的是軟體處理時間，</text>
+    <text x="58" y="212">沒有真實的 Wire time</text>
+    <text x="46" y="236">• Linux 本身的排程延遲先用</text>
+    <text x="58" y="254">cyclictest 量出底線</text>
+    <text x="46" y="284" font-weight="bold" fill="#2a5d94">用途：P2、P3 的 Bridge 處理時間</text>
+
+    <rect x="350" y="56" width="300" height="250" rx="12" fill="#fff3e0" stroke="#e07b00" stroke-width="2"/>
+    <text x="500" y="82" font-size="14" font-weight="bold" text-anchor="middle" fill="#a65c00">實板（STM32F4）</text>
+    <text x="366" y="110">• DWT 週期計數器量 Bridge 內部：</text>
+    <text x="378" y="128">每一關花幾個週期</text>
+    <text x="366" y="152">• 收到與送出時各拉一次 GPIO，</text>
+    <text x="378" y="170">邏輯分析儀同時抓兩條匯流排</text>
+    <text x="378" y="188">與 GPIO，量線到線的延遲</text>
+    <text x="366" y="212">• sigrok 可解碼 CAN、UART、SPI、I²C</text>
+    <text x="366" y="236">• GPIO 打點本身有開銷，要量出來</text>
+    <text x="378" y="254">並在報告中扣除或註明</text>
+    <text x="366" y="284" font-weight="bold" fill="#a65c00">用途：P5 的真實延遲</text>
+
+    <rect x="670" y="56" width="300" height="250" rx="12" fill="#f2f2f2" stroke="#666" stroke-width="2"/>
+    <text x="820" y="82" font-size="14" font-weight="bold" text-anchor="middle" fill="#444">模擬器（Renode）</text>
+    <text x="686" y="110">• 時間是虛擬時間，由「指令數</text>
+    <text x="698" y="128">除以設定的 MIPS」推算</text>
+    <text x="686" y="152">• 節點之間每個 quantum 才同步</text>
+    <text x="698" y="170">一次</text>
+    <text x="686" y="194">• 可以設定讓虛擬時間不快於牆鐘，</text>
+    <text x="698" y="212">但仍不是真實的時脈週期</text>
+    <text x="686" y="236">• 數字只能拿來相對比較，</text>
+    <text x="698" y="254">例如改版前後</text>
+    <text x="686" y="284" font-weight="bold" fill="#444">用途：功能與回歸，不報絕對延遲</text>
+  </g>
+
+  <rect x="30" y="322" width="940" height="88" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="346">• DWT：先設 DEMCR 的 TRCENA，再設 DWT_CTRL 的 CYCCNTENA（ARMv7-M ARM C1.6.5、C1.8.7）；cortex-m crate：enable_trace、enable_cycle_counter。</text>
+    <text x="48" y="370">• 32 位元的 CYCCNT 在 180 MHz 下約 23.86 秒繞一圈，差值用 wrapping_sub 計算；處理器停在除錯狀態時不計數。Cortex-M0、M0+ 沒有這個計數器。</text>
+    <text x="48" y="394">• 主機的時戳與實板的時戳不能直接相減：不同機器的時鐘沒有同步，跨機器的延遲要用邏輯分析儀在同一條時間軸上量。</text>
+  </g>
+</svg>
