@@ -7,7 +7,7 @@
 涵蓋 CAN/CAN FD、UART/RS-485、Ethernet/UDP，也補上 Cyphal 沒有定義的 SPI、I²C 與 Modbus。
 核心同時跑在 Linux（`std`）與 MCU（`no_std`、不配置記憶體）上。線格式自訂，不與 Cyphal 相容。
 
-**現況：正在建立基礎知識庫，還沒有程式碼。** 進度見 `PLAN.md`。
+**現況：知識庫完成，P0 大部分完成，接著寫 P1 規格。** 進度見 `PLAN.md`。
 
 ## 從哪裡開始讀
 
@@ -33,6 +33,7 @@
 | [002-safety-security.md](docs/plans/002-safety-security.md) | 通訊故障與對策、威脅模型、CAN 上的截短 MAC、驗證方式 |
 | [003-risk-assessment.md](docs/plans/003-risk-assessment.md) | Bridge 的瓶頸分析與各類風險 |
 | [004-p0-execution.md](docs/plans/004-p0-execution.md) | P0 的容器、量測方法、通過行與執行順序 |
+| [005-prior-art.md](docs/plans/005-prior-art.md) | P0 結果：既有實作的體積、Renode 的能力、bridge 參考實作的轉送語意 |
 
 ## 知識庫
 

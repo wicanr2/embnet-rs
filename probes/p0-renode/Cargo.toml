@@ -1,0 +1,22 @@
+# P0 的 Renode 檢查（docs/plans/004 第六節）：CAN3 loopback、送出順序、DWT 頻率。
+[package]
+name = "p0-renode"
+version = "0.0.0"
+edition = "2024"
+publish = false
+license = "MIT"
+
+[dependencies]
+cortex-m = { version = "0.7", features = ["critical-section-single-core", "inline-asm"] }
+cortex-m-rt = "0.7"
+embassy-stm32 = { version = "0.6.0", features = ["stm32f767zi", "single-bank", "time-driver-tim2", "memory-x", "exti"] }
+embedded-can = "0.4"
+embassy-executor = { version = "*", features = ["arch-cortex-m", "executor-thread"] }
+embassy-time = "*"
+
+[profile.release]
+opt-level = "s"
+lto = "fat"
+codegen-units = 1
+debug = 2
+panic = "abort"

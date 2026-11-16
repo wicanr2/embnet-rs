@@ -39,4 +39,5 @@
 
 | 里程碑 | 執行細節 | 狀態 |
 |---|---|---|
-| P0 既有實作對照 | `docs/plans/004-p0-execution.md` | 待審查，等 `vcan` 載入後開始 |
+| P0 既有實作對照 | `docs/plans/004-p0-execution.md`，結果在 `005-prior-art.md` | 完成，`vcan` 直連的處理時間延後 |
+| P1 規格 | `docs/spec/` | 進行中 |

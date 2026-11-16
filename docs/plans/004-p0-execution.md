@@ -1,6 +1,6 @@
 # 004 P0 執行細節
 
-狀態：草案，開工前審查。術語依 `CONTEXT.md`。P0 的目標與完成條件見 `001` 第七節，結果寫進 `005-prior-art.md`。
+狀態：P0 已執行，`vcan` 兩項延後（使用者決定先完成實作）。術語依 `CONTEXT.md`。P0 的目標與完成條件見 `001` 第七節，結果寫進 `005-prior-art.md`。
 
 P0 回答三件事：Cyphal 的既有實作在參考板的目標上占多少空間、在主機的 `vcan` 上直連要多少處理時間、Renode 能模擬到什麼程度。
 它也順便把之後每個里程碑都會用到的容器、腳本與通過行格式定下來。
@@ -24,14 +24,14 @@ P0 回答三件事：Cyphal 的既有實作在參考板的目標上占多少空�
 |---|---|---|---|
 | `embnet-rust:1.100.0-r1` | `rust:1.100.0-slim-bookworm` | target `thumbv7em-none-eabihf`；`llvm-tools`、`clippy`、`rustfmt`；`cargo-binutils` 0.4.0、`flip-link` 0.1.12（`cargo install --locked`）；`gcc-arm-none-eabi`（編 libcanard）；`iproute2`、`can-utils` | 建置、體積、`vcan` 量測 |
 | `embnet-py:3.13-r1` | `python:3.13.18-slim-trixie` | `pycyphal==1.27.1` | 對照組與日後的 test vector 產生器 |
-| `antmicro/renode:1.16.1` | 官方映像，不另建 | | Renode 檢查 |
+| `embnet-renode:1.17.0-r1` | `python:3.13.18-slim-trixie`（借用它內含的 libssl） | Renode 1.17.0 linux-portable，release 包以 sha256 核對 | Renode 檢查 |
 
 版本選擇的依據：
 
 - Rust 1.100.0 是 2026-11-12 發布的 stable。
 - pycyphal 1.27.1 測過的 Python 是 3.10 到 3.13，所以用 3.13，不用更新的 3.15。
-- Renode 最新是 1.17.0（GitHub release），但 Docker Hub 上最新的編號 tag 是 1.16.1。P0 先確認 1.16.1 是否含 `platforms/boards/nucleo_f767zi.repl`；
-  沒有就用 1.17.0 的 release 包自建 `embnet-renode:1.17.0-r1`。
+- Renode 最新是 1.17.0（GitHub release），Docker Hub 上最新的編號 tag 是 1.16.1。1.16.1 沒有 `platforms/boards/nucleo_f767zi.repl`，
+  所以用 1.17.0 的 release 包自建 `embnet-renode:1.17.0-r1`。
 - cargo-fuzz 要 nightly，P2 才用，那時另建映像。probe-rs 要接 USB，P5 才用。
 
 crate 快取放在 docker volume `embnet-cargo`。
@@ -42,7 +42,7 @@ crate 快取放在 docker volume `embnet-cargo`。
 docker/                  Dockerfile 與基底 digest 紀錄
 tools/cargo.sh           在 embnet-rust 容器裡跑 cargo
 tools/p0-size.sh         體積量測
-tools/p0-vcan.sh         vcan 直連的處理時間
+tools/p0-vcan.sh         vcan 直連的處理時間（延後）
 tools/p0-renode.sh       Renode 檢查
 tools/p0-license.sh      相依授權清單
 probes/p0-size/          Rust 的最小程式：baseline、canadensis、emcyphal
@@ -108,7 +108,7 @@ EMBNET_P0_VCAN impl=canadensis env=host period_us=1000 samples=<N> p50_us=<N> p9
 ### 6.1 量法
 
 - 平台：`platforms/boards/nucleo_f767zi.repl`。它引用 `stm32f777.repl`，裡面有三個 bxCAN、乙太網路 MAC、DMA 與 DWT。
-- 程式：一個只做 CAN3 loopback 的最小韌體，送一框、收一框、比對內容。
+- 程式：一個只做 CAN3 loopback 的最小韌體（`probes/p0-renode`），送一框、收一框、比對內容。embassy 的計時器改用 TIM2，預設的 TIM12 不在平台描述裡。
 - 額外檢查兩件已知的限制，確認它們在實際執行時也成立（`003` K-31）：
   - 同時放三個 mailbox、ID 由大到小，看送出順序是否依 ID（模型原始碼顯示 TXFP 只存不用）。
   - 讀 DWT CYCCNT 的增量，對照設定的 72 MHz。
@@ -143,11 +143,11 @@ ST 的範例也提到用 bxCAN 時要把 ST-LINK 的 8 MHz 時脈接到 HSE（�
 
 ## 九、執行順序
 
-1. 確認 `vcan` 能在容器的 network namespace 建立（需要使用者先載入模組）。
+1. 確認 `vcan` 能在容器的 network namespace 建立（延後）。
 2. 建 `embnet-rust`、`embnet-py` 映像，記下 digest。這一步要網路。
 3. 抓三個 probe 的相依（`NET=bridge tools/cargo.sh ... fetch`），之後一律離線。
 4. 體積：baseline、emcyphal、canadensis、libcanard。
-5. `vcan` 處理時間。
+5. `vcan` 處理時間（延後）。
 6. Renode。
 7. 授權清單與 bridge 參考實作的筆記。
 8. 寫 `005-prior-art.md`，把 `001` 第六節的「沿用、改良或只參考」逐項填上結論。
