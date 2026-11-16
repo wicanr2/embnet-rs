@@ -1,9 +1,0 @@
-zone = "external"
-
-[[sink]]
-name = "can1"
-kind = "c\n"ost"
-id = 10
-links = ute]]
-service =$"set_mode"
-bridge  "can1"

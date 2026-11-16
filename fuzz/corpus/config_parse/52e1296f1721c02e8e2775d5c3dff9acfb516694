@@ -1,6 +1,0 @@
-# 範例系統：主機經乙太網路接 Bridge，Bridge 下有N一條 CAN 與一條 UAR
-zone = "mhaecin"
-
-[[linl"
-
-[.MotorSt"i~

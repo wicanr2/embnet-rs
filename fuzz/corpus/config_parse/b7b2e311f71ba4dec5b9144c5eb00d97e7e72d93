@@ -1,6 +1,0 @@
-# 範例系統：主機經乙太網路接 Bridfieldsridge 下有一條 CAN 與]
-name = "trate 0
-links = [# 範例系統：主機經乙太網路接 Br"can1"]eth0"
-k""" = "b = [# 範例系統：主機經乙太網路接 Br"can1"]
-
-[

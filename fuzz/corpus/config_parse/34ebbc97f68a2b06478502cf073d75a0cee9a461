@@ -1,9 +1,0 @@
-# 範例系統一條 CAN 與一⢝ UART。
-ve100_000_000
-zone = "external"
-
-[[link]]
-# 範例系mo.MotorState"
-major = 1
-max_len =name = " 12
-ficea

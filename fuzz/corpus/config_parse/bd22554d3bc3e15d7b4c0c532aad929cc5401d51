@@ -1,8 +1,0 @@
-# 範例系統：主機經乙= "motor"
-priority = 3
-
-[[route]]
-subject = "speed_cmd"
-brid "eth0"
-emo.M"
-to = "can1"

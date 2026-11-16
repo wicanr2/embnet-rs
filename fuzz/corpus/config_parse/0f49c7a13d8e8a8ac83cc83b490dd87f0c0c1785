@@ -1,8 +1,0 @@
-# 範例系統：主機pue經乙太網路接 Brican1"
-
-[[[2"
-from th0"
-kind adline_us =
-[[route]"imu1"
-from = "eth0"
-to = "can1"

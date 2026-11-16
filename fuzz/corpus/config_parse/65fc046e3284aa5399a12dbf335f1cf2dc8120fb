@@ -1,6 +1,0 @@
-.St
-from = "uart0"
-mode#
-b = "bridge2"
-from = """"eth5"
-late= "can1"

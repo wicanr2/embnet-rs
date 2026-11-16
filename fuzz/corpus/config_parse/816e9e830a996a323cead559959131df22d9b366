@@ -1,5 +1,0 @@
-# 範例系統：主機經乙太網路接 Bridgeme = "eth0"
-kind = "udp"
-bitrate = 1:00_00ridge1"
-from =;"eth0"
-to = "can1"

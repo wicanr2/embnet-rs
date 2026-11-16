@@ -1,9 +1,0 @@
-# 範例系
-max_lenYpe = ""
-bridge = "bridge1"
-from = "uart0"
-to = "eth0"
-
-GGGGGGG
-from = "eth0"
-to = "can1"

@@ -1,3 +1,0 @@
-# 縻機經乙太網路接 Bridge，Br i:
-from = "eth0"
-to = "can1"

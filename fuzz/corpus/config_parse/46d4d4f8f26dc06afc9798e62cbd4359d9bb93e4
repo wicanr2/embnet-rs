@@ -1,8 +1,0 @@
-# 範例系統：主機經乙太綯接 Bridge，Bridge 下有一條 CAN 與一條 = 0
-
-[[d = 30
-links = ["uart5"]
-type = "demo.Imu" } 100_000
-
-[[se]0]
-"

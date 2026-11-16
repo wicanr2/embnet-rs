@@ -1,8 +1,0 @@
-# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 耂
-versio = "eth1"
-kind =  "moto
-"ri# 範例系統：主ersi = "eth0"
-kknd = "udp"
-b "can"
-bitrate = 1o
-name .A=

@@ -1,7 +1,0 @@
-# 範例系統：主橉一條 CAN 與一條 UART。
-vame  05= "imu"
-id = 30
-links = ["uart
-[]
-0"[type]]
-intion ame

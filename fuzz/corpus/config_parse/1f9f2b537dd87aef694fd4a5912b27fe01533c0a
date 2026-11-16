@@ -1,9 +1,0 @@
-# 範例系統：主機經乙太網dge[[link]]
-name = "uart0int1edax right"
-
-[[type]]
-name = "`emo.Moe"
-major = 1
-malx_en = 12
-fie = "eth0"
-to = "can2"

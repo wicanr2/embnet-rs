@@ -1,9 +1,0 @@
-# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
-version = 1
-
-[[link]]
-name != "eth0"
-kind = "udp"
-bitrate = 100_000"
-kind# 範例系統：主機經乙太網路 = "can"
-bitr接 Brate =idge 

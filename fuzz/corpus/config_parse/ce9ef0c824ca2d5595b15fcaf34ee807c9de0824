@@ -1,5 +1,0 @@
-# 範例系統：主機經乙太網路接 Bridge，Bri# 範例系統：主機經乙太網路接dge條 UART。
-version = 1
-
-[[l1nk]]
-name = "e 

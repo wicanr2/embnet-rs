@@ -1,9 +1,0 @@
-# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
-versioame = "eth0"
-kind =toudp"b = 10
-links = ["et0"
-f2om = "can
-'1''"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''bjecy = "speed_cmd"
-bri`ge = "bridge1"nse_type = "demo.Ack"
-server = "motor"
-pri#or ity

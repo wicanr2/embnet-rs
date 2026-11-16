@@ -18,6 +18,7 @@ NET=bridge dr cargo fetch -q > "$RUN/fetch.log" 2>&1
 LLVM=$(dr sh -c 'ls -d /usr/local/rustup/toolchains/nightly-*/lib/rustlib/x86_64-unknown-linux-gnu/bin' | head -1)
 for t in "${TARGETS[@]}"; do
   mkdir -p "fuzz/corpus/$t"
+  [ -d "fuzz/seeds/$t" ] && cp -n fuzz/seeds/"$t"/* "fuzz/corpus/$t/" 2>/dev/null || true
   dr cargo fuzz run "$t" -- -max_total_time="$SECS" -rss_limit_mb=2048 > "$RUN/$t.run.log" 2>&1 && CRASH=0 || CRASH=1
   N=$(find "fuzz/corpus/$t" -type f | wc -l)
   dr cargo fuzz coverage "$t" > "$RUN/$t.cov.log" 2>&1 || true

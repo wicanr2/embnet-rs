@@ -1,8 +1,0 @@
-# 範例系統：主機經乙太網路接 CAN 與一條 UART。
-versio= 1_000_000
-zridge = te"nid = 21
-links = ["can1"]
-
-[[nod[]]]
-# ]
-sod0_0001ks '''"uaanrt0"1]"

@@ -1,8 +1,0 @@
-# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條  "d= "can1"
-
-[[route]]
-sbject = "motor_state"
-bridge = "bridge0"
-from = "can1"
-''''''''''''''''''/////////////
-bridge  "can1"

@@ -1,4 +1,0 @@
-# 範例系統：主機經乙太k]]
-name = "eth0"
-k05e = "demo.Imu" = 100_000
-ind fields = "demo.=Ack = "" "{

@@ -1,9 +1,0 @@
-# 範例系統：主 1
-links = ["e 與一條 UART。
-version =x_len = 12
-fields = "ih0"n1", "uart0"]
-bridge = tnt16 speed[2]; uint16 current[2]; uint32 flarue
-latency_us = 200
-
-[[node]]
-nemo.
