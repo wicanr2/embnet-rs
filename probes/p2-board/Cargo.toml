@@ -1,0 +1,23 @@
+# 實板初測（NUCLEO-F767ZI）：每步週期數、bxCAN 送出順序。結果寫進 RAM，由 probe-rs 讀出（tools/p2-board.sh）。
+[package]
+name = "p2-board"
+version = "0.0.0"
+edition = "2024"
+publish = false
+license = "MIT"
+
+[dependencies]
+cortex-m = { version = "0.7", features = ["critical-section-single-core", "inline-asm"] }
+cortex-m-rt = "0.7"
+embassy-stm32 = { version = "0.6.0", features = ["stm32f767zi", "single-bank", "time-driver-tim2", "memory-x", "exti", "unstable-pac"] }
+embassy-executor = { version = "0.9", features = ["arch-cortex-m", "executor-thread"] }
+embassy-time = "0.5"
+embedded-can = "0.4"
+embnet-core = { path = "../../crates/embnet-core" }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+debug = 2
+panic = "abort"
