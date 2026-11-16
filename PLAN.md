@@ -24,7 +24,7 @@
 | 5 | `docs/20-protocol/02-fragmentation.md` | 分片與重組：狀態機、緩衝、逾時、Bridge 跨 MTU 轉送 | 完成 |
 | 6 | `docs/20-protocol/03-crc-and-framing.md` | CRC 從多項式除法推起；HDLC 與 COBS 的 framing | 完成 |
 | 7 | `docs/20-protocol/04-bridge-queueing.md` | Bridge 的排隊與延遲上限：排隊理論、network calculus、優先序、丟棄策略 | 完成 |
-| 8 | `docs/30-safety-security/01-fault-model-e2e.md` | 通訊故障模型與 E2E 保護 | 未開始 |
+| 8 | `docs/30-safety-security/01-fault-model-e2e.md` | 通訊故障模型與 E2E 保護 | 完成 |
 | 9 | `docs/30-safety-security/02-mac-freshness.md` | MAC、FV 與重放；截短 MAC 的強度 | 未開始 |
 | 10 | `docs/30-safety-security/03-trust-zones.md` | Trust zone、Bridge 當防火牆、STRIDE | 未開始 |
 | 11 | `docs/40-rust-embedded/01-no-alloc.md` | `no_std` 與不配置記憶體：緩衝由誰持有 | 未開始 |
