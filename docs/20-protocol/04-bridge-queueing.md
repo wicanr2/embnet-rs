@@ -20,7 +20,7 @@ Bridge 是跨匯流排流量的交會點，它會不會成為瓶頸？這個問�
 
 <p align="center"><img src="../../img/queue-wait-curve.svg" width="900" alt="M/M/1 與 M/D/1 的平均等待時間隨使用率 ρ 變化：ρ = 0.5 時分別為 1 與 0.5 倍服務時間，ρ = 0.9 時為 9 與 4.5 倍"></p>
 
-單一佇列的平均等待時間由 Pollaczek–Khinchine 公式給出（Modiano，〈M/G/1 Queues〉第 3 到 6 張）：
+單一佇列的平均等待時間由 Pollaczek-Khinchine 公式給出（Modiano，〈M/G/1 Queues〉第 3 到 6 張）：
 
 W = λE[X²] / (2(1 − ρ))
 
@@ -59,7 +59,7 @@ network calculus 不假設流量是隨機的，只要求兩個界：
 
 ### 3.2 週期性的 Subject 天然就有到達曲線
 
-一個 Subject 每 P 秒發佈一筆，每筆在線上占 k 位元，發佈時刻的抖動不超過τ。它的到達曲線是 token bucket，
+一個 Subject 每 P 秒發佈一筆，每筆在線上占 k 位元，發佈時刻的抖動不超過 τ。它的到達曲線是 token bucket，
 r = k/P，b = k(τ/P + 1)（命題 1.2.2，第 9 頁）。多個 Subject 共用一個出口時，把 r 與 b 各自相加即可。
 
 所以只要設定檔裡寫了每個 Subject 的週期、大小與抖動，Bridge 每個出口的延遲上限與緩衝上限就能在建置期算出來。
