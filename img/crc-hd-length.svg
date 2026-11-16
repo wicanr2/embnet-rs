@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" width="1000" height="470" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="470" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">同一個 CRC，資料愈長，保證抓到的錯誤位元數（HD − 1）愈少</text>
+  <text x="30" y="52" font-size="12" fill="#777">橫軸：資料長度（位元，不含 CRC，對數刻度）。顏色：該長度範圍內的 Hamming distance。數字依 Koopman CRC Zoo。</text>
+
+  <!-- reference lines -->
+  <g stroke="#e07b00" stroke-width="1.5" stroke-dasharray="4 3">
+    <line x1="299.5" y1="72" x2="299.5" y2="340"/>
+    <line x1="368.9" y1="72" x2="368.9" y2="340"/>
+    <line x1="473.7" y1="72" x2="473.7" y2="340"/>
+  </g>
+  <g font-size="11" fill="#a65c00" text-anchor="middle">
+    <text x="299.5" y="68">CAN 8 B</text><text x="368.9" y="68">CAN FD 64 B</text><text x="473.7" y="68">UDP 1472 B</text>
+  </g>
+
+  <!-- labels -->
+  <g font-size="13" fill="#333" text-anchor="end">
+    <text x="220" y="99">CRC-8/AUTOSAR</text>
+    <text x="220" y="139">CRC-15/CAN</text>
+    <text x="220" y="179">CRC-16/CCITT</text>
+    <text x="220" y="219">CRC-32/AUTOSAR</text>
+    <text x="220" y="259">CRC-32C</text>
+    <text x="220" y="299">CRC-32（IEEE 802.3）</text>
+  </g>
+
+  <g font-size="11" text-anchor="middle">
+    <!-- CRC-8 -->
+    <rect x="230" y="82" width="90.2" height="24" fill="#a9c9ea"/><text x="275" y="98">HD 4</text>
+    <rect x="322.2" y="82" width="607.5" height="24" fill="#eeeeee"/><text x="626" y="98" fill="#777">HD 2</text>
+    <!-- CRC-15 CAN -->
+    <rect x="230" y="122" width="88.2" height="24" fill="#3b7dc4"/><text x="274" y="138" fill="#fff">HD 6</text>
+    <rect x="320.2" y="122" width="609.5" height="24" fill="#eeeeee"/><text x="626" y="138" fill="#777">HD 2</text>
+    <!-- CRC-16 CCITT -->
+    <rect x="230" y="162" width="277.8" height="24" fill="#a9c9ea"/><text x="369" y="178">HD 4</text>
+    <rect x="509.8" y="162" width="419.9" height="24" fill="#eeeeee"/><text x="720" y="178" fill="#777">HD 2</text>
+    <!-- CRC-32 AUTOSAR -->
+    <rect x="230" y="202" width="118" height="24" fill="#1f4f86"/><text x="289" y="218" fill="#fff">HD ≥ 7</text>
+    <rect x="350" y="202" width="157.8" height="24" fill="#3b7dc4"/><text x="429" y="218" fill="#fff">HD 6</text>
+    <rect x="509.8" y="202" width="21.2" height="24" fill="#a9c9ea"/>
+    <rect x="533" y="202" width="396.7" height="24" fill="#eeeeee"/><text x="731" y="218" fill="#777">HD 2</text>
+    <!-- CRC-32C -->
+    <rect x="230" y="242" width="103.4" height="24" fill="#1f4f86"/><text x="282" y="258" fill="#fff">HD ≥ 7</text>
+    <rect x="335.4" y="242" width="111.2" height="24" fill="#3b7dc4"/><text x="391" y="258" fill="#fff">HD 6</text>
+    <rect x="448.6" y="242" width="429.7" height="24" fill="#a9c9ea"/><text x="663" y="258">HD 4（到約 2.1 × 10⁹ 位元）</text>
+    <rect x="880.3" y="242" width="49.4" height="24" fill="#eeeeee"/>
+    <!-- CRC-32 IEEE -->
+    <rect x="230" y="282" width="102.3" height="24" fill="#1f4f86"/><text x="281" y="298" fill="#fff">HD ≥ 7</text>
+    <rect x="334.3" y="282" width="13" height="24" fill="#3b7dc4"/>
+    <rect x="349.3" y="282" width="78.4" height="24" fill="#78a8dc"/><text x="388" y="298" fill="#fff">HD 5</text>
+    <rect x="429.7" y="282" width="112.5" height="24" fill="#a9c9ea"/><text x="486" y="298">HD 4</text>
+    <rect x="544.2" y="282" width="357.3" height="24" fill="#d6e6f6"/><text x="723" y="298">HD 3</text>
+    <rect x="903.5" y="282" width="26.2" height="24" fill="#eeeeee"/>
+  </g>
+
+  <!-- axis -->
+  <line x1="230" y1="320" x2="930" y2="320" stroke="#999"/>
+  <g font-size="11" fill="#888" text-anchor="middle">
+    <text x="230" y="336">8</text><text x="314.4" y="336">100</text><text x="391.3" y="336">10³</text>
+    <text x="468.2" y="336">10⁴</text><text x="545.1" y="336">10⁵</text><text x="622.1" y="336">10⁶</text>
+    <text x="699" y="336">10⁷</text><text x="775.9" y="336">10⁸</text><text x="852.8" y="336">10⁹</text><text x="929.7" y="336">10¹⁰</text>
+  </g>
+
+  <!-- legend -->
+  <g font-size="12" fill="#333">
+    <rect x="230" y="352" width="16" height="14" fill="#eeeeee"/><text x="252" y="364">HD 2</text>
+    <rect x="300" y="352" width="16" height="14" fill="#d6e6f6"/><text x="322" y="364">HD 3</text>
+    <rect x="370" y="352" width="16" height="14" fill="#a9c9ea"/><text x="392" y="364">HD 4</text>
+    <rect x="440" y="352" width="16" height="14" fill="#78a8dc"/><text x="462" y="364">HD 5</text>
+    <rect x="510" y="352" width="16" height="14" fill="#3b7dc4"/><text x="532" y="364">HD 6</text>
+    <rect x="580" y="352" width="16" height="14" fill="#1f4f86"/><text x="602" y="364">HD ≥ 7</text>
+  </g>
+
+  <rect x="30" y="382" width="940" height="78" rx="8" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="404">HD = n 表示：任意 n − 1 個位元錯一定抓得到。HD 掉到 2 之後，連某些 2 位元錯都會漏掉。</text>
+    <text x="48" y="426">CRC-15/CAN 的 HD 6 只到 112 位元，剛好涵蓋 8 B 的資料框；但填充位元出錯會讓整框錯位，實際的保證只剩 HD 2（FAA 報告第 5.2 節）。</text>
+    <text x="48" y="448">CRC-16/CCITT 在任何長度都只有 HD 4：這個多項式只有 4 項，它自己就是一個能被自己整除的 4 位元錯誤樣式。</text>
+  </g>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="400" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">同一段資料的兩種 framing：HDLC 式跳脫與 COBS</text>
+  <text x="30" y="52" font-size="12" fill="#777">資料：41 7E 00 7D 42（為了比較，HDLC 式只跳脫 0x7E 與 0x7D；CRC 省略）</text>
+
+  <g font-family="'DejaVu Sans Mono','Menlo','Consolas',monospace" font-size="15" text-anchor="middle">
+    <!-- original -->
+    <text x="30" y="94" font-size="13" text-anchor="start" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif" fill="#333">原始資料</text>
+    <rect x="200" y="76" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="222" y="95">41</text>
+    <rect x="248" y="76" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="270" y="95">7E</text>
+    <rect x="296" y="76" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="318" y="95">00</text>
+    <rect x="344" y="76" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="366" y="95">7D</text>
+    <rect x="392" y="76" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="414" y="95">42</text>
+
+    <!-- HDLC -->
+    <text x="30" y="154" font-size="13" text-anchor="start" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif" fill="#333">HDLC 式</text>
+    <rect x="200" y="136" width="44" height="28" rx="3" fill="#fde7cc" stroke="#e07b00"/><text x="222" y="155">7E</text>
+    <rect x="248" y="136" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="270" y="155">41</text>
+    <rect x="296" y="136" width="44" height="28" rx="3" fill="#e3f0fb" stroke="#3b7dc4"/><text x="318" y="155">7D</text>
+    <rect x="344" y="136" width="44" height="28" rx="3" fill="#e3f0fb" stroke="#3b7dc4"/><text x="366" y="155">5E</text>
+    <rect x="392" y="136" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="414" y="155">00</text>
+    <rect x="440" y="136" width="44" height="28" rx="3" fill="#e3f0fb" stroke="#3b7dc4"/><text x="462" y="155">7D</text>
+    <rect x="488" y="136" width="44" height="28" rx="3" fill="#e3f0fb" stroke="#3b7dc4"/><text x="510" y="155">5D</text>
+    <rect x="536" y="136" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="558" y="155">42</text>
+    <rect x="584" y="136" width="44" height="28" rx="3" fill="#fde7cc" stroke="#e07b00"/><text x="606" y="155">7E</text>
+
+    <!-- COBS -->
+    <text x="30" y="214" font-size="13" text-anchor="start" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif" fill="#333">COBS</text>
+    <rect x="200" y="196" width="44" height="28" rx="3" fill="#e3f0fb" stroke="#3b7dc4"/><text x="222" y="215">03</text>
+    <rect x="248" y="196" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="270" y="215">41</text>
+    <rect x="296" y="196" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="318" y="215">7E</text>
+    <rect x="344" y="196" width="44" height="28" rx="3" fill="#e3f0fb" stroke="#3b7dc4"/><text x="366" y="215">03</text>
+    <rect x="392" y="196" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="414" y="215">7D</text>
+    <rect x="440" y="196" width="44" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="462" y="215">42</text>
+    <rect x="488" y="196" width="44" height="28" rx="3" fill="#fde7cc" stroke="#e07b00"/><text x="510" y="215">00</text>
+  </g>
+
+  <g font-size="12" fill="#555">
+    <text x="650" y="148">7E 是框界，資料裡的 7E 與 7D</text>
+    <text x="650" y="166">改成 7D 加上原值 XOR 0x20</text>
+    <text x="560" y="208">00 是框界；03 表示「往後 2 B，</text>
+    <text x="560" y="226">接著原本是一個 00」</text>
+  </g>
+
+  <!-- legend -->
+  <g font-size="12" fill="#333">
+    <rect x="200" y="246" width="16" height="14" fill="#fde7cc" stroke="#e07b00"/><text x="222" y="258">框界</text>
+    <rect x="280" y="246" width="16" height="14" fill="#e3f0fb" stroke="#3b7dc4"/><text x="302" y="258">編碼加入或改寫的 byte</text>
+  </g>
+
+  <rect x="30" y="278" width="940" height="112" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="302">• 開銷：HDLC 式取決於資料內容，全是 0x7E 時長度變兩倍；COBS 固定，每 254 B 最多多 1 B（Cheshire &amp; Baker 1999）。</text>
+    <text x="48" y="326">• 重新同步：兩者都在下一個框界恢復。COBS 論文保證錯誤之後能立刻對上下一個框，中途加入的接收端也能從下一個框開始解。</text>
+    <text x="48" y="350">• 錯誤的樣子：HDLC 式中一個錯誤變成 7D，會讓下一個 byte 被錯誤還原；COBS 中 code byte 錯了，隱含 00 的位置會跑掉。</text>
+    <text x="48" y="374">  兩者都要靠框內的 CRC 擋下；解碼器遇到指標超出框尾，要當成格式錯誤，不能越界讀取。</text>
+  </g>
+</svg>

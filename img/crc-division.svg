@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" width="1000" height="440" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="440" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">CRC 就是除法取餘數：訊息 1101011011，生成多項式 G = 10011（x⁴ + x + 1）</text>
+
+  <g font-family="'DejaVu Sans Mono','Menlo','Consolas',monospace" font-size="17">
+    <text x="60" y="80" font-size="13" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif" fill="#555">訊息後面補 4 個 0（G 的次數）再除：</text>
+    <text x="60" y="110" xml:space="preserve" fill="#222">1101011011<tspan fill="#999">0000</tspan></text>
+    <text x="60" y="136" xml:space="preserve" fill="#3b7dc4">10011</text>
+    <line x1="60" y1="142" x2="200" y2="142" stroke="#bbb"/>
+    <text x="60" y="164" xml:space="preserve" fill="#222">01001110110000</text>
+    <text x="60" y="190" xml:space="preserve" fill="#3b7dc4"> 10011</text>
+    <line x1="60" y1="196" x2="200" y2="196" stroke="#bbb"/>
+    <text x="60" y="218" xml:space="preserve" fill="#222">00000010110000</text>
+    <text x="60" y="244" xml:space="preserve" fill="#3b7dc4">      10011</text>
+    <line x1="60" y1="250" x2="200" y2="250" stroke="#bbb"/>
+    <text x="60" y="272" xml:space="preserve" fill="#222">00000000101000</text>
+    <text x="60" y="298" xml:space="preserve" fill="#3b7dc4">        10011</text>
+    <line x1="60" y1="304" x2="200" y2="304" stroke="#bbb"/>
+    <text x="60" y="326" xml:space="preserve" fill="#222">0000000000<tspan fill="#e07b00" font-weight="bold">1110</tspan></text>
+  </g>
+  <text x="60" y="356" font-size="13" fill="#333">最左邊的位元是 1 就 XOR 一次 G（GF(2) 的減法就是 XOR，沒有借位），直到剩下 4 位元：餘數 <tspan fill="#e07b00" font-weight="bold">1110</tspan>。</text>
+
+  <!-- right panel -->
+  <rect x="470" y="60" width="500" height="270" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="13" fill="#333">
+    <text x="490" y="88" font-weight="bold" font-size="14">傳送與檢查</text>
+    <text x="490" y="114">送出：1101011011 <tspan fill="#e07b00" font-weight="bold">1110</tspan>（訊息加餘數）</text>
+    <text x="490" y="138">這串位元剛好能被 G 整除。接收端整段除以 G，</text>
+    <text x="490" y="160">餘數為 0 就當作沒錯。</text>
+    <text x="490" y="196" font-weight="bold" font-size="14">什麼時候會漏抓</text>
+    <text x="490" y="222">把傳輸中翻轉的位元記成錯誤多項式 E(x)。</text>
+    <text x="490" y="246">收到的是「原本能整除的部分 + E(x)」，</text>
+    <text x="490" y="268">所以漏抓的條件只有一個：<tspan font-weight="bold">G(x) 整除 E(x)</tspan>。</text>
+    <text x="490" y="300">選 G 就是在挑：哪些樣式的 E(x) 一定不會被 G 整除。</text>
+  </g>
+
+  <rect x="30" y="374" width="940" height="56" rx="8" fill="#ffffff" stroke="#ddd"/>
+  <text x="48" y="396" font-size="12" fill="#555">依 Williams《A Painless Guide to CRC Error Detection Algorithms》第 4 到 7 節與 Koopman &amp; Chakravarty 2004 第 2 節。</text>
+  <text x="48" y="418" font-size="12" fill="#555">實際的 CRC 還有初值、位元反射與最後的 XOR 等參數，但抓錯能力只由 G 與資料長度決定。</text>
+</svg>
