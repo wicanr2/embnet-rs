@@ -1,0 +1,93 @@
+{
+ "spec": "01-can-transport.md §5-6",
+ "note": "所有框屬於同一個 session，時間差都遠小於 Transfer-ID 逾時；extent 足夠",
+ "cases": [
+  {
+   "name": "多框正常",
+   "frames": [
+    "030a11181f262da5",
+    "343b42495057f005",
+    "ee65"
+   ],
+   "delivered": [
+    "030a11181f262d343b42495057"
+   ]
+  },
+  {
+   "name": "單框正常",
+   "frames": [
+    "0102e0"
+   ],
+   "delivered": [
+    "0102"
+   ]
+  },
+  {
+   "name": "CRC 錯",
+   "frames": [
+    "030a11181f262da5",
+    "343b42495057f005",
+    "ef65"
+   ],
+   "delivered": []
+  },
+  {
+   "name": "沒有 SOT 的中間框",
+   "frames": [
+    "343b42495057f005",
+    "ee65"
+   ],
+   "delivered": []
+  },
+  {
+   "name": "重複的中間框被丟棄，之後仍完成",
+   "frames": [
+    "030a11181f262da5",
+    "343b42495057f005",
+    "343b42495057f005",
+    "ee65"
+   ],
+   "delivered": [
+    "030a11181f262d343b42495057"
+   ]
+  },
+  {
+   "name": "中途出現新 Transfer-ID 的 SOT，取代舊的",
+   "frames": [
+    "030a11181f262da5",
+    "030a11181f262da6",
+    "343bc71c46"
+   ],
+   "delivered": [
+    "030a11181f262d343b"
+   ]
+  },
+  {
+   "name": "SOT 框的 toggle 為 0",
+   "frames": [
+    "030a11181f262d85",
+    "343b42495057f005",
+    "ee65"
+   ],
+   "delivered": []
+  },
+  {
+   "name": "重複的單框（逾時內）",
+   "frames": [
+    "aae3",
+    "aae3"
+   ],
+   "delivered": [
+    "aa"
+   ]
+  },
+  {
+   "name": "空框",
+   "frames": [
+    ""
+   ],
+   "delivered": []
+  }
+ ],
+ "generator": "tools/vectors/gen.py"
+}

@@ -1,0 +1,55 @@
+{
+ "spec": "03-node-services.md §2",
+ "subject_id": 8190,
+ "cases": [
+  {
+   "uptime": 0,
+   "health": 0,
+   "mode": 1,
+   "fault_log_unread": false,
+   "auth_disabled": false,
+   "can_state": 0,
+   "vendor": 0,
+   "payload": "00000000040000",
+   "frame_classic": "00000000040000e0",
+   "can_id_from_node_42": "100FFF2A"
+  },
+  {
+   "uptime": 3600,
+   "health": 0,
+   "mode": 0,
+   "fault_log_unread": false,
+   "auth_disabled": false,
+   "can_state": 0,
+   "vendor": 0,
+   "payload": "100e0000000000",
+   "frame_classic": "100e0000000000e0",
+   "can_id_from_node_42": "100FFF2A"
+  },
+  {
+   "uptime": 4294967295,
+   "health": 3,
+   "mode": 3,
+   "fault_log_unread": true,
+   "auth_disabled": true,
+   "can_state": 3,
+   "vendor": 255,
+   "payload": "ffffffff6f03ff",
+   "frame_classic": "ffffffff6f03ffe0",
+   "can_id_from_node_42": "100FFF2A"
+  },
+  {
+   "uptime": 12345,
+   "health": 1,
+   "mode": 2,
+   "fault_log_unread": true,
+   "auth_disabled": false,
+   "can_state": 1,
+   "vendor": 90,
+   "payload": "3930000029015a",
+   "frame_classic": "3930000029015ae0",
+   "can_id_from_node_42": "100FFF2A"
+  }
+ ],
+ "generator": "tools/vectors/gen.py"
+}

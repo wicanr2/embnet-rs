@@ -7,7 +7,7 @@
 涵蓋 CAN/CAN FD、UART/RS-485、Ethernet/UDP，也補上 Cyphal 沒有定義的 SPI、I²C 與 Modbus。
 核心同時跑在 Linux（`std`）與 MCU（`no_std`、不配置記憶體）上。線格式自訂，不與 Cyphal 相容。
 
-**現況：知識庫完成，P0 大部分完成，接著寫 P1 規格。** 進度見 `PLAN.md`。
+**現況：規格 0.1 版與 `embnet-core` 的線格式已完成並通過 test vector，接著做 P2。** 進度見 `PLAN.md`，規格見 [docs/spec](docs/spec/README.md)。
 
 ## 從哪裡開始讀
 

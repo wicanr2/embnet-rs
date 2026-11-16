@@ -1,0 +1,21 @@
+[workspace]
+resolver = "3"
+members = ["crates/embnet-core"]
+exclude = ["probes"]
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/wicanr2/embnet-rs"
+rust-version = "1.100"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+indexing_slicing = "deny"
+arithmetic_side_effects = "deny"

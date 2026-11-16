@@ -1,0 +1,77 @@
+{
+ "spec": "01-can-transport.md §1",
+ "cases": [
+  {
+   "kind": "subject",
+   "priority": 0,
+   "subject_id": 0,
+   "source": 0,
+   "can_id": "00000000"
+  },
+  {
+   "kind": "subject",
+   "priority": 4,
+   "subject_id": 8190,
+   "source": 42,
+   "can_id": "100FFF2A"
+  },
+  {
+   "kind": "subject",
+   "priority": 7,
+   "subject_id": 8191,
+   "source": 127,
+   "can_id": "1C0FFFFF"
+  },
+  {
+   "kind": "subject",
+   "priority": 3,
+   "subject_id": 1234,
+   "source": 5,
+   "can_id": "0C026905"
+  },
+  {
+   "kind": "subject",
+   "priority": 4,
+   "subject_id": 7509,
+   "source": 1,
+   "can_id": "100EAA81"
+  },
+  {
+   "kind": "service",
+   "priority": 4,
+   "request": true,
+   "service_id": 510,
+   "destination": 3,
+   "source": 42,
+   "can_id": "137F81AA"
+  },
+  {
+   "kind": "service",
+   "priority": 4,
+   "request": false,
+   "service_id": 510,
+   "destination": 42,
+   "source": 3,
+   "can_id": "127F9503"
+  },
+  {
+   "kind": "service",
+   "priority": 0,
+   "request": true,
+   "service_id": 0,
+   "destination": 0,
+   "source": 0,
+   "can_id": "03000000"
+  },
+  {
+   "kind": "service",
+   "priority": 7,
+   "request": false,
+   "service_id": 511,
+   "destination": 127,
+   "source": 127,
+   "can_id": "1E7FFFFF"
+  }
+ ],
+ "generator": "tools/vectors/gen.py"
+}

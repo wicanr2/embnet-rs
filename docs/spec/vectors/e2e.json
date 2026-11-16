@@ -1,0 +1,232 @@
+{
+ "spec": "02-e2e.md §1-4",
+ "status_codes": {
+  "OK": 0,
+  "OKSOMELOST": 1,
+  "REPEATED": 2,
+  "WRONGSEQUENCE": 3,
+  "ERROR": 4,
+  "NOSYNC": 5
+ },
+ "encode": [
+  {
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 0,
+   "data": "",
+   "wire": "00a10ee1c5"
+  },
+  {
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 1,
+   "data": "1020",
+   "wire": "01102049308fd5"
+  },
+  {
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 255,
+   "data": "01",
+   "wire": "ff01faa049e1"
+  },
+  {
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 256,
+   "data": "01",
+   "wire": "0001e7a77ba4"
+  },
+  {
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 4294967295,
+   "data": "deadbeef",
+   "wire": "ffdeadbeef6da8233d"
+  },
+  {
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 70000,
+   "data": "030a11181f262d343b424950575e656c737a8188",
+   "wire": "70030a11181f262d343b424950575e656c737a8188b3a7eb0e"
+  }
+ ],
+ "receive": [
+  {
+   "name": "下一筆",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 99,
+   "wire": "645566e113090a",
+   "max_delta": 3,
+   "status": 0,
+   "new_last": 100
+  },
+  {
+   "name": "漏 1 筆，d = 2",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 99,
+   "wire": "655566c8e83f15",
+   "max_delta": 3,
+   "status": 1,
+   "new_last": 101
+  },
+  {
+   "name": "漏 2 筆，d = 3 等於 max_delta",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 99,
+   "wire": "665566b2e56534",
+   "max_delta": 3,
+   "status": 1,
+   "new_last": 102
+  },
+  {
+   "name": "漏 3 筆，d = 4 超過 max_delta",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 99,
+   "wire": "6755669b1e532b",
+   "max_delta": 3,
+   "status": 3,
+   "new_last": 103
+  },
+  {
+   "name": "重複",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 100,
+   "wire": "645566e113090a",
+   "max_delta": 3,
+   "status": 2,
+   "new_last": 100
+  },
+  {
+   "name": "跨 256 邊界",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 255,
+   "wire": "005566cc045ce1",
+   "max_delta": 3,
+   "status": 0,
+   "new_last": 256
+  },
+  {
+   "name": "跨 2^32 邊界",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 4294967295,
+   "wire": "005566a9db1310",
+   "max_delta": 3,
+   "status": 0,
+   "new_last": 0
+  },
+  {
+   "name": "漏收 300 筆，高位重建錯誤",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 100,
+   "wire": "9055661b451127",
+   "max_delta": 3,
+   "status": 4,
+   "new_last": 100
+  },
+  {
+   "name": "未同步",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": false,
+   "last": 0,
+   "wire": "05556627ccfd73",
+   "max_delta": 3,
+   "status": 5,
+   "new_last": 0
+  },
+  {
+   "name": "Data ID 不符：別的 Subject",
+   "subject_id": 1235,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 99,
+   "wire": "645566e113090a",
+   "max_delta": 3,
+   "status": 4,
+   "new_last": 99
+  },
+  {
+   "name": "Data ID 不符：別的來源",
+   "subject_id": 1234,
+   "source": 43,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 99,
+   "wire": "645566e113090a",
+   "max_delta": 3,
+   "status": 4,
+   "new_last": 99
+  },
+  {
+   "name": "Type hash 不符",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEE",
+   "synced": true,
+   "last": 99,
+   "wire": "645566e113090a",
+   "max_delta": 3,
+   "status": 4,
+   "new_last": 99
+  },
+  {
+   "name": "資料毀損",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 99,
+   "wire": "64d566e113090a",
+   "max_delta": 3,
+   "status": 4,
+   "new_last": 99
+  },
+  {
+   "name": "太短",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "synced": true,
+   "last": 99,
+   "wire": "64000000",
+   "max_delta": 3,
+   "status": 4,
+   "new_last": 99
+  }
+ ],
+ "generator": "tools/vectors/gen.py"
+}

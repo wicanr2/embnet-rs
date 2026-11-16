@@ -40,4 +40,5 @@
 | 里程碑 | 執行細節 | 狀態 |
 |---|---|---|
 | P0 既有實作對照 | `docs/plans/004-p0-execution.md`，結果在 `005-prior-art.md` | 完成，`vcan` 直連的處理時間延後 |
-| P1 規格 | `docs/spec/` | 進行中 |
+| P1 規格 | `docs/spec/` | 0.1 版完成：CAN 傳輸、E2E-32、Heartbeat 與 Service；58 個 test vector。UART、UDP、MAC、設定檔格式待續 |
+| P2 單一匯流排 | `crates/embnet-core` | 進行中：線格式、分框、重組、E2E 已通過全部 test vector |

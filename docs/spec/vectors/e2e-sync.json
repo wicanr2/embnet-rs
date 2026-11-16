@@ -1,0 +1,40 @@
+{
+ "spec": "02-e2e.md §5",
+ "subject_id": 8189,
+ "cases": [
+  {
+   "source": 42,
+   "entries": [],
+   "payload": "00c3dc4970"
+  },
+  {
+   "source": 42,
+   "entries": [
+    {
+     "subject_id": 1234,
+     "next_seq": 0
+    }
+   ],
+   "payload": "01d2040000000055b94cdc"
+  },
+  {
+   "source": 7,
+   "entries": [
+    {
+     "subject_id": 1,
+     "next_seq": 1
+    },
+    {
+     "subject_id": 2,
+     "next_seq": 4294967295
+    },
+    {
+     "subject_id": 7999,
+     "next_seq": 70000
+    }
+   ],
+   "payload": "030100010000000200ffffffff3f1f70110100cf5654c6"
+  }
+ ],
+ "generator": "tools/vectors/gen.py"
+}
