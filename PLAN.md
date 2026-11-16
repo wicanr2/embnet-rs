@@ -27,7 +27,7 @@
 | 8 | `docs/30-safety-security/01-fault-model-e2e.md` | 通訊故障模型與 E2E 保護 | 完成 |
 | 9 | `docs/30-safety-security/02-mac-freshness.md` | MAC、FV 與重放；截短 MAC 的強度 | 完成 |
 | 10 | `docs/30-safety-security/03-trust-zones.md` | Trust zone、Bridge 當防火牆、STRIDE | 完成 |
-| 11 | `docs/40-rust-embedded/01-no-alloc.md` | `no_std` 與不配置記憶體：緩衝由誰持有 | 未開始 |
+| 11 | `docs/40-rust-embedded/01-no-alloc.md` | `no_std` 與不配置記憶體：緩衝由誰持有 | 完成 |
 | 12 | `docs/40-rust-embedded/02-sans-io.md` | sans-IO：把協定和 I/O、時鐘分開 | 未開始 |
 | 13 | `docs/40-rust-embedded/03-testing.md` | fuzz、性質測試與 Miri | 未開始 |
 | 14 | `docs/40-rust-embedded/04-latency-measurement.md` | 延遲分布怎麼量：p99、DWT 週期計數器、時戳 | 未開始 |

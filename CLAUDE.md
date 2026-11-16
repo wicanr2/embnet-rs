@@ -36,8 +36,8 @@ SPI、I²C、Modbus。核心同時編成 `std`（Linux）與 `no_std`（MCU，�
 - **[HARD] 這是 public repo。** 不帶入任何客戶、車型、場域或主機名稱。不提交金鑰、憑證或 token；
   測試用金鑰放在 `tests/`，檔名標 `test-only`。
 - **[HARD] `git config user.email` 是 `wicanr2@gmail.com`（repo-local）。** commit message 用繁體中文。
-- **[HARD] 核心 crate `#![forbid(unsafe_code)]`，解析路徑不得 panic。** 需要 `unsafe` 的驅動只放在 Link crate，
-  每處都寫明不變式。
+- **[HARD] 核心 crate `#![forbid(unsafe_code)]`，解析路徑不得 panic。** 需要 `unsafe` 的驅動、DMA 與 `#[link_section]`
+  只放在 Link crate 或韌體 crate，每處都寫明不變式。不使用 `static mut`（見 `docs/40-rust-embedded/01`）。
 - **[HARD] 新增 Link、Subject 或線格式欄位時，對照 `docs/plans/002` 的故障表與威脅表。**
 
 ## 四、非目標

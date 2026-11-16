@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" width="1000" height="440" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="440" fill="#ffffff"/>
+  <defs>
+    <marker id="bo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">緩衝由誰持有：記憶體在最外層一次配好，核心只借用</text>
+
+  <!-- app crate -->
+  <rect x="30" y="56" width="940" height="96" rx="12" fill="#fff3e0" stroke="#e07b00" stroke-width="2"/>
+  <text x="50" y="82" font-size="14" font-weight="bold" fill="#a65c00">韌體應用 crate（可以有少量 unsafe）</text>
+  <g font-size="12" fill="#333">
+    <text x="50" y="106">• 所有緩衝在這裡靜態配置：佇列、重組 slot、Mailbox、DMA 緩衝。容量由 embnet-config 產生的常數決定。</text>
+    <text x="50" y="128">• 用 StaticCell 或 ConstStaticCell 在開機時取得 &amp;'static mut，不用 static mut（Rust 2024 預設禁止取它的參考）。</text>
+  </g>
+
+  <!-- core -->
+  <rect x="30" y="196" width="460" height="130" rx="12" fill="#e3f0fb" stroke="#3b7dc4" stroke-width="2"/>
+  <text x="50" y="222" font-size="14" font-weight="bold" fill="#2a5d94">embnet-core、embnet-bridge</text>
+  <g font-size="12" fill="#333">
+    <text x="50" y="246">• #![no_std]、不配置記憶體、#![forbid(unsafe_code)]</text>
+    <text x="50" y="268">• 函式只接收 &amp;mut [u8] 或 heapless 的固定容量集合</text>
+    <text x="50" y="290">• 滿了回傳 Err，不 panic；解析用 get、split_first_chunk</text>
+    <text x="50" y="312">• 不知道緩衝放在哪一段 RAM，也不需要知道</text>
+  </g>
+
+  <!-- link crate -->
+  <rect x="510" y="196" width="460" height="130" rx="12" fill="#ede7f6" stroke="#7b5ea7" stroke-width="2"/>
+  <text x="530" y="222" font-size="14" font-weight="bold" fill="#5b3f8a">embnet-link-*（驅動）</text>
+  <g font-size="12" fill="#333">
+    <text x="530" y="246">• 這裡才有 unsafe：暫存器、DMA、#[link_section]</text>
+    <text x="530" y="268">• DMA 緩衝必須是 'static：傳輸進行中，</text>
+    <text x="530" y="286">  呼叫者可能已經 mem::forget 掉控制物件（Embedonomicon）</text>
+    <text x="530" y="308">• 每個 unsafe 區塊寫明不變式</text>
+  </g>
+
+  <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#bo)">
+    <path d="M260,152 V192"/><path d="M740,152 V192"/>
+  </g>
+  <g font-size="11" fill="#555">
+    <text x="268" y="178">借出 &amp;mut [u8]</text>
+    <text x="748" y="178">交出 &amp;'static mut 緩衝</text>
+  </g>
+
+  <rect x="30" y="344" width="940" height="86" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="368">• 同一個設計在 smoltcp 與 embedded-hal 1.0 都看得到：socket 的儲存空間由使用者提供；SPI、I²C 的 read、write 都傳入呼叫者的切片。</text>
+    <text x="48" y="390">• 靜態記憶體在建置期就確定，用量可以用 cargo size 讀出（.data 加 .bss）；堆疊另外分析（下一張圖）。</text>
+    <text x="48" y="412">• forbid(unsafe_code) 只約束自己的 crate；heapless、zerocopy 等相依內部仍有 unsafe，要靠它們的審查與測試。</text>
+  </g>
+</svg>
