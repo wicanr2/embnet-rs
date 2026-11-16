@@ -242,11 +242,12 @@ P1 定案前，這一節都是草案。
 | `protected` Subject | 第一階段就有，暫不訂 SIL 目標 | E2E 保護在 P1 定義；限制資料年齡的方式在 P1 決定（`003` K-03） |
 | UART framing | COBS，用 `cobs` crate（MIT 或 Apache-2.0） | `embnet-link-uart` 的最壞長度可以直接算進預算 |
 | Linux 閘道的核心 | 用 PREEMPT_RT（Linux 6.12 起併入主線） | P3 的主機量測在 PREEMPT_RT 核心上做，先跑 `cyclictest` 當底線（`docs/40-rust-embedded/04` 第 5.1 節） |
+| Legacy device 的範圍 | 第一階段只做 Modbus RTU。既有的 CAN 設備不與 embnet 的 Node 共用匯流排，接在 Bridge 另一條 CAN 上，由 Adapter 依 DBC 對應成 Subject；排在 P4 之後，有需要再做 | 29 位元 ID 的設備（例如 J1939）會與 embnet 的 CAN ID 撞號；11 位元的標準框會在仲裁時贏過同前綴的延伸框，讓延遲上限的計算失準（`003` K-36） |
+| 對外 Link 的認證 | 分兩段：P3 前跨 Trust zone 的 `protected` Subject 用 `mac64` 與預先配置的金鑰；P6 在 UDP Link 加 Noise 會話（KK 模式、X25519、ChaCha20-Poly1305），候選 crate 為 `clatter`（MIT、`no_std`） | DTLS 的 Rust 實作依賴 std；OSCORE 綁定 CoAP。Noise 的細節待查證（`003` K-37） |
 
 待決定：
 
 | 問題 | 為什麼要先決定 |
 |---|---|
 | Node-ID 空間 | 草案是全系統 7 位元共用。超過 128 個 Node 就要改 CAN ID 配置 |
-| Legacy device 的範圍 | 只做 Modbus RTU，或也包含既有的 CAN 設備（例如以 DBC 描述的） |
 | 量測設備 | 每條 CAN 要外接收發器；真實 Wire time 與線到線延遲要邏輯分析儀 |
