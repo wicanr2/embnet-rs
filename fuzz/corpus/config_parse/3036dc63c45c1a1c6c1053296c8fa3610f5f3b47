@@ -1,0 +1,25 @@
+# 範例系統：主機經乙太th0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge0"
+from = "can1"
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''to = "eth0"
+
+[[route]]
+subject = "imu"
+brmdge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[frh0"
+
+[[route]]
+service = "set_mode"
+bridge = om = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBridge  "can1"

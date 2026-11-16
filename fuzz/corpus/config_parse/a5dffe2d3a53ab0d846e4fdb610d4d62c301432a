@@ -1,0 +1,9 @@
+# 範例系統：主機經乙太網路接 Bridg)，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+namelen = 4
+fields = [[le1"
+from = "eth
+subject = "-otor_state"
+bridge}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}atu

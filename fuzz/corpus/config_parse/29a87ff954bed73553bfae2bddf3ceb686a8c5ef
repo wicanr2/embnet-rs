@@ -1,0 +1,19 @@
+# 範例系統：主機ge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kine = "can1"
+
+drop = "newest"
+tid_tilass = "normal"
+=======經乙太網路接 Bridge，KKKBridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+na0"
+kine = "can1"
+
+drop = "newest"
+tid_tilass = "normal"
+==============================================================================================================================

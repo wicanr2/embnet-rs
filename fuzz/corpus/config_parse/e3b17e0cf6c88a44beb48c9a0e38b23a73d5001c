@@ -1,0 +1,8 @@
+# 範例系統：主機經乙太網100_00000
+zone = "exter1
+max_len ='1
+fields = "uint8 status"
+
+[[su= 100_"
+tbridge [[route]]
+service = "set_"

@@ -1,0 +1,17 @@
+# 範例系統：主機經乙太網路接 >>>>>Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+ 4
+fields = "int16*********************************************************************************************
+ left; int16 r#ight"
+
+[[type]]
+name = "demo.MotorState"
+major = 1
+max_len = 12
+fields =1
+fieled"
+priority = 1
+publisher = "h_us = 1_000
+class = "protected"
+prot# 範例系

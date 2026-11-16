@@ -1,0 +1,12 @@
+# 範例系統：主機經乙太網路接 Bridge = 2
+
+[[link]]
+name 1
+max_len = 12
+fields =adline_u{ = 50_000
+drop = "newest" = "motor_state"
+bridge [[route]]
+service = "set_mode"
+bridge = "bridge2"
+from = "eth0"
+tersion = "

@@ -1,0 +1,10 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條"eth0"]
+
+[[node]]
+name = "breth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge2"
+from = "eth0"
+to = "can1"

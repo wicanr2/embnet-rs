@@ -1,0 +1,117 @@
+# 範例系統：主機經乙太網 "host"
+id = 10
+links = ["eth0"]
+
+[[node]]]
+name =路接 Bridge，Bridge 下有一條 CAN 與一條 UAT。
+1"
+from = "can1"
+to = "eth0"
+
+[[rversion = 1
+
+[[li Bridge，Bridge 下有一條 CAN 與一條 UAT。
+1"
+from = "can1"
+to = "eth0"
+
+[[rversion = 1
+
+[[lin.k]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone =ridge 下有一條 CAN 與一條 UAT。
+1"
+from = "can1"
+to = "eth0"
+
+[[rversion = 1
+
+[[li Bridge，Bridge 下有0_000_000
+zone =ridge 下有一條 CAN 與一條 U一條 CAN 與一條 UAT。
+1"
+from = "can1"
+to = "eth0"
+
+[[rversion = 1
+
+[[lin.k]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+fielzone =an1"
+to = "eth0"
+
+[[rversion = 1
+
+[[lin.k]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone =ridge 下有一條 CAN 與一條 UAT。
+1"
+from = "can1"
+to = "eth0"
+
+[[rversion = 1
+
+[[li Bridge，Bridge 下有一條 CAN 與一條 UAT。
+1"
+from =  Bridge，Bridge 下有一條 CAN"
+
+[[rversion = 1
+
+[[lin.k]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone =ridge 下有一條 CAN 與一條 UAT。
+1"
+from = "can1"
+to1"
+to = "eth0"
+
+[[rversion = 1
+
+[[lin.k]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone =ridge 下有一條 CAN 與一條 UAT。
+1"
+from = "can1"
+to = "eth0"
+
+[[rversion = 1
+
+[[li Bridge，Bridge 下有一條 CAN 與一條 UAT。
+1"
+from =  Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+b,trate = 1_000_000
+zone 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+b,trate = 1_000_000
+zone = "mind = "udp"
+bitrate 0
+links = [ޜ000_000"achinemac"
+
+[[linkhi'n]]
+# 範例系統e

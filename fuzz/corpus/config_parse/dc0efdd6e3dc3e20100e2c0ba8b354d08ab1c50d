@@ -1,0 +1,8 @@
+itrate = 1_000_000
+zon2e = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+
+to = "can1"

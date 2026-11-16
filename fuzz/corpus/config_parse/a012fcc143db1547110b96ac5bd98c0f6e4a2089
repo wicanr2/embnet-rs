@@ -1,0 +1,75 @@
+atency_us = 200
+
+[[node]]
+nemous = 10_000
+jitter_us = ]1_00GGGGGGGGGGGGGGGGG0
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links
+id = 2 ["eth0"0
+
+[[node]]
+nemo.S 200
+
+[[nod-e]]
+name = "motor"
+it0st"
+per00
+jitter_us = ]1_00GGGGGGGGGGGGGGGGG0
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links
+id = 2 ["eth0"0
+
+[[node]]
+nemo.S 200
+
+[[nod-e]]
+name = "motor"
+it0st"
+period_ueriod_us = 10_000
+jitter_us = ]1_0peed"
+priority = 2
+publisher = "htor"lisher = "host"
+period_us = 10_000
+jitter_us =node]]
+nemous = 10_000
+jitter_us = ]1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG0
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links
+tor"lisher = "host"
+period_us = 10_000
+jitter_us = ]1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGiod_ueriod_us = 10_000
+jitter_us = ]1_0peed"
+priority = 2
+publisher = "htor"lisher = "host"
+period_us = 10_000
+jitter_us =node]]
+nemous = 10_000
+jitter_us = ]1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG0
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links
+tor"lisher = "host"
+period_us = 10_000
+jitter_us = ]1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG0
+me = "imu"
+id = 30
+links = ["'

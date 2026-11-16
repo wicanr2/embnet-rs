@@ -1,0 +1,14 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條"eth0"
+kind =t0"]
+bridge = true
+latency_us = 100
+
+'例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條"eth0"
+k true
+latency_us = 100
+
+''_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"
+'_man1"

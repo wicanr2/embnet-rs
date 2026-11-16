@@ -1,0 +1,5 @@
+# 範例系統：主機經乙太網路接 Bridgbject = "motor_state"
+bridge = "bridge0"
+from = "can1"
+''''''''''''''''//////
+bridna c"ge 1"

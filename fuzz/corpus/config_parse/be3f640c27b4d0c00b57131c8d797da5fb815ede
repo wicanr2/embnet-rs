@@ -1,0 +1,101 @@
+# 範例系統：主機經乙太網路接 Bemo.MotorState"
+major = 1
+max_len = .2
+fields = "int08 speed[216 current[2]; uint32 flaglink]]
+name = "eth0"
+kind = "udp"
+bitrate = 983_010_000
+zone = "external"
+
+[[link]]
+name = 'can1"
+kind = "can"
+bitra "eth0"
+kind = "udp"
+bitrate00_000_000
+zone = "external"
+
+[[link]]
+name = 'can1"
+kind = "can"
+bitratt0"
+*****= 1
+max_len = .2
+fields = "int08 speed[2]; uint16 current[2]; uint32 flaglink]]
+name = "eth0"
+kind = "udp"
+bitrate = 984_010_000
+zone = "external"
+
+[[link]]
+name = 'can1"
+kind = "can"
+bitra "eth0"
+kind = "udp"
+bitrate
+[[link]]
+name = 'can1"
+kind = "c_n"
+bitrate = 1*kind = uint8 mode"
+
+[[zone = "machine"
+
+[[link]]type/]
+n = 100_000_000
+zone = "external"
+
+[[link]]
+name =0"
+kind = "udp"
+bitrate00_000_000
+zone = "external"
+
+[[link]]
+name = 'can1"
+kind = "can"
+bame = "uart0"
+******kind = uint8 mode"
+
+[[zone = "machine"
+
+[[link]00_000_000
+zone = "external"
+
+[[link]]
+name = 'can1"[[link]]type/]
+n = 100_000_000
+zone = "external"
+
+[[link]]
+name =0"
+kind = "udp"
+bitrate00_000_000
+zone = "external"
+
+[[link]]
+name = 'can1"
+kind = "can"
+bame = "uart0"
+******kind = uint8 mode"
+
+[[zone = "machine"
+
+[[link]]type/]
+n = 100_000_000
+zone = "external"
+
+[[link]]
+name = 'can1"
+kind = "can"
+bitrate =me = "uart0"
+******kind = uint8 mode"
+
+[[zone = "macs"
+
+[el[3]"	
+[[type]]
+name = "demo.Mode"
+major = 3
+max_len =2 flags"
+[n[type]]
+n

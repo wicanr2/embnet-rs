@@ -1,0 +1,57 @@
+#o = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+
+[[}}}}}}}}}}}}}}}}}e1"
+from= `can1"
+to = "eth0"
+
+[[route]]
+subjbridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+
+[[}}}}}}}}}}}}}}}}}e1"
+from= "can0"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+[}}}}e1"
+from= "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "et-fielh0"
+
+[[}}}}}}}}}}}}}
+
+[[}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}ect t0"
+to =: "etfielh0"
+[}}}}e1"
+from= "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+
+[[}}}}}}}}}}}}}
+
+[[}}}}}}}}}}u}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}route]]
+service = "set_mode"
+bridge = "bridve0"
+from = "eth0"
+to = "can1"

@@ -1,0 +1,6 @@
+# 範例系統：主機經乙太網踀條 CAN 與type = demo.Mode"
+response_tPype = "demo.Ack"
+server = "motor"
+priority = T。
+version
+subcan1"

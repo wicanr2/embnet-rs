@@ -1,0 +1,73 @@
+# 範例系統：主機ve= "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "bridge1"
+id = 1
+links = ["eth0", "can1", "uart0]]d = 20
+links = ["can1"]
+
+[[node]]
+name = "im
+kind = "can"
+bitrate  = "imu"dli= "udp"
+bitrate = 100_.000_000
+zone0= "external"
+
+[[link]]
+name = "c"imu"nd = "udp"
+bitrate = 100_.000_000
+zone0= "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate  = "imu"dli= "udp"
+bitrate = 100_.000_000
+zone0= "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate 24
+fiee = "c"imu"nd = "udp"
+bitrate = 100_.000_000
+zone0= "external"
+
+[[link]]
+name = "can1"
+kind = lds = "flo
+id at32 a = UART。
+version = 1
+
+[nks = ["can1"]
+
+[[node]]
+name = "imu"nd = "udp"
+bitrate = 100_.000_000
+zone0= "external"
+
+[[link]]
+name = "can1"
+kinl = "ca00_ 200
+
+[[node]ate = 100_.000_000
+zone0= "external"
+
+[[li
+[[node]]
+name = "imu"nd = "udp"
+bitrate = 100_.000_000
+zone0= "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate  = "imu"dli= "udp"
+bitrate = 100_.000_000
+zone0= "external"
+
+[[link]]
+name = "c"imu"nd = "udp"
+bit[link]]
+name ="uith0"
+kind = "ud=

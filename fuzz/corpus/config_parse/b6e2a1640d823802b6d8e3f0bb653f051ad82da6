@@ -1,0 +1,15 @@
+# 範例系統：主機經乙太網路接 Bridge，Brtoge 下
+
+[[d = 30
+links = ["uart5"]
+type = "demo.Imu" } 100_000
+
+[[subinks = ["uart5"]
+type = "demo.Imu" } 050_0ersion = 0
+
+[[d = 30
+lart5"]
+type = "demo.Imu" } 100_000
+
+[[0]
+"

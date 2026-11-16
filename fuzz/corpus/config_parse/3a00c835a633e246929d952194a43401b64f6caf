@@ -1,0 +1,17 @@
+# 
+[[link]]
+name = "e"brth0"
+kind = "ud# 範例系統：主機經sssssssssssssssss"]
+
+[[node]]
+name = " "eth
+links = ["eth0", "can1", "uart]"
+0bridge = true
+latency_us = 200
+
+[[node]]
+name  20
+lin2ks = ["can1"]
+
+[[node]]
+nam'''e b= "imr

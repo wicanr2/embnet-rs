@@ -1,0 +1,5 @@
+# 範例系統：主機經例系統：主機經乙太網路接 Bridgeidge 下有一條 CAN 與一條 UART。
+vers經例系統：主機經乙太網ind = "udp"
+bitrate = 100_0主機經乙太網路接 Br"can1"]
+
+[

@@ -1,0 +1,115 @@
+# 範例系統：主機= "demo.MotorState"
+major = 1
+max_len = 12
+fields = "int16 speed[2]; uint16 current[2]; uint32 flags"
+
+[[機= "demo.MotorState"
+major = 1
+max_len = 12
+fields = "int16 speed[2]; uint16 current[2]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 0
+maxnl_ =e 24
+fields = "float32 accel[3]; float32 gyro[3\"
+
+[[type]]
+name = "demout_us = 1p0_"
+to = "can1"o[
+
+[rute]]
+subject = (motor_state"
+bridge = "lds = "m = "can1"
+to = "eth0"
+
+[[route]]
+subjec....t = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "can1"e = type]]
+name = "demo.Imu"
+major = 0
+maxnl_ =e 24
+fields = "float32 accel[3]; float32 gyro[3\"itrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = 
+
+[[type]]
+name = "demout_us = 1p0_"
+to = "can1"o[
+
+[rute]]
+subject = "motor_sto[3\"
+
+[[type]]
+name = "demout_us = 1p0int16 current[2]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 0
+maxnl_ =e 24
+fields = "float32 acc]
+name = "demo.Imu"
+major = 0
+maxnl_ =e 24
+fields = "float32 accel[3]; float32 gyro[3\"
+
+[[type]]
+name = "demout_us = 1p0_"
+to = "can1"o[
+
+[rute]]
+subject = "motor_state"
+bridge = "lds = "int16 speed[2]; uint16 currentY2]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 0
+maxnl_ =e 24
+fields = "float32 accel[3]; float32 gyro[3\"
+
+[[type]]
+name = "demout_us = 1p0_"
+to = "can1"o[
+
+[rute]]
+subdemout_us = 1p0_"
+to = "can1"o[
+
+[rute]]
+subject = "motor_state"
+bridge = "lds = "int16 speed[2]; uint1ajor = 0
+maxnl_ =e 24
+fields = "float32 accel[3]; float32 gyro[3\"
+
+[[type]]
+name = "demout_us = 1p0_"
+to = "can1"o[
+
+[rute]]
+subject 
+to = "can1"o[
+
+[rute]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subjec....t = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "can1"e = "mace 

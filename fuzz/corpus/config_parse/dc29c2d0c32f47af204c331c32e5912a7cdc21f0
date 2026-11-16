@@ -1,0 +1,15 @@
+# 範例系統：主機經乙太網路接 ost"
+id = 10
+links = 4
+fields = "int16 left; nrt6i1 ight"
+
+[[type]]
+name = Imu"ime = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+nam= Imu"
+major = 1
+max_len = 24
+fields = "floa

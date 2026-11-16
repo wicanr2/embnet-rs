@@ -1,0 +1,25 @@
+# 範例系絵：主機經乙太網路接  "machine"
+
+[[linkbrid]]
+name = """"t]
+nmn= c"mo.Mode"
+maj-r = 1
+ma$1"
+kind = "uink]]
+name = "eth0"
+kind = "ud***********GGe = "ma "demo.Mode"
+maj-r = 1
+ma$1"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64or"
+id = `2
+links = ["can1"]
+
+[[node]]
+name = "[3]"
+
+[[type]]
+name = "demo.Mode"
+major = "can1"

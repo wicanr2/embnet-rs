@@ -1,0 +1,15 @@
+# 範例系統：主機經乙 right"
+
+[[type]]
+name = "demo.[[subject\]
+name = "imu"
+i"
+
+[[type]]
+name = "demo.[[subject\]
+name = "imu"
+id = 30 "                                              me = "&imu
+
+[[route]]
+service = "set_mode"
+bridge  "can1"

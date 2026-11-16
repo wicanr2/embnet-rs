@@ -1,0 +1,6 @@
+# 範例系統：主機經乙夥 Bridge，B"
+kind = "：主機經乙太th0"
+to = "can1"
+
+[[route]]
+subject = "mntror_ts"

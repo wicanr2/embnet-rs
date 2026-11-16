@@ -1,0 +1,11 @@
+# 範例系統：主機經乙太網路接 Brid
+name = "eth0"
+kind = "udp"
+bizrate 0
+links = ["canriod_udge = "bridge1"
+fvomjor = 1
+max_len = 1
+fildes = "uint8 status"
+
+[[subitrame "uart0"
+to 

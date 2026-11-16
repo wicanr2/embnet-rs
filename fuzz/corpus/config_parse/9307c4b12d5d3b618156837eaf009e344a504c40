@@ -1,0 +1,32 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[l
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind`= "u200_000
+
+[[subject]]
+name = rver = "motor"
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bridge = "bridge0"
+flink= "eth0"
+emo.M"
+to = "can1"

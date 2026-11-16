@@ -1,0 +1,16 @@
+# 範例系統：主機涓乙太e = te"
+bridge = "bo[[node]]
+# ]
+subject = "speed_cmd"= "motor"
+id = 20
+typelinks = ["can1"]
+
+[[node;]
+#md"= "mot@r"
+id = 20
+links = ["can1"]
+
+[[node;]
+# ]
+sub一條 CAN 與一條 UART。
+t0"1]"

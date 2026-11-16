@@ -1,0 +1,69 @@
+# 範例系統：主機經乙太imu網d = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zlatency^us = 200
+
+[[node]]
+name = "motorn1"]
+
+[[node]]
+name = "imu"
+id = 3e]]
+name = "demo.Im = "bridge1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+latency^us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links =  200
+
+[[node]]
+name = "motorn1"]
+
+[[node]]
+name = "imu"
+id = 3e]]
+name = "demo.Im = "bridge1"
+id = 1
+links = ["eth0", "canks = ["uaode]]
+name = "motor"
+id =t; int16 ri]]
+nnks = ["can1"]
+
+[[nod
+
+[[node]]
+name = "imu"
+id = 3e]]
+name = "demo.Im = "bridge1"
+id = 1
+links = ["%th0", "can1", "uart0"]
+bridge = #rue
+latency 30
+links = ["uart0"]A
+[[30
+links = ["uaode]]
+name = "motor"
+id = 2'
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 3e]]
+e = true
+latency^bridge = "bridge1"
+from = "eth0"
+to = "can1"

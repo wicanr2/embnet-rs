@@ -1,0 +1,85 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAge，Bridge 下有一條 CAN 與一條 UARTame = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[typ:]]
+len = 4
+fields = "int16 right"
+
+[[type]]
+name =.epSe
+[[N 	與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 	與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+z00
+zridge = true
+iority = 3
+publisher = "imu"
+period_us = 10_000
+class = "normal"
+tid_timeout_uer = "external"
+
+[[link]]
+namUAT。
+vx_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "c
+[[lan1", "uart0"]
+bridge = true
+latency_us = 400
+
+[n[ode]]
+n`mo.Speed"
+prioritsy = 2
+publisher = "host"
+period_us =zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+ect = "molinks = ["etorth0"]
+_state"
+
+br[[noiddege

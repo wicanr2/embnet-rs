@@ -1,0 +1,8 @@
+# 範例系統：主機經乙太網路接 B太網路接 Bridge，Bridge 下有一條 T。 "kind = "ud
+b"rtpiate = 100_00
+brid;nit16ect = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "e1"
+brid = "eth0"ximu"
+"can1"

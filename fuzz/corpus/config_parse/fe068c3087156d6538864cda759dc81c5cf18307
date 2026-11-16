@@ -1,0 +1,10 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridt16 right"
+
+[[type]]
+name =.Sp1"
+id = 1
+links = ["eth0"., "ca]
+[type]]
+len = 4
+fields = "int16 jecnt[[type]]
+name =.Snd =name = "imu"[[d"typ

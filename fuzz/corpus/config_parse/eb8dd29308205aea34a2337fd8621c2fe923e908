@@ -1,0 +1,28 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一梦 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zo = "machine"
+
+[[link]]
+na....................................."""................................................e = "mace = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+na_00= ".Speed"
+pririty = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "GG................"""................................................e = "mace = "host"
+id = 10
+links = ["eth0"]
+
+[[node]tsion = 1
+
+[[link00= 4
+fields = " rigG

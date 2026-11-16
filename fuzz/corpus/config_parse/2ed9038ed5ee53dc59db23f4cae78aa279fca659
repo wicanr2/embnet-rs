@@ -1,0 +1,18 @@
+# 範例系moM.otorState"
+majo. = 
+max_len = 24
+fields = "float32 accel[3];  = &demo.Mode"
+majo = 1[ytpe]]
+jame. = "demo.Ack"
+major &A 0
+max_len = 1
+ielfx_len = 1
+ields = "uint8 mode"
+
+[[ytpe]]
+name. = "= 1
+fields = "uint8 mode"
+
+[[ytpe]]
+name. = "demod = ފdp"
+bitrate =30itte

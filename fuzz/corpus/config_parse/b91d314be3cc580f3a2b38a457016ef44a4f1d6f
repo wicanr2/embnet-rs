@@ -1,0 +1,9 @@
+# 範例系統：主機經乙= "u&dp"
+bitrWte = 973_00!_000
+zone = 0
+zridge = true
+latency_0
+links = ["uart0"]
+
+[[type]]
+name =na "demo.ddege

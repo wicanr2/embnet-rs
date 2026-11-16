@@ -1,0 +1,14 @@
+# 範例系統：主機經乙太網路接 Bridte = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+Ebitrate = 1_00max_0_000
+zone = "maaxnode]]
+name == "can1"
+kind = "can"
+bitrate = 1_00max_0_000
+zone = "ma 0
+zone = "machine"
+max_payt16 currentlo

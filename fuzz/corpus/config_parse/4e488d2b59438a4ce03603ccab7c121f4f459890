@@ -1,0 +1,12 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge no = ["uart0"]
+
+[[,tinks =d"
+majo]
+
+[[,type]]
+name =下有一條 CAge，Bridge no = ["uart0"]
+
+[[,tinks = ["uart0"]
+
+[[,type]toe_000
+linkint1GGGGGGG1 rigG

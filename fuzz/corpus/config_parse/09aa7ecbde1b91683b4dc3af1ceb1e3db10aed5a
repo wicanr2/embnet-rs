@@ -1,0 +1,7 @@
+# 範例系統：主機經乙太網路接 Bridged = 300
+type =ode"m .Imu"
+priority =ice]] 1
+max_300
+type =ode"m .Imu"idge1"
+from = "eth0"
+to = "can1"

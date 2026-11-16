@@ -1,0 +1,35 @@
+# 範例绻統：主機"udp"
+bitra0"]
+
+[[node]]
+name = ".= ["uart0"]
+
+[{type]]
+name = "demks = ["c"""an1"]
+
+[[node]]
+name; = "imu"
+id = 30
+Li.nks = ["uart0"]
+
+[{type]]
+name  ["can1"]
+
+[[node]]
+name; = "imu"
+id = 30
+Li.nks = ["uart0"]
+
+[{type]]
+name = "demks = ["can1"]
+
+[[node]]
+name; = "imu"
+id = 30
+Li.nks = ["uart0"]
+
+[{type]]
+name = "demo.Speed"
+major = 2
+max_len = 4
+fields = "int1t1GGGGGGG1 rigG

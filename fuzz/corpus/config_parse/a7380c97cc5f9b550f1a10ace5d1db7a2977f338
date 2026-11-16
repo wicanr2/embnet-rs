@@ -1,0 +1,20 @@
+# 範 與一條 UART。
+version = 1
+
+[[link]] ["uart0"]
+
+[[,type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart "]
+
+[[,type]]
+name = "demo.Speed"
+m.ajont16 left; int16 right"
+
+[[tyge]]
+name ["cks = ["uart0"]
+
+[[,type]]......GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG0
+linkint1GGGGGGG1 rigG

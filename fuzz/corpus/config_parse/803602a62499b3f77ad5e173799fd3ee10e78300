@@ -1,0 +1,6 @@
+# 範 = "uaservice = "set_mode"
+bridge. = "bridge3"
+from = = "set_mode"
+bridge. = "bridge1"
+from = "euh0"
+to = "can0"

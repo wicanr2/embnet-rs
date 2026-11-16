@@ -1,0 +1,84 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與฀條 UART。
+version = 1
+
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UAT。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zoneame = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "exter = "external"
+
+[[link]]
+namUAT。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bip"
+bitrate = 100_000_000
+zone = "external"
+
+[ternal"
+[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "
+
+[[link]]
+namUAT。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[ternal"
+[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"i
+knd = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+lind = "0_000
+jitter_us = 1_000
+class = "Gc trueGGGGGGGGGGGGGGGGGGGGGGGGGG
+late

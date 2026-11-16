@@ -1,0 +1,22 @@
+：主機綇一條 UART。
+version = 0ax_len = 1
+fields = "uint8 = "uart"
+bitr115_200
+{one = "machine[[link]]
+name = "uart0"
+kind = "uart"
+bitratate = 115_200
+{one = "machine[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+{one = "machi "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+
+6 l #[[subject]]
+name =  6#

@@ -1,0 +1,31 @@
+# 範例系統：主機經乙太網路接 Bri = ["ca~1"]
+
+[[node]]
+name = "imu"
+id = 3:
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; inode]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 3:
+links = ["uart0"]
+
+[[type]"can1"]
+
+[[node]]
+name = "imu"
+id = 3:
+links = ["uart0"]
+
+[[t
+fields = "int16 left; 10_000
+u

@@ -1,0 +1,96 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與A一條 UART。
+version = 0
+
+[[link]u"
+brid "eth0"
+kind = "udp"
+bitrate = 700_000_000
+zone = "external"
+
+.........hr_us = 1_000
+class = "protected"
+pri]
+
+[[node]]
+name = "imu"
+id = 30
+-inversion = 1
+
+[[link]]
+name < "eth0"
+kial"
+.......er_us = 1_000
+class = "zone = "exprotected"
+pri]
+
+[[node]]
+name = "imu"
+id = 30
+linv00_000
+zone = "external"
+
+.........hr_us = 1_000
+class = "protected"
+pri]
+
+[[node]]
+name = "imu"
+id = 30
+-inversid = 30
+linversion = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 700_000_000
+zone = "external"
+.......er_us = 1_000
+class = "protected"
+pri]
+
+[[node]]
+name = "imu"
+id = 30
+linv00_000
+zone = "external"
+
+.........hr_us = 1_000
+class = "protected"
+pri]
+
+[[node]]
+name = "imu"
+id = 30
+-inversion = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 700_000_000
+zone = "external"
+
+.........er_us 。
+vers]on = 1
+
+[[ne = "external"
+
+.........er_us = 1_000
+class = "protected"
+pri]
+
+[[node]]
+name = "imu"
+iersion = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 700_000_000
+zone = "external"
+
+.........er_us = 1_000
+class = "protected"
+prine_us = od*e;]
+# ]
+sub一條 CAN 與一條 UART。
+t0"1]"

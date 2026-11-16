@@ -1,0 +1,11 @@
+# 範
+name = "bridge1"
+id = 1
+links = ["can1",FA " true
+latency_0", "can1",F " true
+latency_us = 2= 300isher = "mote]]
+name = "bridge1"
+id = 1
+links = ["eth0", "can1",F " true
+latency_us = 2= 300isher = "motor" = "eth0"
+to = "can1"

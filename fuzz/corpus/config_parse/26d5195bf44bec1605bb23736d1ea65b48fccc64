@@ -1,0 +1,16 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+=ame = "eth0"
+kind = "udp"
+bitrate = 100_00# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 C0_000
+zone = "external"
+
+[[link]]
+namAN 與一條 UARTဂ
+version = 1
+
+[[line = = 1
+max_len = 12
+fik]]

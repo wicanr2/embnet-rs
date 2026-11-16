@@ -1,0 +1,16 @@
+#  : 1
+max_l# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 0[
+[nl
+ik]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_00[
+[nl
+ik]]
+name = "eth0"
+kind = "o.MotorState"
+prio2ity ; 4
+publisher = "motor"
+period_us ublart"
+bitra

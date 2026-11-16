@@ -1,0 +1,67 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 0
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate 0
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name = "demo.MotorState"
+major = 1
+max_len = r_state"
+id = 200
+type = "demo.MotorState"
+priority = 4
+publemo.Mode"
+response_type = "demo.Ack"
+server = "motor"
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]s]u
+bject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = """"bridge1"
+from = "uart0"
+to = an1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"b
+ridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[roete]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

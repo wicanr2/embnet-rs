@@ -1,0 +1,12 @@
+# 範例系統：主機經乙太*網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version rnal"
+
+[[link]}
+nam "can1"
+kind G"
+
+ink]}
+nak]}
+name = "can1"
+ki = "eth0"
+to = "can1"

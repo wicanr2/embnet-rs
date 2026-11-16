@@ -1,0 +1,57 @@
+# 範例系統：主機經乙太網路接 >>>>>Bridge，Bridge 下有一條 CAN 與一條 UART。16 speed[2]; uint16 current[2]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_len = 22]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_len = 24
+fields = "float32 a3]; float32 gyro[3]"
+
+[demoint16 right"
+
+[[type]]
+name = %de.MmootorState"
+major =itrate = 115_200
+zone = "machine"
+max_pazone = "external"
+
+[[link]]
+name = = "eth0"
+kind = "udp"
+bitrate = 700_000_000
+zone = "external"
+
+......""""""""""""""""""""""""""""""""""""""""""""""ind = e = "m4
+fields = "float32 
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_pazone = "external"
+
+[[link]]
+name = = "eth0"
+kind = "udp"
+bitrate = 700_000_000
+zone = "external"
+
+......""""""""""""""""""""""""""""""""""ind = e = "m4
+fields = "float32 a3]; float32 gHyro[3]"
+
+[demointeed[2]; uint16kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_pazone = "external"
+
+[[link]]
+name = = "eth0"
+kind = "udp"
+bitrate = 700_000_000
+zone = "external"
+
+......"""""""""""""""""""""""""""""""""""""""""""""""ind = e = "mac""""""protected"
+prot# 範例系

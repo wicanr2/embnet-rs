@@ -1,0 +1,12 @@
+# 篲路接 Bridge，Bridge# 範例系統 "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+'''major = 1
+max= 30
+lis = 50_000
+drop = "ne一條 UART。
+version = 1
+
+[[link]0_000_000

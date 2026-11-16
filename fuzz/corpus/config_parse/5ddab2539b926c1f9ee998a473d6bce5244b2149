@@ -1,0 +1,10 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = true
+lateame = """"imu"
+id = 31
+links = [ax_len = 4
+fields = "int16 left; int16 "demo.Ack"
+ma0_00ields = "uint8 statu0
+tYpe = "demo.Speed"
+prio~ity = 1
+publis!Ndge = "brcan1"

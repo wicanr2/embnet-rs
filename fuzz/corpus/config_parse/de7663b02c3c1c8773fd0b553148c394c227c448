@@ -1,0 +1,12 @@
+# 範例系統：主機經乙太網路接 Bridge
+kind = "udp"
+bitrate = 100_000_000
+z!ne = "external"
+
+_timeout_us = 200_000
+
+[[subject]]
+0
+type =ode"m .Imu"
+priority = 
+to = "can1"

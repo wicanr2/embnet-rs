@@ -1,0 +1,18 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+= ["can1"]
+
+[[node]]
+name = "imu"
+id = 34
+d 100_000
+[[subject]]
+name = "motor_0_000_000
+zone = "exter"external"
+
+[[link]]
+name = "can1" 34
+l 100_000
+[[subje= "external"
+
+[[lin0 

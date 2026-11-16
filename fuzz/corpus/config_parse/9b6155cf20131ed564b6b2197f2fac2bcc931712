@@ -1,0 +1,19 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version$= 0
+
+[[link]]
+name = "eth0"
+kind = "udp"d = 10
+links = [ = "motor_state"
+bridge = "bridge0"
+from = "can
+'1''"'''''''''''''''''''''''''''''
+from = "uart0"
+to = "eth0"
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge  "can1"

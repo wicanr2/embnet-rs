@@ -1,0 +1,16 @@
+# 範例系統[[link]]
+name =[[[[[[[[[[[[[[[[[[[[[[[[[ "d = "uart"
+bitrate = 115_200
+{one =
+us]b0ect = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "se
+nat_modeme =link]] "demo
+n"
+bridge = "bridge0"
+froamb .A=m = "eth0"
+to = "can1"rid

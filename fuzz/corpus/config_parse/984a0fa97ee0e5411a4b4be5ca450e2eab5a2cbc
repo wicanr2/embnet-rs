@@ -1,0 +1,16 @@
+# Bridge，Bridge 下有一條 C條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "u"uart0"
+kind = "uart"
+bitr=ate  10
+zone = "machine"
+max= 05
+li= 100
+tYpe = "tYpe = "demo.Speedr = "host"
+period_us = 10_000
+jitter_us [route]]
+service = "set_m[de"
+"can1"

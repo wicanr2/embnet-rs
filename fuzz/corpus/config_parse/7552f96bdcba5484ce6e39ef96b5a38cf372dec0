@@ -1,0 +1,34 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridg0_000
+zridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+idK"= 40
+links = ["can1"]
+
+[[node]]ternal"
+
+.........er_us = 1_0node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+ibitrate = 700_000_000
+zone = "external"
+
+.........er_us = 1_000
+class = "protecte = "e2e32"
+deadline_us = 50_000
+dest"
+timajor = 1
+max_len =0_000
+
+T[subject]]
+name = "imu"
+id =dge1"
+from = "can1"
+to = "eth0"
+= 3

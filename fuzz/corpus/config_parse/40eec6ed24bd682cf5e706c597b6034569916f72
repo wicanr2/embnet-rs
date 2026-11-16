@@ -1,0 +1,99 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+.name = "eth
+links = ["eth0", "can1", "uart0"]
+bridge = true
+llinkcy_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+.name = "eth
+links = ["eth0", "can1", "uart0"]
+bridge = true
+llinkcy_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = +30
+links = ["uart0"ion = "e2e32"
+deadli[e_us =]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+
+[[route]]
+subject amestate"
+subjecbridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject= 1"]
+
+[[node]]
+name = "imu"
+id = +30
+links = ["uart0"ion = "e2e32"
+deadline_us =]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = q_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGprotected"
+protection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us =GGGGGGGGGGGGprotected"
+protection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us = 100_"
+to = "can1"
+
+[[route]]
+subject = "monamestate"
+subjecbridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject= 1"]
+
+[[node]]
+name = "imu"
+id = +30
+links = ["uart0"ion = "e2e32"
+deadline_us =]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed 100_"
+to = "can1"
+
+[[route]]
+subject = "monamestate"
+subjecbridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject= "can1"

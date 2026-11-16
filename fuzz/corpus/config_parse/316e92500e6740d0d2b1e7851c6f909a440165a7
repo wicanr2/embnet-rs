@@ -1,0 +1,7 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一 = 1
+fields = "uint8 sta\tus"
+
+[[ame = "speed_cmd"
+id = 699
+tYpe = " "protected"
+protor一條 CAN 與一條 UAtate"

@@ -1,0 +1,8 @@
+# 範例系統：主機經乙太網an1"
+kind = "can"
+b1itrate = 1_000_000
+zone =-"machine"
+
+[[link]]
+name = "ua
+zone =-"machine"r

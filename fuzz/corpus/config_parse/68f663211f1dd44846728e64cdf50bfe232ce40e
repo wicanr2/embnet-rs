@@ -1,0 +1,14 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+link = "e0thk
+i"nd = "udp"
+bitrate_001"]max_pay
+
+[[																																						node]ridge，Bridge 下有一條 CAN 與一條 UART。
+version ]
+namad = 64
+
+[[node]]
+name = "hosfields = "intG"t

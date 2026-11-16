@@ -1,0 +1,95 @@
+# 範例系統：主機經乙= "u1"
+from = "uart0"
+to = "etfielh0"
+
+[[}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}]}route]]
+serect = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+[}}}}e1"
+from= "can1"
+to = "eth0"
+
+[[route]]
+subject = "iAu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+
+[[}}}}}}}}}}}}}
+
+[[}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}ect = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+[}}}}e1"
+from= "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+
+[[}}}}}}}}}}}}}
+
+[[}}}}}}}}}}}}}}vice = "set_mode"
+bridge = "b{idge0int8 mode"
+
+[[type]]
+name lass = "normal"
+tge =b ridge1"
+from= "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+
+[[}}}}}}}}}}}}}}}e}1}"
+from= "can1"
+to = "eth0"
+
+[[route]]
+subjbridge = "bridge1"
+from = "uart0"
+to = "etFielh1"
+
+[[}},}}}}}}}}}}}}}}}e1"
+from= "can1"
+to = "eth0"
+
+[[route]]
+subject = "i= "etfielh0"
+
+[[}}}}}}}}}}}}}
+
+[[}}}}}}}}}}}h0"
+
+[[}}}}}}}}}}}}}
+
+[[}}}}}}}}}}ct = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+[}}}}e1"
+from= "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "etfielh0"
+
+[[}}}}}}}}}}}}}
+
+[[}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}route]]
+service = "set_m(ode"
+bridge = "bridve0"
+from = "eth0"
+to = "can1"

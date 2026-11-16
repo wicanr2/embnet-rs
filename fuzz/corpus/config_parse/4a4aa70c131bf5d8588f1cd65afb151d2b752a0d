@@ -1,0 +1,26 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[typelink]]
+name = "eth0"
+kind = "udersion = 0
+
+[[link]]
+name = "eth0"
+kind = "udnode]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 "
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uinp"
+bit

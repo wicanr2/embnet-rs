@@ -1,0 +1,27 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下ajor = 0
+max = "dem= 3
+
+[[route]]
+subject = """"speed_cmd"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route2]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bri>ge  "can1"

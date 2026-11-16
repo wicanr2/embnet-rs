@@ -1,0 +1,7 @@
+# 範例系統：主機經乙太網路接 Br= 20
+links = ["can1nks = ["uart0"]
+
+[[t.pe]]
+name = "demo1例系統：䘻機疓乙太網路接  = "motor"
+id = 10
+links = ["na

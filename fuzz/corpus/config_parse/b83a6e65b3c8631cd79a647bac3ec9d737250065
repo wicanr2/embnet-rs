@@ -1,0 +1,31 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條elink]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind  "can"
+bitrate = 1_000]
+
+[[# 範例系統：主機經乙太網
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version =ink]]e = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = [c"an1"]
+
+[[# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條# 範例系統：主機經乙太網路接 Bridge，Brididge 下有一條 CAN 與一條 UARTも
+version = 1
+
+[[link]]
+name = "eth0"
+kind = " UAud

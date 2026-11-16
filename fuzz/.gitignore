@@ -1,0 +1,6 @@
+artifacts/
+coverage/
+target/
+corpus/*/
+!corpus/config_parse/
+!corpus/datagram/

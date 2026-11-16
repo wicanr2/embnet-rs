@@ -1,0 +1,13 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[lin"
+
+[[link]]
+name =[[[[[[[[[[[[[[[[[[[[[[[[[ "can3"
+kind = rate = 115_200
+{one =
+us]b0ect = "imu"
+brid "uart0"
+= "eth0"
+toz = "can1"

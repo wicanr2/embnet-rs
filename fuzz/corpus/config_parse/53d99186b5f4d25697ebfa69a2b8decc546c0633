@@ -1,0 +1,69 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CA = "can1"
+kind = "can"
+bitrate =0"]
+bridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["lr= t"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+# 範例系統：主機經乙太網路接 BridJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+= "mach
+e"nimax_payload = 64
+n[o[
+de]]
+name = "host"
+id = 09
+links = ["ethfrom = "eth0"
+to = "can1"
+max_paybit"va= "external"
+
+[[link]itrate = 115_200
+zone = "machine"
+max_payload = 64
+n[o[
+e = "mach
+e"nimax_payload = 64
+n[53
+n[o[
+de]]
+name = "host"
+id = 10
+lte = 115_200
+zone = "machine"
+max_payload = 53
+n[o[
+de]]
+name = st"oh"
+id type]]
+name = "demo.Motor1State"
+ma
+zone = "exter115a= "external"
+
+[[link]itrate = 115_200
+zone = "machine"
+max_payload = 64
+n[o[
+e = "mac
+h
+e"nimax_payload = 64
+n[o[
+de]]
+name = "host"
+id = 09
+links = ["eth"
+max_paybitvate = 115_200
+zone = "machine"
+max_payload = 53
+n[o[
+de]]
+name = "host"
+id = 1

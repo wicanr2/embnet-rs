@@ -1,0 +1,51 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+ame6 current[2]; uint# 範例系統：主機經乙太網路接 Bridge，Brididge 下有一條 CAN 與一條 UART。
+
+[[link]]
+name = 'can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name } "uart0p"
+bitrate = 100_000_000
+zone = "external"
+
+[[linkan1"]
+
+[[node]]
+name = "imu"
+id = 30
+links G ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1xternal"
+
+[[link]]
+name = 'can1"
+kind ' = 1
+max_len = 1
+fields = "uint8 statu"bridge1"
+from = "uart0"
+to = "eth0"
+
+GGGGGGGGGGGGG 100_000_000
+zone = "external"
+
+[[link]]
+name = 'can1"
+kind = "can"
+bitrate = 2_000_000
+****GGe = "machine"
+
+[[[ink]]
+name = "uart0"
+******kind = uint8 mode"
+
+[[zone = "machine"
+
+[[link]]type]]
+name = "
+name =de

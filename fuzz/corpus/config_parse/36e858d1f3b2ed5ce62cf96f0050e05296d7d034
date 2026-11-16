@@ -1,0 +1,38 @@
+" 範例系統： "bridgu1"
+froe = "uart0"eth0"
+
+"sp[[rout""1"
+froe = "uart0"
+to = "eth0"
+
+[[rout"""
+service = "set_mode"
+bridge. = "bridge1"
+from = = "set_mode"
+bridge. = "bridge1"
+from = "eth0""
+service = "set_mode"# 範例系統： "bridgu1"
+froe = "uart0"
+to = "eth0"
+
+"sp[[rout""1"
+froe = to = "eth0"
+
+[[rout"""
+service = "set_mode"
+bridge. = "bridge0"
+from = = "set_mode"
+bridge. = "bridge1"0""
+service = "set_mode"
+bridge. = "bridge1"
+from = = "set_mode"
+bridge. = "bridge1eft; int16 "'
+
+[[type]]
+
+bridge. = "bridge1"
+from = = "set_mode"
+bridge. = "bridge1eft; int16 "'
+
+[[type]]
+n0"

@@ -1,0 +1,23 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+lame = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+ke = "imuhost"
+period_us = 10_000
+jit = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

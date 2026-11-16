@@ -1,0 +1,49 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name = "demo.MotorState"
+major = 1
+max_len = 12
+fields = "int16 speed[2]; uint16 current[2]; uint32 flags"
+
+[[type]]
+"""name =# 範例系統：主機經乙太網路接 Bridge，Bridge 下pe = "demo.MotorState"
+priority = 4
+pue = 1_000_000
+zone = """chine"
+
+[[li_us = 200_00 "demo.0
+
+[[subject]]
+Imu"
+majornam

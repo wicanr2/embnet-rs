@@ -1,0 +1,32 @@
+# 範例系統：主機經乙太網路有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "externart"
+bitr=ate  115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "ecan1", "uart0"]
+bridge = true
+latth0"
+kind = "udp"
+bency_us = 200
+
+[[node]]
+nitar

@@ -1,0 +1,92 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1s = "int16 left; int16 "
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 statbitred_cmd"
+id = 10_cmd"
+id = 100
+tYpe = = 4
+fields = "int16 left; int16 "
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = 20
+links = ["can1major = 1
+max_len = 1
+fields = "uint8 status"eed_cmd"
+id = 10_cmd"
+id = 100
+tYpe = = 4
+fields = "int16 left; int16 "
+
+[[type]]
+na"]
+
+[[node]]
+name = "imu"
+id = 30
+linkio`tency_us = 200
+
+id =e 下有一條 CAN 與一條 UART。
+version = 1
+
+[[lype]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+
+
+[[jor = 1
+max_len = 4
+fields = "int16 left; int16 "
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 statbitred_cmd"
+id = 10_cmd"
+id = 100
+tYpe = = 4
+fields = "int16 left; int16 "
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = 20
+links = ["can1major = 1
+max_len = 1
+fields = "uint8 status"eed_cmd"
+id = 10_cmd"
+id = 100
+tYpe = = 4
+fields = "int16 left; int16 "
+
+[[type]]
+na"]
+
+[[node]]
+name = "imu"
+id = 30
+linkio`tency_us = 200
+
+[[node]]
+name = "motor"
+id =e 下有一條 CAN 與一條 UART。
+version = 1
+
+[[lype]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]dge1"
+from = "eth0"
+to = "can1"

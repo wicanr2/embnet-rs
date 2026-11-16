@@ -1,0 +1,105 @@
+# 範例系統：主機經乙太網路接 Bridge，Bride"
+
+[[link]]
+name = "uart0"
+ind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["et
+priority = 3
+
+[[routee，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_inks = ["et
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bri`ge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge0A
+from = "can1"
+''''''''''''''''nd = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitr=ate  115ate"
+bridge = "brid"machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitr=ate  115ate"
+bridge = "bridge0"
+from = "can1"
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitr=ate  115ate"
+bridge = "bridge0"
+from = "can1"
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[from = "uart0"
+to = "eth0"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+brge0"
+from = "can1"
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[from = "uart0"
+to = "eth0"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[from = "uart0"
+to = "eth0"
+
+[[rtueo]]
+service = "set_mode"
+bridge  "can1"

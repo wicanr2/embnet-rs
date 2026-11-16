@@ -1,0 +1,66 @@
+# 範例系統：# 範例系統：主機經乙太網路接 Bridg?，Bridge 下有一條 CAN 與一條 UAR1
+
+[[link]]
+name = "eth0""eth0"
+kind = "udp"41_000_000
+zone = "ex= "external"
+
+[ = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitr= "demo.[[subject\]
+name = "imu"
+i"
+
+[[type]]
+name = "demo.[[subject\]
+name = "imu"
+id = 150
+type = "demo[[link]]
+name = " 1"
+kind = "can"
+bitr= "demo.[[subject\]
+name = "imu"
+i"
+idg?，Bridge 下有一條 CAN 與一條 UAR1
+
+[[link]]
+name = "eth0""eth0"
+kind = "udp"
+bitrate = 141_000_000
+zone = "ex= "external"
+
+[ = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitr= "demo.[[subject\]
+name = "imu"
+i"
+
+[[type]]
+name = "demo.[[subject\]
+name = "imu"
+id = 150
+type = "demo[[link]]
+name = " 1"
+kind = "can"
+bitr= "demo.[[subject\]
+name = "imu"
+i"
+
+[[type]]
+name = "demo.[[subject\]
+name = "imu"
+id = 15
+[[type]]
+name = "demo.[[subject\]
+name = "imu"
+id = 150
+type = "demo.Imu"
+priority =tected"
+prot 3
+pube

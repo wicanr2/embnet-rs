@@ -1,0 +1,11 @@
+# 範例系統： "bridgu1"
+froe = "uart0"
+to = "eth0"
+
+[[rout"""
+service = "set_mode"
+bridge. = "bridge1"
+from = = "set_mode"
+bridge. = "bridge1"
+from = "eth0"
+to = "can0"

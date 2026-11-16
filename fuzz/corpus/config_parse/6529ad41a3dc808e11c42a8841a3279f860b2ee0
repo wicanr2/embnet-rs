@@ -1,0 +1,15 @@
+# 範例系統：主機經乙太網路接 Bridge，Br= r =tor_state"
+id = 2'0
+type = "doMo.emtorState"
+priority = 4
+publifrom = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridg條 UART。
+version = 1
+
+[[link]]
+e1"
+f

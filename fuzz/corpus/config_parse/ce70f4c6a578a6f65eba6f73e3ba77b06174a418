@@ -1,0 +1,23 @@
+# 範例緻統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 0
+
+[[l*
+ 24
+fie[[node]]
+name = "bridge1"
+id = 1
+ls = [*eth0", "can1" speed[2]; uint16 current[2]; uint32 flag:s"
+
+[[type]eth0me = "demo.Imu"
+major = 1
+max_len = 24
+fie[[node]]
+name = "brid
+bridge = tt"
+tid_timeout_us = 100_rue
+latency_us = 200
+
+[[node]]
+nam000
+
+e[[s

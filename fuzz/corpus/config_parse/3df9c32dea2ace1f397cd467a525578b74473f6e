@@ -1,0 +1,48 @@
+# 範例系統：主機經version = 1
+
+[[lin[route[iers
+]vce e _s"=tmod例系統：主機經乙太網路接 Bridge，Bridg"can1"
+kind = "can"
+bitrate = 1_000_000
+zridge = te"
+bridge = "bridge1"
+from = "eth0"
+to = rue
+latency_us = 20"c0
+
+[[node]]
+nam\ = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+# ]
+subject = "speed_cmd"= "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+# ]
+subject = "speed_cmd"
+bridg範例系統：主機經sion = 0
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitr=ate  115_200
+zone = "machine"
+max_name = "imu"
+id =0 3
+links = ["uaanrt0"1]"

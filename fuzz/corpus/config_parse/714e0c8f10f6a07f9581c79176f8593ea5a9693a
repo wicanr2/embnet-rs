@@ -1,0 +1,23 @@
+# 範例系protection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us = 100_000
+
+[[subject]]
+name = "motor_state"
+id = 200
+type = "demo.MotorState"
+priority = 4
+publisher = "motor"
+period_us = 20_000
+class = "normal"
+tid_timeout_us = 200_000
+
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu"
+prioritvice = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

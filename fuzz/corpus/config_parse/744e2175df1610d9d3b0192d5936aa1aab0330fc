@@ -1,0 +1,74 @@
+# 範例系統：主機經乙ersion = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+d = 1
+links = ["eth0", "caBridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp = "machine"
+
+[[link]]
+name = "uart0"
+kind[[node]]
+name = "host"
+id = 10
+links = ["0h
+"t]e
+[[node]]
+name = "bridge1"
+id = 1
+lirreques***************************************************t_rue
+latency_us = 201
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name = "demo.MotorState"
+major = 1
+max_len = 12
+fields = "int1A6 speed[2]; uint16 current[2]; uint32 flags"
+
+[[type]]
+name == "float32 accel[3]; float32 gyro[3]t[y[
+
+"pe]]
+name = "demo.Mode"
+major = 1
+max_len = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tm = "eth0"
+to = "can1"

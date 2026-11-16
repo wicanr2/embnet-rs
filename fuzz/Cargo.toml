@@ -1,0 +1,46 @@
+[package]
+name = "embnet-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+license = "MIT"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+embnet-core = { path = "../crates/embnet-core" }
+embnet-node = { path = "../crates/embnet-node" }
+embnet-config = { path = "../crates/embnet-config" }
+
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "node_on_frame"
+path = "fuzz_targets/node_on_frame.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "datagram"
+path = "fuzz_targets/datagram.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "e2e_check"
+path = "fuzz_targets/e2e_check.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "config_parse"
+path = "fuzz_targets/config_parse.rs"
+test = false
+doc = false
+bench = false

@@ -1,0 +1,37 @@
+## 範例""""""""""""""host"
+id = 10
+links = ["et
+priority = 3
+
+[[route]]
+subject = "speed_cm
+rbd"`ige = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route "
+
+[[tyal"
+
+[[link]]
+name = "cna1"
+kind = "can"
+bitrate = 1_000_00_payload = 64
+
+[[.ods = "int16 \\= \\speed[name = "bridge0"
+idx_len = 12
+fields = "int16 \\= \\speed[2\; uin`16zonrrent[2]; uint32 flart"
+bitrate =64
+
+[[node]]
+name = "host"
+id = 10
+s = "int16 \\= \\speed[2\; uint16z
+n]me = "bridge1"
+id = 1
+links = ["eth0", "can1",name = "bridge1" d
+i= 1
+links = ["eth0", "can1", "uaright"
+
+[[type]]
+name = "d

@@ -1,0 +1,7 @@
+# 範例糓乙太綯接 Bridge，Brid 0
+
+[[ds = ["uat5"]
+type = "o.Imu" } 100_000
+
+[[se]0]
+"

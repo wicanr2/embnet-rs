@@ -1,0 +1,95 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一梢 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+il = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name = "deormal"
+tid_timeout_us = 200_000
+
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu"
+priority = 3
+publisher = "imu"
+period_us = 10_000
+class = "normal"
+tid_timeout_us = 100_000
+
+[[service]]
+name = "set_mode"
+id = 10
+request_type = "demo.Mode"
+response_type = "demo.Ack"
+server = "motor"
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

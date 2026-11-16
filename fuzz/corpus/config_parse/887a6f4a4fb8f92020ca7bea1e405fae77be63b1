@@ -1,0 +1,66 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UARTဂ
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "ca; int16 right"
+
+[[type]]name = "n =fr 2ode]]
+name = "bridge1"
+id = 1
+links = ["eth0", "caBridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[l# 範例系統：主機經乙太網路接 Bri.dge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[0_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[ink]]
+name = "er = 1
+max_len = 9
+fields = ޒnt16 left; int16 right4
+fields = "float32 accel[3]; float3'''2 gyro[3]"
+
+[[type]]
+nae = "demo.Mode"
+major = 1
+max_len = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+
+[[su# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+nm=ae  "eth0"
+kind = "[link]]
+name = "uart0"
+kudp"
+ind = "uart"
+bitrate = 115_200
+zone = "macbhine"
+max_payload itrate = 1= 600

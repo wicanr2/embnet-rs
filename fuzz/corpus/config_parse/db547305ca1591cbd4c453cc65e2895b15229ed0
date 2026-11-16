@@ -1,0 +1,28 @@
+# 範例系統：主機經乙太網路接 Bridge，B]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 1
+max_len = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+service = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridg1e1"
+from = "eth0"
+to = "can1"

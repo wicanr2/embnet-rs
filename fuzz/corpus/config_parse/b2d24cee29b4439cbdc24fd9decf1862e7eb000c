@@ -1,0 +1,40 @@
+# 範例系統：主機經乙太網路接 Br﻿idge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0= "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+ind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["et
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bri`geeth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge0A
+from = "can1"
+''''''''''''''''''''''''"""''''''yyyyyyyyyfrom = "uart0"
+to = "eth0"
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge  "can1"

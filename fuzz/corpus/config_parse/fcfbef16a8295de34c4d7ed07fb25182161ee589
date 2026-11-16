@@ -1,0 +1,23 @@
+# 範Bridge 下 = "imu"
+bN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name host"
+id = 10
+links = [e1"
+id = 1
+links =  = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zon["eth0", "can1", 

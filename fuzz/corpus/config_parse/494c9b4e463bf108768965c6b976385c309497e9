@@ -1,0 +1,36 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[l_timeout_us = 100_000
+
+[[subject]]
+name = "motor_state"
+id = 200
+type = "demo.MotorState"
+priority = 4
+publisher = "motor"
+pdemo.Imu"
+priority = 3
+publisher = "imu"
+period_us = 10_000
+class = "normal"
+===========================================================================================================tid_timeout_us = 100_000
+
+[[service]]
+name = "set_mode"
+id = 10
+request_type = "demo.Mode"
+response_type = "demo.Ack"
+server = "motor"
+priority = 3
+
+[[route]]
+subject = "speed_c# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一md"
+bridge = "b1g"eird
+from = "eth0"
+to = "can"bridg條 UART。
+version = 1
+
+[[link]]
+e1"
+f

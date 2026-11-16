@@ -1,0 +1,73 @@
+# 範䎥 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[li
+
+[[,type]]
+name = "demo.Speed"
+m.ajor = 1
+max_len = 4
+fieldsnk]]
+name = "eth0"
+kind = "udp"["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart "]
+
+[[,type]]
+name = "demo.Speed"
+m.ajor = 1
+mXx_len = 1
+
+[[li
+
+[[,type]]
+name = "demo.Speed"
+m.ajor = 1
+max_len = 4
+fieldsnk]]
+namname = "imu"
+id = 
+30links = ["uart0"]
+
+[[,type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart "]
+
+[[,type]]
+name = "demo.Speed"
+m.ajor = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name ["cks = ["uart0"]
+
+[[,tyo = "uint8 status"
+
+[[sued"
+priority = 2
+publisher = "................. = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name ["cks = ["uart0"]
+
+[[,type]]
+namn
+[[type]a]nm
+e = "demo = "uint8 status"
+
+[[sued"
+priority = 2
+publisher = "...................GGGGGGGGGGGGGGGGG

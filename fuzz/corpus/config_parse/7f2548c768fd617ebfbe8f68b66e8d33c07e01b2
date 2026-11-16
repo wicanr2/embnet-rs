@@ -1,0 +1,35 @@
+# 範例系統： "bridgu1"
+froe = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge. = "bridge1"
+from = 主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrat/ = 1_000_000
+zriode]]
+
+[[type]]
+name = "demo.Acde]]
+n
+subject = "imu"
+bridge = "bridgu1"
+froe = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge. = "bridge1"
+from = "eth0"
+to = "can1"

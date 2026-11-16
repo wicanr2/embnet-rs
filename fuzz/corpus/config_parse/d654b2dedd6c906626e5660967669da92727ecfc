@@ -1,0 +1,21 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條or = 1
+max_len = 4
+fields = "int16 left; int16 "
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 sta\tus"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "protected"
+protor一條 CAN 與一條 UART。
+versiState"

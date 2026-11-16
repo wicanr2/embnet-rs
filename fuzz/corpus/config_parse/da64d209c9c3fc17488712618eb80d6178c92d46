@@ -1,0 +1,42 @@
+# 範例系統：主機經乙太網路接 Bridge，ide 下有一條 CAN 與一條 UART。
+version = 1
+
+[\\\\\\\\\\[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "exte)nal"
+]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload =!64
+
+[nt16 sped2e;][ uint16 current[2]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_len = 24
+fields = "float32 accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "demout_us = 1p0_"
+to = "can1"o[
+
+[rute]]
+subject = "motor_state"
+lass = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us = 1p0_"
+to = "can1"o[
+
+[r"

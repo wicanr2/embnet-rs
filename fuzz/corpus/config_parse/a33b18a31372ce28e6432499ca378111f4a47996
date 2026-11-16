@@ -1,0 +1,33 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = e"th0"
+kind = "bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1]000_000
+zone = "%mac*ine"
+
+[[link]]
+name = "uart0"
+kind =ks , ["eth0", "can1", "uart0"]
+bridyload = 64
+
+[[nodm]ean]
+e = "host"
+id = 10
+linrlink]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "%mac*ine"
+
+[[link]]
+name = "uart0"
+kind =ks , ["eth0", "can1", "uart0"]
+bridy"
+to = "can1"

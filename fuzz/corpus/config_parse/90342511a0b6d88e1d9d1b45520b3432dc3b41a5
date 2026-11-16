@@ -1,0 +1,49 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "ex;ernal"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "brmdge1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+lateEcy_us = 200
+
+[[node]]
+elds = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fieldsd_us = 1
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

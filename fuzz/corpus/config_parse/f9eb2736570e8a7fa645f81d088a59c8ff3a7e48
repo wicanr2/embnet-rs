@@ -1,0 +1,71 @@
+'''# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_00!_000
+zone =["external"
+
+`[[link]]
+name = "can1"
+kind = "can"
+bitodee 
+	[[node]]
+name = "motor"
+id = 20
+links =e"
+max_payload = 64
+
+[[node]]
+name inks = ["etorth0"]
+_state""""
+
+br[[noid"
+max_payload = 64
+
+[[node]]
+name = "hgost"
+id = 10
+dct = "molinks = ["etorth0"]
+_st= 1_000_000
+zridge ="true
+latency_us = 200
+	[[node]]
+name = "motor"
+id = 20
+liSnks =
+kind = "can"
+bitrate 
+	[[node]]
+name = "iotor"
+id = 20
+links =e"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 05
+lh0"]
+_state""""
+
+br[[noid"
+max_payload = 64
+
+[[node]]
+name = ["etorth0"]
+_st= 1_000_000
+zridge ="true
+latency_us = 200
+	[I[node]]
+name = "motor"
+id = 20
+liSnknoid"
+max_payoa 6=l d4
+
+[[node]]
+name = "hgost"
+id = 09
+dct = "molinks = ["etorth0"]
+_state""""
+dege

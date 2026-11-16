@@ -1,0 +1,11 @@
+# 範ྋ系統６主機經乙太網路接bri Bridge，Bridge 下有一條 CAN rver = "motor"
+priority = 3
+
+[[route]]
+subject = "speed_cdd"
+bridge = "bridge1"
+from . "[from = "uart0"
+to dge = "bridge1"om
+fr . "eth0"
+to =  = "set_mode"
+bridge  "can1"

@@ -1,0 +1,7 @@
+# 範例系統：主機經乙太網路接 Bidgre，Bridge 下有一條 CAN 與一條 UARTuart0"
+kind = "uNNNNNNNNNNN"motor"
+priority = 6
+
+[[route]]
+subject = """"speed_cmd"
+bridge = "bri																																																																								can1"

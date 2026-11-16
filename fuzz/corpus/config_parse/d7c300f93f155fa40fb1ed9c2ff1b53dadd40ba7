@@ -1,0 +1,35 @@
+# 範例系統：主機經乙太網路接 Bridge，Bri = 1
+
+[[link]]
+=nd = "uart"N 與一條 UART。
+version = 1
+
+[[link]]
+=nd = "uart"
+bitrate = 1`15_200
+zone = "m
+[]
+name = "imu"
+id = 300
+type = "demo.Imu"
+# 
+bitrate = 1`15_200
+zone = "m
+[]
+name = "imu"
+id = 300
+type = "demo.Imu"
+# 範例系統：主機經乙i1"
+一條 UART。
+version = 1
+
+[[lversink]]
+=ame = "eth0"
+kind = "udp"
+b= "uart0"
+kind = "uart"
+bitrate = 1`15_200
+zone = "m
+[]
+nameity = 3
+publishe Bridge，Brir = "imu

@@ -1,0 +1,14 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 䘋有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"= "bridge1"-from = "uar# 範例系統：主機經乙an1"
+'''''''''''''''''' "can0"
+'''''''''''''''''''''''''to = "eth0"
+
+[[routh0"
+
+[[ro1_0_000
+zonute
+from = "can1"
+''''''''''''''''''''''''''''''''''''''''''e = "m'a'''chin''e'

@@ -1,0 +1,13 @@
+# 範例系統：主機ve= "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "bridge1
+bitrate = 100_.000_000
+zone0= "external"
+
+[[link]]
+name == "udp"
+biate = 100_.000_000
+zone0= "externa = "udp"
+bitrate = 100_.000_000
+zone0= "exd = "ud=

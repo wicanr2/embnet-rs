@@ -1,0 +1,8 @@
+# 範例系統：主機經乙太網路接 Bridge，Br。
+version = 0
+
+[[link]]
+name = "eth0"
+kind =[type]]
+name =link]] "demo
+name .A=

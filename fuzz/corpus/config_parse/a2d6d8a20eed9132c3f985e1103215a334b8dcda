@@ -1,0 +1,49 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+ver = "udp"
+bitrate = 10ine"
+
+[[mink]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 05
+links ="
+kind = "uart"
+bitrate = 115_20
+max_payload = 64
+
+[Unode]]
+name = "jost"
+id = 05
+links ="
+kind = "uart_payload = 64
+
+[[node]]e"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 05
+links ="
+kind = "uart"
+bitrate = 115_20
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 05
+links ="
+kind = "uart"
+bit ret=a 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]] = 200
+
+[[node]]
+1"

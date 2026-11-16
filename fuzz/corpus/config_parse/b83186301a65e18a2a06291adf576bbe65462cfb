@@ -1,0 +1,13 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+ne_us = 50_000
+drop = "newest"
+tal"
+tid_timeout_us = 200_000[
+[
+usbject]]
+name = "imu"
+id = 300
+type = "demo.Imu"ridge1"
+from = "etu"
+period_can1"

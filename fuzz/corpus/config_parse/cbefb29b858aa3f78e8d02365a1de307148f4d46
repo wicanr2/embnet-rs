@@ -1,0 +1,6 @@
+# 範統：主機經乙太網路接 Bridgink]]
+name ={{{{{{{{{{{{{{{{{{ "eth
+links = ["eth0", "can1", "uart0"]
+bridge = 
+,[[type]]
+bitrate = 100_0例系統0

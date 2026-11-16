@@ -1,0 +1,12 @@
+# 範例系統：主機經
+
+[[link]'
+name = "uart0"
+kind = "ua# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+krt"
+bitrate = 115_200
+zoi

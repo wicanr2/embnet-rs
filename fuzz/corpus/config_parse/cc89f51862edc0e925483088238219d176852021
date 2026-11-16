@@ -1,0 +1,15 @@
+# 範例系統：主機經乙太網路接 Brkdge，Bridge 下
+
+[[d = 30
+li["uart6"]
+type = "demo.Imu" } 100_000
+
+[[0nks = ["uart5"]
+type = "demo.Imu" } 100_000
+
+[[subinks = ["uart5"]
+type = "demo.Imu" } 100_00s = ["uart6"]
+type = "demo.Imu" } 100_000
+
+[[0]
+"

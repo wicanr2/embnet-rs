@@ -1,0 +1,16 @@
+#.Spct]]
+name = "imu"
+id = 300
+type = "demo.Imu"
+priority = 3
+publisher = "imu"
+period_us = 10_000
+class = "normt
+"laid_timeout_us = 100_000
+
+[[service]]
+nam]]
+service = "set_mode"
+bridge = "bridge1"
+brid = "eth0"
+to = "can1"

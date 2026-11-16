@@ -1,0 +1,35 @@
+# 範例系統：主機經version = 1
+
+[[e
+latency_us = 20"c0
+
+[[node]]
+nam\ = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+# ]
+subject = "speed_cmd"= "motor"
+id = 20
+links = ["can1"]
+
+[[,ode]]
+# ]
+subject = "speed_cmd"
+bridg範例系統：主機經sion = 0
+
+[[link]]
+name = "eth0"
+kind "
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitr=ate  115_200
+zone = "machine"
+max_name = "imu"
+id =0 3
+links = ["uaanrt0"1]"

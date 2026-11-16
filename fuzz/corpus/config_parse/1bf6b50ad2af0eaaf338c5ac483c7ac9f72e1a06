@@ -1,0 +1,45 @@
+# 範例系統：主機經乙太網路接 Bridge，trate = 1_000_000
+zone # 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+nitrachine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id =主機經乙太網路接 Bridge，B ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links =
+links = ["eth0"]
+
+[[node]]
+
+
+[[p"
+bitrachine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links =
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = tremo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jittc

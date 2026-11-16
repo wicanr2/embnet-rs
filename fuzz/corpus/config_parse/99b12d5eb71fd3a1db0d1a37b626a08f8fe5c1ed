@@ -1,0 +1,29 @@
+# 範例系統：主機經乙太網路接 B = "externadnad = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"00
+
+[[node]]
+name = "motor"
+id = l
+20inks = ["acn1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int166 right"
+
+[[type]]
+name = "demo.MotorState"
+major = 2
+max_len = 12e]]
+service = "set_m0"
+to = "can1"

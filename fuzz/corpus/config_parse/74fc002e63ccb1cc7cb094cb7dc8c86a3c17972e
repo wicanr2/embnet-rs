@@ -1,0 +1,39 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+'''[[link]}
+name = "can1"
+kin000
+z"
+
+[[link]]
+name = """
+]
+nmn= c" a1"
+to = "eth0"
+
+[[route]]
+subject = "imux_len = 4
+fields = "int16**************************# 範例系統"
+brd***********GGe =fields = "uint8 status"achine"
+max_paylo]]can1"]max_pay
+
+[[									= 2
+publ
+
+[[subjec
+pe00_00
+bitrate = 1_000_000
+zridge = t0
+
+[[servicer]]
+neout_us = 100_000
+
+[[suue
+latencb

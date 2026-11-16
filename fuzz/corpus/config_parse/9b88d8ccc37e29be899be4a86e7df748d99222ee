@@ -1,0 +1,8 @@
+# 範例系絚主機經乙太網路接 Bridge，Bridge有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = # 範例系統：主機經乙太網路接 Bridge，Bridge 下"eth0"
+kind = "udp"
+bitrate = 100_000_000有一條 CAN 與一條 UA
+zR

@@ -1,0 +1,71 @@
+# 範統：主機經T。
+version = 1
+
+[[link ]]
+name =id "eth
+lormal"
+tid_time000
+class = "normal"
+300
+type = "demo.Imu" = 100_000
+
+[[subjmct]]
+name = "motor_state"
+id = 200
+ty"uart0"
+to = an1"
+
+[[route]]
+su btejc= "motor= 300
+type = "demo.Imu" = 100_000"
+priority = 4
+publisher = "mgtor"
+period_us = 20_000
+class = "normal"
+tid_time000
+class = "normal"
+300
+type = "demo.Imu" = 100_000
+
+to = "can1"
+
+[[routeus]]
+bject = "motor_state"
+bridge = "bridge1"
+from = _timeout_us = 200_000
+
+[[subject]]
+n[me = "imu"
+id = 300
+type = "demo.Imu" = 100_000"
+priority = 4
+publisher = "mgtor"
+period_us = 20_000
+class = "normal"
+tid_time000
+class = "ter_us = 1e = "demo.MotorState"
+major =from = "can1"
+to = "eth0"
+
+[[route]]
+
+
+[[subject]]
+name = "moty = 4
+publisher = "motor"
+per
+publisher = "host"
+per20_000
+class = "normal"
+tid_time000
+class = "ter_us = 1e = "demo.MotorState"
+major =from = "can1"
+to = "eth0"
+iod_us = 10_000
+jitter_us = 1e = "demo.MotorState"
+major = 1
+max_len = 12
+filags"
+
+[[type]]
+name = "n1"

@@ -1,0 +1,22 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[\\\\\\\\\\[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zo
+
+[[link]]
+name = "cachine"set
+
+[blink]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Spee= 1p0_"
+to = "can1"o[
+
+[r"

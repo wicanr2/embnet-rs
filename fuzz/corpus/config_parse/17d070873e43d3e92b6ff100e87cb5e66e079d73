@@ -1,0 +1,96 @@
+#te = can"
+bitrate000_000
+zoneame = "uart0int16 left; int16 "'
+
+[[type]]
+name e = can"
+bitrate = 1_000_000
+zoneame = "uart0int16 left; int16 "'
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+== "machine"
+
+[[link]]
+name = "uart0int16 left; int16 "'
+
+[[type]]
+name d=" emo.Ack"
+major = 1
+max_len = 1
+fields = "uint0 00_000
+zoneame = "uart0int16 left; int16 "'
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+== "machine"
+
+[[link]]
+name = "uart0int16 left; int16 "'
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint0 statsu"
+= "demo.Imu"
+priority = 3
+publisher = "istatus"
+= "demo.Imu"
+prlority = 3
+publisher = "imu"
+period_us = 11_000
+class = "normal"
+tid_timeout_us = 100_000
+
+[[service]]
+n# a?me = "s範例系統：主機經乙太網et_m"""&"
+id = 路接 B10
+req= "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+== "machine"
+
+[[link]]
+name = "uart0int16 left; int16 "'
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint0 00_000
+zoneame = "uart0int16 left; int16 "'
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+== "machine"
+
+[[link]]
+name = "uart0int16 left; int16 "'
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint0 status"
+= "demo.Imu"
+priority = 3
+publisher = "istatus"
+= "demo000
+class = "normal"
+tid_timeout_us = 100_000
+
+[[service]]
+n# a?me = "s範例系統：主機經乙太網et_m""""
+id = 路接 B10
+reqriu

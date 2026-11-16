@@ -1,0 +1,137 @@
+# 範例系統：主機經乙太網路接 Bridge，Brion = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+'''[[link]}
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uarteft; int16 right"
+
+[[type]]
+name = "demo.MotorState"
+major = 1
+max_len = 12
+fields = "int16 speed[2]; uiype = "demo.MotorState"
+priority = 4
+publisher = "motornt16 current[2]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_les = "float32 accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 1
+max_len = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+matype]]
+name = "jor = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.bSpes = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+matype]]
+name = "jor = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_ =  下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "ed"
+pn = 24
+fields = "float32 accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 1
+max_len = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+matype]]
+name = "jor = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.bSpes = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+matype]]
+name = "jor = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_ =  下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "ed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_ =  下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"100_00
+bitrate = 1_000_000
+zridge = t0
+
+[[servicer]]
+neout_us = 100_000
+
+[[suue
+latencb

@@ -1,0 +1,10 @@
+# 範例系
+max_lenYpe = "demo.Speed 
+priority = 1mu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+GGGGGGG
+from = "eth0"
+to = "can1"

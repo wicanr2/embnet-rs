@@ -1,0 +1,42 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kin= d "u
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu" = 100_000
+
+[[subject]]
+name = "mot乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kin= d "u
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu" = 100_000
+
+[[subject]]
+name = "motor_state"
+id = 200
+type = "demo.MotorState"
+priority = 4
+pue = 1_000_000
+zone = """chine"
+
+[[li_us = 460_000
+
+[[subme = "imu"
+id = 30priority = 4
+pue = 1_700_000
+zone = "u?chine"
+
+[[link]]
+name = "uart0"
+kind = "u?blart"
+bitra

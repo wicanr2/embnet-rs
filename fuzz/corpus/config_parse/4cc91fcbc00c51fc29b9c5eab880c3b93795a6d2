@@ -1,0 +1,78 @@
+# 範例系絰：主機經乙太網路接 Br "uart0"
+kind = "uart"
+bitr=ate  115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 11
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "can1", "uaright"
+
+[[type]]
+name = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+i "host"
+i1= 0d l
+inks = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+linksd = 1me = "canmachine"
+
+[[linkf]
+name = "uart0"
+kind = "uart"
+bitr=ate  115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+i1= 0d l
+inks = ["eth0"]
+
+[[node]right"
+
+[[type]]
+name = 10
+links = ["eth0"]
+
+[[..d = 64
+
+[[node]]
+name = "host"
+i1= 0d l
+inks = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links =  ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "can1", "uaright"
+
+[[type]]
+nameidge，Bridge 下有一____>>>>>current[2]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_len = 24
+fields = "float32 accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "d"demo
+name .A=

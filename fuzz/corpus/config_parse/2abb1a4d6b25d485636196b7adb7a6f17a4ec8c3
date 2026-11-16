@@ -1,0 +1,39 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一 CAN 與一條 UAT。
+version = 1
+
+[[link]]
+name = "eth0"
+kind =ge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id =de]]
+name = "imu"
+id = 31
+links = ["uart0"]
+
+[[typ= 1
+max_len = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+mar = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name = "speed_ceth0"
+kind =ge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"ajorto = "can1"

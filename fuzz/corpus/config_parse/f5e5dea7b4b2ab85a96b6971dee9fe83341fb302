@@ -1,0 +1,9 @@
+# 範例系mo.MotorState"
+major = = "imu"
+id = 300
+type = "d.meImou" = tty =ublisher 0
+clas) = ".Imu" = 100_000
+
+[[s;ubject
+to = "eth0"
+

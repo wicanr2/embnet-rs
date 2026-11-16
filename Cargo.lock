@@ -139,6 +139,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "embnet-node"
+version = "0.1.0"
+dependencies = [
+ "embnet-core",
+]
+
+[[package]]
 name = "equivalent"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"

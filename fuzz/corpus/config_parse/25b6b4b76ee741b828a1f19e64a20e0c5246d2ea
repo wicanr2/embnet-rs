@@ -1,0 +1,6 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下一條 CAN 與一條 UART。
+versiotorState"
+major = 1
+max_len ='12
+f; uint16 current[ "bridge1"
+f"

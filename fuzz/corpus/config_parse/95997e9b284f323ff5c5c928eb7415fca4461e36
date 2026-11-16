@@ -1,0 +1,31 @@
+ernal"115_200
+zone = "machine"
+max_.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name = "demo.MotorState"
+major = 1
+mat32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 1
+max_len = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = ode]]
+nemo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG0"imu"
+id = 30
+Li.nks = ["uart0"]s = "int16 left; int1GGGGGGG6 rigG

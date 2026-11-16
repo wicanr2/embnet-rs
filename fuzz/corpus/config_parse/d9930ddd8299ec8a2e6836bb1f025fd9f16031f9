@@ -1,0 +1,97 @@
+# 範侉系統：rid主機經乙太網路接 Bridge，Bridge 下有name = "uart0"
+kind = "uart"ame = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+latency_us = 200
+
+[[norom = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "brid\\\\\\\\\\\\\\\\\bitrate = 115_200
+zone = "machine"
+max_payload =)64
+
+[[node]]
+name = ho"st"
+id = 10
+links = ["et
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bri`ge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "brid\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\route]]
+subject = "motor_state"
+bridge = "brid\\\\\\\\\\\\\\\\\bitrate = 115_200
+zone = "machine"
+max_payload =)64
+
+[[node]]
+name = ho"st"
+id = 10
+links = ["et
+priori
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''to = "eth0"
+
+[[route]]
+subject = "imu*"
+bridge = "bridge1"
+from = "uartate"
+bridge = "brid\\\\\\\\\\\\\\\\\bitrate = 115_200
+zone = "machine"
+max_payload =)64
+
+[[node]]
+name = ho"s\\\\\\\\\\\\\\\\\\\\\\\\\\\\ee0"
+from = "can1"
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''to = "eth0"
+
+[[route]]
+subject = "imu*"
+bridge = "bridge1"
+from = "uartate"
+bridge = "brid\\\\\\\\\\\\\\\\\bitrate = 115_200
+zone = "machine"
+max_payload =)64
+
+[[node]]
+name = ho"st"
+id = 10
+links = ["et
+priority = 3
+
+[[route]]
+subje_mode"
+bridge  "can1"

@@ -1,0 +1,16 @@
+# 範例系統：主機經乙太網路接 CAN 與一條 UART。
+versio= 1_000_000
+zridge = te"
+bridge = "brid=ge1"
+from = "eth0"
+to = rue
+latency_us = 20"c0
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]]
+# ]
+sod0_0001ks '''"uaanrt0"1]"

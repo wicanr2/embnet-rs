@@ -1,0 +1,33 @@
+ = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+
+[[sujbect]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 1
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class =1
+
+[[link]]
+name = "eth0"
+kind # 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與= "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = ."can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+一 2name = "

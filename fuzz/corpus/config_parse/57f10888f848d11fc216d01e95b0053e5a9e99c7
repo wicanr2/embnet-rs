@@ -1,0 +1,43 @@
+# 範例系統：主機經= "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bmu"
+id = 30
+Li.nks = 30
+Li.nks = ["uart0"]
+
+[[type]]
+nemo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "GGG0
+links = {"can1"]
+
+[[node]]
+name = "imu"
+id = 30
+Li.nks = ["uart0"]
+
+[[type]]
+nemo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG0
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+Li.nks = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 2
+max_len = 4
+fields = "int16 left; int1GGGGGGG6 rigG

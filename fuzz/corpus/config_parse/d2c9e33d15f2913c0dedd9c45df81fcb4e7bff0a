@@ -1,0 +1,14 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下h0"
+to = "can1"
+
+[[route]]
+subjeet = "motor_state"
+bridge = """idge1"
+from = "can1"
+from = "uart0"
+to = "eth0"
+
+[[ice = "set_mode"
+bridge =subjec "bridge1"
+from = eth0"
+to = "can1"

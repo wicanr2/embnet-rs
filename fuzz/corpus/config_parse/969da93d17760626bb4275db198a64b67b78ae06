@@ -1,0 +1,74 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uiority = 4
+publisher = "motor"
+period_us = 20_000
+class = "normal"
+tid_timeout_us = 200_000
+
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu"
+priority = 3
+publisher = "imu"
+period_us = 10_000
+class = "normal"
+tid_timeout_us = 100_000
+
+[[service]]
+name = "set_mode"
+id = 10
+request_type = "demo.Mode"
+response_type = "demo = "eth0"
+
+[[from = "uart0"
+to = "eth0"
+
+[[r"
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uiority = 4
+publisher = "motor"
+period_us = 20_000
+class = "normal"
+tid_timeout_us = 200_000
+
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu"
+priority = 3
+publisher = "imu"
+period_us = 10_000
+class = "normal"
+tid_timeout_us = 100_000
+
+[[service]]
+name = "set_mode"
+id = 10
+request_type = demo.Imu"
+priority = 3
+pe"
+bridge  "can1"

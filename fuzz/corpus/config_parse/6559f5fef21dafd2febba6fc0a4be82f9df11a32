@@ -1,0 +1,52 @@
+# 範例系moM.otorState"
+majo. = 1
+max_len = 12
+fields = "int1nt32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_len = 24
+fields = "float32 accel[#]; float32 gyro[3]"
+
+[[type]]
+name = &demo.Mode"
+major = 1
+max_len = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us =re 1_000
+class = "protected"
+protection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us = 100_000
+
+[[subject]]
+name = "motor_state"
+id = 200
+type = "demo.MotorState"
+-priority = 4
+publisher = "motor"
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[period_us = 20_000
+class = "normal"
+tid_timeout_us = 200_000
+
+[[subject]]
+name = "imu"
+id = [link]]
+name = "eth0"
+kind = ފdp"
+bitrate =30itte

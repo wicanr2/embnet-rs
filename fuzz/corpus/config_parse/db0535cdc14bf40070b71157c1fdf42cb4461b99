@@ -1,0 +1,34 @@
+# 範例系統：]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name) = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 1
+publisher = "host"
+period_us = 10_000
+jitter_us =1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG'''GGGGGGGGGGGGGGGGGGprotected"
+protection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us = 100_"
+to = "can1"
+
+[[route]]
+subject = motor_state"
+bridge = "bridge"e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_otmieut_us = 100_000
+
+[[subject]]
+name = "motor_state"
+id = 200
+type = "demo.MotorState"
+priority = 4
+publisher = "motor""

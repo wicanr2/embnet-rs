@@ -1,0 +1,10 @@
+# 範例系統：主機經乙太網路接 Bridge，Brid&e 下有一條 CAN 與一條 UART。
+versiinks ==]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[kincy_u]
+name = "motor"
+id = d = 30
+e  "can1"

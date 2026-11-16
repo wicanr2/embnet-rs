@@ -1,0 +1,6 @@
+.St
+from = "uart0"
+mode#
+bridge = "bridge2"
+from = """"eth0"
+to late= "can1"

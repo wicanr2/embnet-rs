@@ -1,0 +1,103 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CANart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 l"
+bitrate = 1_000_000
+zridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 lgft; int16 right"
+
+[[type]]
+name = "demo.2 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_len = 24
+fields = "float32 accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+majmax_len = 1
+fields = M"uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name = ct = "spor_state"
+bridge = "bridge1"
+from = "can1
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge1"
+from =th0"
+
+[[route]]
+subject = "imu"
+bridge =b "ridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]nt16 current[2]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_len = 24
+fields = "float32 accel[3]; float32 gyro[3 = "speed_cmd"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bri[subject]]
+name = ct = "speed_cmd"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "han1"
+to = "eth0"
+
+[[ro"eth0"
+to = "can1"

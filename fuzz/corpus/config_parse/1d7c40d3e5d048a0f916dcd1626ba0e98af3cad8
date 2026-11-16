@@ -1,0 +1,20 @@
+# 範例系moM.otorState"
+majo. = 1
+max_len = 12
+>ields = rotection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeoet_us = 100_000
+
+[[subject]]
+name = "motor_state"'
+id = 200
+type = "demo.MotorState"
+-priority = 4us = 200_000
+
+[[subject]]
+name = "imu"
+id = [link]]
+name = "eth0"
+kind = ފdp"
+bitrate =30itte

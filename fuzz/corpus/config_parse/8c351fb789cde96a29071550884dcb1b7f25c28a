@@ -1,0 +1,27 @@
+# 範例系統："
+bridge = "bridge1"
+flink= "eth0"
+to = "can1"
+
+[[routeus]]
+bject = "motor_state"
+bridge = "bridge2"
+from = _ti# 範例系統：主機經乙太網路接 "speed_cmd"
+bridge = "bridge1"
+flink= "eth0"
+to = "can1publisher"
+
+[[routeus]]
+bject = "motor_state"
+bridge = "bridge1"
+from = _ti# 範例系統：主機經乙太網路接 Bridge，Bridge eout_us = 200_000
+
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu" = 100_000from = "uart0"
+to = "eth0"
+
+GGGGGGGGGGG
+
+[[subjecGGGGGGt]

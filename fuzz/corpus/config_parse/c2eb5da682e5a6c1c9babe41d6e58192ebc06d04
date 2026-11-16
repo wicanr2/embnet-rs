@@ -1,0 +1,30 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate =UAR# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與]
+name = "trate 0
+links = [# 範例系統：主機經乙太網路接 Br"can1"]eth0"
+kind = "b"udp
+itrate 0
+links = [# 範例 = "motor_state"
+bridge = "bridge1"b"udp
+itrate 0
+l太網路接 Br"can1"]eth0"
+kind = "b"udp
+itrate 0
+links = [# 範例 = "motor_state"
+bridge = "bridge2"b"udp
+itrate 0
+links = [# 範例 = "motor_state"
+bridge = "bridge1"
+from =from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

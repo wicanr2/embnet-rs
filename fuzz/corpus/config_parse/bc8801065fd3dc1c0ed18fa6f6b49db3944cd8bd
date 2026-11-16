@@ -1,0 +1,52 @@
+# 範例系統：主機經乙太網路接  與一條 UART。
+version = 1
+
+[[link]]
+=ame = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = art0"
+kind = "uart"
+bitrate = 1`15_200
+zone = "m
+[]
+n "imu"
+id = 300
+type = "demo.Imu"
+# 範例系統：主機經乙i1"
+一條 UART。
+version = 1
+
+[[link]]
+=ame = "eth0"
+kind = "udp"
+b= "uart0"
+kind = "uart"
+bitrate = 1`15_200
+zone = "m
+[]
+name = "imu"
+id = 300
+type = "dene = "m
+[]
+name = "imu"
+id = 300
+type = "demo.Imu"
+# 範例系統：主機經乙i1"
+一條 UART。
+version = 1
+
+[[link]]
+=ame = "eth0"
+kind = "udp"
+b= "uart@"
+kind = "uart"
+bitrate = 1`15_200
+zone = "m
+[]
+name = "imu"
+id = 300
+type = "demo.Imu"
+# 範例系統：主機經乙太網路接priority = 3mo.Imu"
+# 範例系統：主機經乙太網路接priority = 3
+publishe Bridge，Brir = "imu

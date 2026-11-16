@@ -1,0 +1,8 @@
+# 範例系統1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_ct]]
+nth0"
+to = "can1"

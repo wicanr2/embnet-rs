@@ -1,0 +1,78 @@
+# 範例系統)：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一///////////////RT。
+versiinks = ["can0"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[t 24
+fields E "float32 accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 1
+max_len = 1
+fien1"]
+
+[lds =[node]]
+nade = "i "uint8 mode 下有一條 CAN 與一////////////////////////////////////1"]
+
+[lds =[node]]
+nade = "i "uint8 mode"
+mu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speedemo.Spee
+[[///////////////////////////////////////////////////////////////////////////////////////////////////////////////條 UApRT。
+versiinks = ["can0"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[t 24
+fields E "float32 accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 1
+max_len = 1
+fien1"]
+
+[lds =[node]]
+nade = "i "uint8 mode"
+mu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////條 UART。
+versiinks = ["can0"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[t 24
+fields E "float32 accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 1
+max_len = 1
+fien1"]
+
+[lds =[node]]
+nade = "i "uint8 mode"
+mu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speedemo.Spee
+[[d"typ

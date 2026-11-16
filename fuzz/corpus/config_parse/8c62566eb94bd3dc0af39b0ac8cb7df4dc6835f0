@@ -1,0 +1,15 @@
+# 範例系統：主機經乙太k]]
+name = "eth0"
+kind =ro[3]"
+
+[[typ Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "u
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu" = 100_000
+ind fields = "demo.=Ack = "" "{

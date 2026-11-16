@@ -1,0 +1,77 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+versionitrate 
+[[route]]
+subject = "speed_cmd"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = an1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge]]
+service = "set_mod例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zridge = te"
+bridge = "bridge1"
+from = "eth0"
+to = rue
+latency_us = 20"c0
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitr=ate  115_200
+zone = "machine"
+max_name = "imu"
+id = 30
+links = ["uaanrt0"1]"

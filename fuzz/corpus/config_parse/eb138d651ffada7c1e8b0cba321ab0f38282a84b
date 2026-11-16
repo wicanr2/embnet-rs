@@ -1,0 +1,50 @@
+# 範接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 10me = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[l]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+prbli"
+max_payloainks = ["eth0"]
+
+[[node]NNNNNNNNNNNNNNNNNNajor = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed 
+priority = 1
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "GGGGGGGubject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "protede]]
+nanewest"
+tid_timeout_us = 100_"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge [[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

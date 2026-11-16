@@ -1,0 +1,27 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+namn
+name = "motor"
+id = 20
+bitrs = ["can1"]
+
+[[node]]
+name = "mu"
+id = 30
+links = ["uaobject]]
+name = s"peed_cmrue
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[t0"]
+
+[[typ200
+{one =]
+subject = "imu"
+bridgian1"

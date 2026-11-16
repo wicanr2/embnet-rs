@@ -1,0 +1,23 @@
+# 範例系統：主機經乙太網d = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[li]]
+name = "imu"
+id = 30
+links = ["uart0"me =0dge1"
+id = 1
+lius = 20"demo.Speed"
+major } 1
+max_len = 4
+fields = "int16 achine"
+inks = ["uart0"]
+
+[[t.pe]]
+name =0dge1"
+id = 1
+lius = 20"demo.Speed"
+, "uart0"]
+jitterbridge = t2ue
+lat= "eth5"
+to = "can1"

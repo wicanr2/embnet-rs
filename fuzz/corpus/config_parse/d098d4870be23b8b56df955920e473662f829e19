@@ -1,0 +1,95 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+versio = "eth0"
+kind =t0"]
+bridge = true
+bitrate_us = 20h0"
+kind = "udp"
+bitrate = 100_000_00= "bridge = "imu"
+id = 30
+links = ["uart0"]
+
+v[type]]
+len = 4
+fields = "int16 left; isubjecnt16 right"
+
+[[type]]
+name =.Sp1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+latency^us = 200
+
+"
+
+[[type]]
+name =.Stor"
+idr 條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+th0"
+kind = "udp"
+bitrate = 100_000_00= "bridge = "imu"
+id = 30
+links = ["uart0"]
+
+000_00= "bridge = "imu"
+id = 30
+links = ["uart0"]
+
+v[type]]
+len = 4
+fields = "int16 left; isubjecnt16 right"
+
+[[type]]
+name =.Sp1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+latency^us = 200
+
+"
+
+[[type]]
+name =.Stor"
+idr 條 CAN 與一條 UART。
+vfields = "int16 left; isubjecnt16 right"
+
+[[type]][[type]]
+name =.Sp1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+latency^us = 200
+
+"
+
+[[type]]
+name =.Stor"
+idr 條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+th0"
+kind = "udp"
+bitrate = 100_00
+name =.Sp1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+latency^us = 200
+
+"
+
+[[type]]
+name =.Stor"
+idr = 20
+l00= [type]]
+name =."bridge = "imu"
+id = 30
+links = ["uart0"]
+
+v[type]]
+len = 4
+fields = Spee
+[[d"typ"int16 left; isu

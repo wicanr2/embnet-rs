@@ -1,0 +1,5 @@
+dte = 100= 200_
+0
+type =ode"m .Imu"
+priority = 
+to = prio"can1"

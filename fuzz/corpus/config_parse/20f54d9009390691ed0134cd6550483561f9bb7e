@@ -1,0 +1,17 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UARTဂ
+version = 1
+
+[[link]]
+e"
+
+[[link]]
+nam "bridge1"
+id = 1
+links = ["eth0", "caBridge，Bridge 下有一條 CAN 與一條 UART。
+v= "uint8 status"
+
+[[,subject]]
+name = "speed_cmd"
+id = 100
+tm = "eth0"
+to = "can1"

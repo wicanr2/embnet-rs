@@ -1,0 +1,28 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 C
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[=ink]]
+name = "uart0"
+kind = "uart"
+bitr=ate  115_200
+zone = "machine"
+max_name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 "
+
+[[type]payloadidge = "bridge1"
+from = "eth0"
+to = "can1"

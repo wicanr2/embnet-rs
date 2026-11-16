@@ -1,0 +1,16 @@
+# 範例系統：主機經乙太網路接 Bridgei*on = 1
+
+[[link]]
+na
+name = "can1"
+kind = "can"
+bitratnal"
+]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000Nzone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitr=ate  115_2s = ["uaanrt0"1]"

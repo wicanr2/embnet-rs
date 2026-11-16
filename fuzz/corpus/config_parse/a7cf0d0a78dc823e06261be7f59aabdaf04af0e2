@@ -1,0 +1,40 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 	與一條 UART。
+version = 0
+
+[[link]]
+name = ___>_______link_ "eth5"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can# 範例系統：主機經Ink]]
+name = "eth0"
+kind =[________________________>_______link___________1"
+kind = "can"
+bitrat____MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM1
+
+[[link]]
+name = ___>_______link_ "eth5"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can# 範例系統：主機經Ink]]
+name = "eth1"
+kind =[________________________>_______link___________1"
+kind = "can"
+bitrat____MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+zridge = true
+iority = 3
+publiiod_us = 73_MMMMMMMMMMMMMMMMMMMMMMMMM
+zridge = true
+iority = 3
+publiiod_us = 73_000
+class = "norma[[service]]
+name = "set_mode"
+id = 10
+tid_timeout_us = 100_000
+
+[[ser

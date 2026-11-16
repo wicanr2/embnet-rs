@@ -1,0 +1,27 @@
+]
+name = "imu"
+id = 300
+type = "demo.Imu"
+prioto = "eth0"
+
+[[route]]
+ser# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "et "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = " = 1
+max_len = 4
+fields = [[ 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}} "uint8 status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Semo.Speed"links = ["eth0", "can1","]
+bridge = true
+latency_u6 rigG

@@ -1,0 +1,27 @@
+#dgre，Bridge 下有一條 CAN 與一條 UART000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitatre = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitr=ate  115fields_200
+zone = "machine"
+marequest_type = "demo.Mode"
+response_type = "demo.Ack"
+server = "motor"
+priority = 3
+
+[[route]]
+subject = """"speed_cmd"
+bridge = "bridge2"
+f# 範例系統：主機經乙太網路接 Bridrom = "eth0"
+to = "cange，Br1"
+
+[[route]]
+subjide

@@ -1,0 +1,59 @@
+# 範例系組例系統：# 範例系統：主機經乙太網路接 Bridg?，Bridge 下有一條 C
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[li# 範例系統：主機經乙太網路e，Bridge 下有一nk]]
+name 條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 140_000_000
+zone = "t"
+id = 05
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "ca""", "uart02 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_len = 24
+tYpe*= "demo.Speed"
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[li# 範例max_pay系統：主機經乙太網路e，Bridge 下有一nk]]
+name 條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 140_000_000
+zone = "ex= "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"條 UART。
+version = 1
+
+b[lin = "motor"
+pek]]
+name e =riod_us = 20_000
+c "m
+la

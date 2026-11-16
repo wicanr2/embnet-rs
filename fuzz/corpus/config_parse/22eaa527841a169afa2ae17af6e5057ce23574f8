@@ -1,0 +1,81 @@
+# 範例系統：主機經乙太網路接 Briernal"
+
+[[0_000_000
+zone = "external"
+
+[[link]]
+n= 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = [#eth_200
+zone = "machine"
+max_payload = 64
+
+[ 1
+
+[[link]]
+name = "eth0"
++ijd= "zdemo.Speed"
+major  = "udp"
+bitrate = 100_0GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGART。
+version = 1
+
+[[link]]
+name = "eth0"
++ijd= "demo.Speed"
+major  = "udp"
+bitrate = 100_0GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGame = "u.rt0"
+kind = "uart"
+bitrate = 115_200
+zone = "mach
+e"nimax_payload = 64
+n[o[
+de]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]NN[route]]
+subject = "motor_state"
+bridge = " "can1 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
++ijd= "demo.Speed"
+major  = "udp"
+bitrate = 100_0GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGame = "u.rt0"
+kind = "uarts = ["eth0", "can1 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
++ijd= "demo.Speed"
+major  = "udp"
+bitrate = 10one = "mach
+e"nimax_payload = 64
+n[o[
+de]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]NN[route]]
+subject = "motor_state"
+bridge = "bridge1"
+froct = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "blatencridge1"
+from = "eth0rvice = "set_mode"
+bridge = "blatencridge1"
+from = "eth0"
+to = "can1"

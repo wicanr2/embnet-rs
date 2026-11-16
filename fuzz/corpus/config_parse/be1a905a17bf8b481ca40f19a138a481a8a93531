@@ -1,0 +1,26 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+versio= 1_000_000
+zridge = te"
+bridge = "brid=ge1"
+from = "eth0"
+to = rue
+latency_us = 20"c0
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+# ]
+subject = "speed_cmd"= "motor"
+id = 20
+links = ["can1"]
+
+[[nod0_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitr=ate  11ks '''"uaanrt0"1]"

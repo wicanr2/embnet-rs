@@ -1,7 +1,7 @@
 # P0 體積量測（docs/plans/004 第四節）。三個 bin 用同一個裸機外殼，相減後才是協定本身的成本。
 [workspace]
 resolver = "3"
-members = ["baseline", "canadensis", "emcyphal"]
+members = ["baseline", "canadensis", "emcyphal", "embnet", "embnet-full"]
 
 [workspace.package]
 edition = "2024"

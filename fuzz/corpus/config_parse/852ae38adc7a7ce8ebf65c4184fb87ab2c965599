@@ -1,0 +1,18 @@
+# 範例系統：主機經乙太
+type = "demo.MotorState"
+priority =GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGprotected"
+protection = "e1e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us = 200_eriod_us = 10_000
+class = "normal"
+tid_timeout_us = 100_000
+
+[[service]]
+name = "set_mode"
+id = 10
+request_type = "demo.Mode"[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

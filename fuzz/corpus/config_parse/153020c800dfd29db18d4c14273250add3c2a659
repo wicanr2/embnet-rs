@@ -1,0 +1,63 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links ={= "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrtrue= 115_200
+zone = "machinidge1"
+id = 1
+links == "machine"
+
+[[link]]
+name = "u# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+byl"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links == "machine"
+
+[[link]]
+name = "u# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitraoad = 64
+
+[[node]]
+name = "host"
+id = 10
+lin =k s["et
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bri`giority = 3
+
+[[route]]
+subject =" "speed_cmd"
+b
+ri`ge = "b

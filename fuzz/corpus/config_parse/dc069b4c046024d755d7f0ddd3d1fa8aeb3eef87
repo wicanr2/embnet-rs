@@ -1,0 +1,103 @@
+# 範統：主機經T。
+version = 1
+
+[[link ]]
+name =id "eth
+links = ["eth0", "can1"mo****************************$**************************33333333333333333333333333333K33"demo.Ack"
+majo****************$**************************33333333333333333333333333333K33"demo.Ack"
+major = 1
+max_len = 1
+fields = = 24
+ = 0
+max_l
+ei=  nefl1ds = "uint8 mode"
+
+[[type]]
+name = 333333:33333333333tor"
+id = 20
+links = ["can1"]
+
+[[node]]
+.ame = "im
+
+[[node]]
+.ame = "imu"
+id = 30
+link = 30
+links =# 範例系統：主機經乙夙太網路接  "int16*************************************r = 1
+max_len = 1
+fields = = 24
+ = 0
+max_len = 
+iefl1ds = "uint8 mode"
+
+[[type]]
+name = 333333:33333333333tor"
+id = 20
+links = ["can1"]
+
+[[node]]
+.ame = "im
+
+[[node]]
+.ame = "imu"
+id = 30
+link = 30
+links =# 範例系統：主機經乙夙太網路接  "int16************************************************************h33333333333333333333K33"demo.Ack"
+major = 1
+max_len = 1
+fields = = 24
+ = 0
+max_l
+ei=  nefl1ds = "uint8 mode"
+
+[[type]]
+name = 333333:33333333333tor"
+id = 20
+links = ["can1"]
+
+[[node]]
+.ame = "im
+
+[[node]]
+.ame = "imu"
+id = 30
+link = 30
+links =# 範例系統：主機經乙夙太網路接  "int16*************************************r = 1
+max_len = 1
+fields = = 24
+ = 0
+max_len = 
+iefl1ds = "uint8 mode"
+
+[[type]]
+name = 333333:33333333333tor"
+id = 20
+links = ["can1"]
+
+[[node]]
+.ame = "im
+
+[[node]]
+.ame = "imu"
+id = 30
+link = 30
+links =# 範例系統：主機經乙夙太網路接  "int16************************************************************h33333333333333333333333333333k33"demo.Ack"
+major = 1
+max_len = 1
+fields = = 24
+ = 0
+max_len = 
+iefl1ds = "uint8 mode"
+
+[[type]]
+name = 333333:3333333333333333333333333k33"demo.Ack"
+major = 1
+max_len = 1
+fields = = 24
+ = 0
+max_len = 
+iefl1ds = "uint8 mode"
+
+[[type]]
+name = 333333:33333333333333333333333333331333"

@@ -1,0 +1,81 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridg "float32 accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 1
+max_len = 1
+field太網路接 Bridge，Bridge 下有一條 CAN 與一條 UAT。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[nod
+[[subject]]
+name = "motor_state"
+id = 200
+type = "demo.MotorState"
+priority = 4
+publisher = "motor"
+period_us = 20_000
+class = "nor"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge1"
+froiority = 3
+publisher = "imu"
+period_us = 10_000
+class = "normal"
+tid_timeout_us = 100_000
+
+[[service]]
+name = "set_mode"
+id = 10
+request_type = "demo.Mode"
+response_typu = "demo.Ack"
+server = "motor"
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge  "can1"

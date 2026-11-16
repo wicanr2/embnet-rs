@@ -1,0 +1,28 @@
+# 範例系統：主機經乙太網路接 Bridge，B%ridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[lie"
+bridge = "bridge1"
+from =]"can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "et
+bridge = "bridge1"
+from =]"can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

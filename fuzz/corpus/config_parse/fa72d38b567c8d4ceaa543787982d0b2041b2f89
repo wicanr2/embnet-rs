@@ -1,0 +1,13 @@
+#idge，"
+bitrate = 100_000_000
+zone = "external"
+
+ine"
+
+[[link]]
+''''''''''''''''''''''''''''''''''''''''to = "t5"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge  "can1"

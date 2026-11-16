@@ -1,0 +1,35 @@
+# 範例系統：主機經乙太網路接 Bemo.MotorState"
+major = 1
+max_len = 12
+fields = "int08 speed[2]; uint16 current[2]; uint32 flags"
+
+[[type]]
+name = "demo.Imu"
+major = 0
+max_len = 24
+fields = "bloat32 accel[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 2
+max_len =2 flags"
+
+[[type]]
+name = "d = "uint8 status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+pject = "motor_state"
+brid;nit16idge2"
+frname "uart0"
+to = "eth0"
+
+[[rout00
+brid;nit16 right"
+
+[[type]]
+name = "demo.Modge1"
+brid = "eth0"
+to = "can1"

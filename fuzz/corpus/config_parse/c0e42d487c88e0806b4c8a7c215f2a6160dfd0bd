@@ -1,0 +1,15 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條[[node]]
+name = "imu"
+id = 34
+d 100_000
+[[s]
+
+[[node]]
+namenal"
+
+[[link]]
+name = "can1" 34
+l 100_000
+[[subje= "external"
+
+[[lin0 

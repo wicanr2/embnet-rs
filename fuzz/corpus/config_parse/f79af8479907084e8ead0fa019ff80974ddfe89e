@@ -1,0 +1,14 @@
+# 範例系統00
+zone = "ext = "uint8 mode"
+
+[[type]]
+name = "\emo.Ack"
+m,jor = 1
+max_len = 1
+fute]]
+subject = "imu"
+bridge = "&ridgE1"
+from = "uart0ice = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

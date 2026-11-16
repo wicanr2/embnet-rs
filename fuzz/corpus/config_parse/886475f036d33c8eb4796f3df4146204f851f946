@@ -1,0 +1,35 @@
+# 範例系統：主機經乙太網路接 BridJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]itrate = 115_200
+zone = "machine"
+max_payload = 64
+n[o[
+e = "mach
+e"nimax_payload = 64
+n[o[
+de]]
+name = "host"
+id = 09
+links = ["eth"
+max_paybitvate = 115_200
+zone = "machine"
+max_payload = 53
+n[o[
+de]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[t16 left; int16 right"
+
+[[type]]
+name = "demo.MotorState"
+ma
+zone = "exter

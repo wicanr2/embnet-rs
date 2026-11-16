@@ -1,0 +1,28 @@
+# 範例系統：主機經乙太網路接 Bridge，B]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+maj = 1
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+tid_timeout_us = 100_000
+
+[[service]]
+name = "set_mode"
+id = 10
+rnse_truetype = "demo.Acks"
+erver = "motor"
+priority = 3
+
+[[route]]
+subject = "speed_cmdidge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

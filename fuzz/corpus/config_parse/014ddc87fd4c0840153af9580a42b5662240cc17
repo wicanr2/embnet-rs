@@ -1,0 +1,13 @@
+# 範例系統：主機經乙太網路接 Bri3]; gyro[3]"
+
+[[]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service =de"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

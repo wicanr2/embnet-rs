@@ -1,0 +1,8 @@
+# 範例系統：主渀條 UART。
+version = 0
+
+[[link]]
+name = "eth0"
+kiny_us = 200
+
+[[node]]

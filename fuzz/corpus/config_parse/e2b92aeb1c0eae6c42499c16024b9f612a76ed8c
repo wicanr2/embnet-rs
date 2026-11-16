@@ -1,0 +1,85 @@
++ 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一Bridge 下有一條 CAe"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "^an1"
+kind = "can"
+bitr# 範例系統：主機經乙太網路接 Bridgem，Bridge 下"ge，Bridge 下有一條 CAe"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitr# 範例系統：主機經乙太網路接 Bridgem，Bridge 下"
+bitrate = 1#from = "can
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitr# 範例系統：主機經乙太網路接 Bridgem，Bridge 下"
+bitrate = 1# 範例 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+00_000_000
+naznameonhost"
+id = 10
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNNNNNNNNNNNNNN]
+name = "bridge2"
+id = 1
+links = ["eth0", "can1", "uart= "can"
+bitr# 範例系統：主機經乙太網路接 Bridgem，Bridge 下"
+bitrate = 1# 範例 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+00_000_000
+naznameonhost"
+id = 10
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNNNNNNNNNNNNNN]
+name = "bridge1"
+i]]
+subject = "imu"
+bridge = "bridge0"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridr"feg
+1om = "eth0"
+to = "can1"

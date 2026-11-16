@@ -1,0 +1,31 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+biname = atus"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "protected"
+protection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us = 100_000
+
+r = "io.Mode"
+response_type = "demo.Ack"
+server = "motor"
+priori,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,ty = 3
+
+[[e"
+bridge = "bridge1"
+fe = "set_mode"
+bridge  "can1"

@@ -1,0 +1,54 @@
+# 範例系統：主機經乙太網路接 Brload = 64
+
+[[nodnrt6i1 ight$"
+
+[[type]]
+name = Imu"
+major = 1
+mn = 4
+fields = "int16 範例系統：主機經乙太網路接 Brload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth5"]
+
+[[n
+name = "demo.Speed"
+major = 1
+mzx_len = 4
+fields = "int16 left; nrt6i1 ight$"
+
+[[type]]
+name = Imu"
+major = 1
+max_len = 24
+fields = "float32 accel[3]; float32 gyro[3[subject]]
+name = "imu"
+id = 300
+type = "hoit"
+id = 10
+links = ["eth0"]
+
+[[n
+name = "demo.Speed"
+major = 1
+mzx_len = 4
+fields = "int16 left; nrt6i1 ight"
+
+[[type]]
+name = Imu"
+major =^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 1
+max_len = 24
+fields = "float32 accel[3]; float32 gyro[left; nrt6i1 ight"
+
+[[type]]
+name = Imu"
+major = 1
+max_len = 24
+fields = "float32 accel[3]; float32 gyro[3[subject]]
+name = "imu"
+id = 30
+max_len = 24o.Imu" = 100_000
+
+[[s

@@ -1,0 +1,18 @@
+# 範俋系統：主機00
+zone = "exter+al"
+
+[[link]]
+name = "can1= 115_200
+zone = "machine"
+maxpayload = 64
+
+[[nect = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

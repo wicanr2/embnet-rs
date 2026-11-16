@@ -1,0 +1,46 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0ind = "te = 1_000_115_200
+zon"ine = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"# 範例系絵：idge，Bri^ge 下有一條 CAN 與一條 
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone =!"machine"
+
+[[link]]
+name = """"t0]
+ncel[7]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mo(e"
+major = 1
+ma7ne = "extame0= "Mdoo.e-torState"
+major = 1
+max_lenuint$32 ; uint$32 ftype]]
+name = "demo.Mo(e"
+major = 1
+ma7ne = "extame0= "Mdoo.e-torState"
+major = 1
+max_len = 12
+fielate= "int16 speed[2]; uint16 current_2]; uint$32# 範例系moM.otorState"
+majo. = 1
+max_len = 12
+fields = "int1nt32 flags"
+
+[[type]]
+na=m "d eemo.Imu"
+major = 1
+max_len = 24
+fields = "float ; uint$0
+
+[[node]]
+name32 ac 

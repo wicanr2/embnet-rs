@@ -1,0 +1,9 @@
+# 範例系統：主name = "can1"
+kind = to0"ca2n"
+rate = 115]200
+zone = "machine"
+max_payload = 65
+
+[[node]]
+name = "host"
+id = 0ddddddddddde

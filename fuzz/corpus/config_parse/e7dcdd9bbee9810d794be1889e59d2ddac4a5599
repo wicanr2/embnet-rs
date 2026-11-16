@@ -1,0 +1,17 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART0_000_0000_000
+
+[[suTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTbject]]
+name = "imu"
+id = 300
+type =ode"m .Imu"
+priority = 3
+publisher = "imu"
+period_us = 10_000
+class = "normal"
+tid_timeout_us = 100_000
+
+[[service]] 1
+max_300
+type =ode"m .Imu"idge1"
+from = "eth0"
+to = "can1"

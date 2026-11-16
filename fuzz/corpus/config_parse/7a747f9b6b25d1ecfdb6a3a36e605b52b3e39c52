@@ -1,0 +1,16 @@
+# 範例系統：䈇一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitr_te = 100_000_000
+zone = "entxreal"
+
+[[link]]
+
+kind = "can"
+bitrate = 5_000_000
+zone =-man#e"
+
+ame = eft6; li

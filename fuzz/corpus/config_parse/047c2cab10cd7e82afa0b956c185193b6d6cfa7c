@@ -1,0 +1,25 @@
+# 範例系統：主機經乙太網路接 Bridge，Briudp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]}
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link
+name2= "bridge1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridgee
+lattrueency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+"

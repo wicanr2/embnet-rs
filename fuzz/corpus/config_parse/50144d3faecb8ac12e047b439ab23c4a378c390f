@@ -1,0 +1,145 @@
+ = 1
+fields = "uint6 mode"
+
+[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uint8 srotus"
+
+[[sujbect]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 1
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class =1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_00= 10_000
+jitter_us = 1_000
+class =1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_0se00
+zone = "external"
+
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_00!_000
+zone =["external"
+
+`[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zridge = true
+latency_us = 200
+	[[node]]
+name = "motor"
+id = 20
+links =e"
+max_payload = 64
+
+[[node]]
+name = "h05
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNN64
+
+[[node]]
+name = "host"
+id = 10
+dct = "molinks = ["etorth0"]
+_state""""
+
+br[[noid"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+dct = "molinks = ["etorth0"]
+_state""""
+
+br[[noiddege[[link]]
+name = " "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 1
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class =1[
+
+[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_00= 10_000
+jitter_us = 1_000
+class =1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = ."can"
+bitrate = 1_000_000
+zonher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class =1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_00= 10_000
+jitter_us = 1_000
+class =1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = ."can"
+bitrate = 1_000# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN s]on = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer = "motor"
+priority = 3
+
+[[route]]
+subject =bitrate = 100_000_000
+zone = "external"
+
+[5
+link_000
+zons = ["eth0"]
+
+[[ne = "moa

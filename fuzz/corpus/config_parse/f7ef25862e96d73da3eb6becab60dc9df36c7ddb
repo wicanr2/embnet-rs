@@ -1,0 +1,21 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridt16 right"
+
+[[type]]
+name =.Sp1"
+id = 1
+links = ["eth0"., "ca]
+[type]]
+len = 4
+fields = "int16 jecnt16 right"
+
+[[type]]
+name =.Sp1"
+id = 1
+links = ["eth0", "can1ridge 下有一棝 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = [node]]
+name = "imu"[[d"typ

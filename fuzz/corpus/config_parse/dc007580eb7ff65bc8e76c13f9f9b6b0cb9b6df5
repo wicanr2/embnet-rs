@@ -1,0 +1,53 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下斉一條 CAN 與一條 UART。
+version = 0
+
+[[link]]
+name = "eth0"
+kind =toudp"d = 10
+links = ["et
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bri`ge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge0"
+from = "can
+'1''"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''b''i"rdge0"
+from = "can
+'1''"'''''''''''''''''''''''''
+zone = "external"
+
+....# 範例系統
+nam; uint16 curr;ent[2]; uint........[[li#k]]
+n..# 範例系統
+nam; uint16 cu乙太網路接 Bridge，Bridge 下斉一條 CAN 與一條 UART。
+version = "eth0"
+to = "can1"
+
+[[route]]
+sqbject = "motor_state"
+bridge = "bridge0"
+from = "can
+'1''"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''"bridge0"
+from = "can
+'1''"'''''''''''''''''''''''''
+zone = "external"
+
+....# 範例系統
+nam; uint16 curr;ent[2]; uint........[[li#k]]
+n..# 範例系統
+nam; uint16 curr;ent[2]; uint........[[li#k]]
+name = "'''''''''''''''''''''''''''''''''''''''''''''''''bject =bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb "speed_cmd"
+bri`ge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = rr;ent[2]; uint........[[li#k]]
+name = "'''''e"
+bridge = "brican1dge0

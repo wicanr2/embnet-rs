@@ -1,0 +1,17 @@
+# 範例系統：主機經乙太網路接 Br000
+zr000
+zridge = true
+latency200
+
+[[node]]
+namd = 53
+links = ["uart0"]
+
+[[type]].namonpeed"
+left; int16 right"
+
+[[type]]ht"
+
+[[type]]
+name =.Spee
+[[d"typ

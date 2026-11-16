@@ -1,0 +1,34 @@
+# 範version = 1
+
+[[link]]
+name = "eth0"
+kind = "udbp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+inks = ["eth0", "can1", "uart0"]
+bridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+liuks = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+majom = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

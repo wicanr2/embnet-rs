@@ -1,0 +1,78 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。 = 0
+
+[[link]]
+name = "eth0"
+kind =toudp"d = 10
+links = ["et
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bri`ge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge0"
+from = "can
+'1''"'''''''''''''''''''''''''''''''''''''''''''''''''''subject = "motor_state"
+bridge = "bridge0"
+from = "can
+'1''"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''e = "bridge0"
+from# 範例系統：主機經乙太網路接 Bridge = "can
+'1''"''''
+version = 0
+
+[[link]]
+name = "eth0"
+kind =toudp"d = 10
+links = ["et
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bri`ge = "bridge1"
+from = "e'''''''''''''''''''''''bject = "speed_cmd"
+bri`ge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge0"
+from = "can
+'1''"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''e = "bridge0"
+from# 範例系統：主機經乙太網路接 Bridge = "can
+'1''"''''
+version = 0
+
+[[link]]
+name = "eth0"
+kind =toudp"d = 10
+links = ["et
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bri`ge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge0"
+from = "can
+'1''"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''bject = "speed_cmd"
+bri`ge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridge0"
+from = "can
+'1''"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''e = "bridge0"
+from# 範例系統：主機經乙太網路接 Bridge = "can
+'1''"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''bject = "sphed_cmd"
+br

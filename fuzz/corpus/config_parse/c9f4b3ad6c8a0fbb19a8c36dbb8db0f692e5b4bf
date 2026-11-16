@@ -1,0 +1,9 @@
+# 範例系統：亻機經乙太
+
+[[li"host"
+id =.10
+links =CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCHCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC ["eth0"]
+
+[[node]# 範例系統：主機經乙太網路接 Bridge，Bridge 下有"""""""""""""""""""""""""""""""""""""""""""""""""""sher = "motor" = "eth0"
+to = "can1""
+""

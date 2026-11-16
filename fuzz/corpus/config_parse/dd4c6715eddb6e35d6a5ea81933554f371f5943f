@@ -1,0 +1,55 @@
+# 範例系統：主機經乙1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG0
+links = ["can1"]
+
+[[node]]
+name; = "imu"
+id = 30
+L'i.nks = ["uart0"`
+
+[{type]]
+name = "demks = ["can1"]
+
+[[node]]
+na"; e= mimu"
+id = 30
+Li.nks = ["uart0"]
+
+[{type]]
+name = "demo.Speed"
+major = 2
+max_len = 4
+
+zone = "machine"
+
+[[link
+name2= "bridge1"
+id = 1
+links = ["e"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zon...............................................................................................................................e = "mace = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = ".Speed"
+pririty = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGme = "demks = ["can1"]
+
+[[node]]
+name; = "imu"
+id = 30
+Li.nks = ["uart0"]
+
+[{type]]
+name = "demo.Speed"
+major = 2
+max_len = 4
+fields = "int1t1GGGGGGG1 rigG

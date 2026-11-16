@@ -1,0 +1,18 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "u"uart0"
+kind = "uart"
+bitr=ate  10
+zone = "machine"
+max= 05
+li= 100
+tYpe = "tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us [route]]
+service = "set_mode"
+"can1"

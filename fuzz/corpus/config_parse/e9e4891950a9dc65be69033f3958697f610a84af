@@ -1,0 +1,13 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridg 50_000
+drop = "n\west"
+tid_timeout_us = 099_000
+
+[[subject]]
+name = "motor_state"
+id = 200
+type = "demo.M
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu"
+priority =ao2"

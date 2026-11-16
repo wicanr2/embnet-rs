@@ -1,0 +1,14 @@
+[package]
+name = "embnet-node"
+version = "0.1.0"
+description = "embnet 的 Native node：發佈、訂閱、Service、Heartbeat。sans-IO、no_std、不配置記憶體。"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+embnet-core = { path = "../embnet-core" }

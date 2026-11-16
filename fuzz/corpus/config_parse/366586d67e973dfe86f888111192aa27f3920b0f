@@ -1,0 +1,42 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN e，Bridge ,下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "dxternal"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrat
+[[node]]
+name = "bridge1"
+id = 0
+links = ["eth
+kind ;= "udp"
+bitrate 1
+
+[[link]]
+name = "et"udp"
+bitrate = 1o00_000_000
+zone fielxternal"
+
+[[link]}
+name = "ca= 100_000_000
+zone fielxternal"
+
+[[link]}
+name = "can1"
+kin1_000_000
+zridge = true
+latency_us = 200
+
+[[node]]
+n
+bitrate = 1_000_000
+zon = 12
+fields  "demo.Speed"
+major == "i 1
+mnt1ax_len = 6 sp4

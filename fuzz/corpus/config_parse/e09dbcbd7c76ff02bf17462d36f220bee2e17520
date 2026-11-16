@@ -1,0 +1,16 @@
+# 範例系統：主機經乙太網000_000
+zo = "machine"
+
+[[liridge = true
+ler_us = 1_000
+class = "G0
+links = ["can1"]
+
+[[node]]
+name = "it0"]
+
+[{type]]
+name = "demo.Speed"
+major = 2
+max_len = 4
+field=s  "int32 left; int1GGGGGGG6 rigG

@@ -1,0 +1,91 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "0
+links = [ersion = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "exdliternal"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "0
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links ={= "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115rue
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+nammax_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0
+[[node]]
+name = "bridge1"
+id = 1
+links ={= "macks = ["mmax_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0
+[[node]]
+name = "bridge1"
+id = 1
+links ={= "macks = ["can1"]
+
+[[node]]
+nammax_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links[route]]
+service = "set_mode"
+bridge  "can1"

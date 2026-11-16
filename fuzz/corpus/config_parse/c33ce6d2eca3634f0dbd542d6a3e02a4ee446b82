@@ -1,0 +1,36 @@
+# 範例系統：主機經乙太網路接d = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = *
+links = ["eth0", "can1", "i" c"mne"
+
+[[link]]
+name = "uaoat32 gyro[3]"
+
+[[tte"
+bridge = "bridge0"
+from = "can
+'1''"''''''''''''''''''''''';'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''ubject = "imu"
+bridge = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge ='"bridge0"
+from = "can
+'1''"'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''bject = "speed_cmd"
+bri`ge = ''''''''''''''''''''''''''''''''''''''''''''''''''''''0ubject = "imu"
+bridge = "eth0"
+to = "can1"
+"bridge0"
+nrom = "can
+'1''"'''''''''''''''''7'''''''''''''''''''''''''''''''''''''''''''''''''''''''bject = "speed_cmd"
+bri`ge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bri

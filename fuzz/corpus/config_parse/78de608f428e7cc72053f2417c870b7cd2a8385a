@@ -1,0 +1,80 @@
+# 範例系統：主機經乙太網路接 Bridge，B_us = 200_000
+
+bject = "imu"
+bridge = "brid0_000_000
+zone = "ex status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGprotected"
+protection = "e2e3tate"
+bridge = "bridge1"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "0enbridge1"
+from = "uart0"
+to = "eth0"
+
+[route]]
+service = "set_mode"
+bridge = "ter1
+max_len = 1
+fields = "uin t8status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "protected"
+protection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us = 100_status"
+
+[[subject]]
+name = "speed_cmd"
+id = 100
+tYpe = "demo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "protected"
+protection = "e2e32"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us = 100_000
+
+[[subject]]
+name = "motor_state"
+id = 201
+type = "demo.MotorState"
+priority = 4
+publisher = "motor"
+period_us = 20_000
+class = "normal"
+tid_timeout_us = 200_000
+
+bject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

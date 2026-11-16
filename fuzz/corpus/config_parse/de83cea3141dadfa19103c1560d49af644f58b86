@@ -1,0 +1,25 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitra= 1
+links = ["eth0", "can1", "uarjor = 1
+max_len = 12
+fields = "int16 speed[2]; uint16 
+major = 1
+max_len = 2
+fields = "uint8 mode"
+
+[[type]]
+name = "demo.Ack"
+m,jor = 1
+max_len = 1
+fields = "uint8 status"
+
+[[subject]]
+name = "speed_cmd"
+id = 10 = "bridge1"
+from = "eth0"
+to = "ca"""

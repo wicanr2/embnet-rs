@@ -1,0 +1,29 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有丠條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000*zone = "external"
+
+[[link]]
+name = "can1"
+kindid = 20
+links = [e，Bridge 下有一條 Cr"
+priority = 3
+
+[[route]]
+rom . "eth0RT。
+version = 1
+
+[[lin= 
+to n1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart = "e2e32"
+deadli0"]ne
+
+[[t_ype]]
+nus =10_000

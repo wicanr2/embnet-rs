@@ -1,0 +1,20 @@
+# 範例系統：主機經乙太網000_000
+zo = "machine"
+
+[[liridge = true
+latency_0_000
+jitter_us = 1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGublisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "G0
+links = ["can1"]
+
+[[node]]
+name = "it0"]
+
+[{type]]
+name = "demo.Speed"
+major = 2
+max_len = 4
+fields = "int16 left; int1GGGGGGG6 rigG

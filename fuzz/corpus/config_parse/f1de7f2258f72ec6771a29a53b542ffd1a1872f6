@@ -1,0 +1,77 @@
+# 
+[[link]]
+name = # 
+[[link]]
+name = "eth0"
+kind = "ud# 範例系統：主機經乙太網路接 B!!!!!!!!!!!!!!!!ridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name =p"
+bitrate = 100_000_000
+zoneks = ["eth0", "can1", "uart]"
+0bridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 78
+"eth0", "can1", "uart]"
+0bridge = true
+latency_us = 2 0
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]= 1
+
+[[link]]
+name =p"
+bitrate = 100_000_000
+zoneks = ["eth0", "can1", "uart]"
+0bridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 78
+"eth0", "can1", "uart]"
+0bridge = true
+latency_us = 2 0
+
+[[node0_000
+zoneks = ["eth0", "can1", "uart]"
+0bridge = truatency_us = 200
+
+[[node]]
+name = "motor"
+id = 78
+"eth0", "can1", "uart]"
+0bridge = true
+latency_us = 2 0
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name b= "imr"etud# 範例系統：主機經乙太網路接 D!!!!!!!!!!!!!!!!rversion = 1
+
+[[link]]
+name =p"
+bitrate = 100_000_000
+zoneks = ["eth0", "can1", "uDart]"
+0bridge = true
+latency_us = 199
+
+[[node]]
+name = "motor"
+id = 78
+"eth0", "can1", "uart]"
+0bridge = rrue
+latency_us = 2 0
+
+[[node# 範例系統：䩟滸經乙太網路接 Bridge，Bri]

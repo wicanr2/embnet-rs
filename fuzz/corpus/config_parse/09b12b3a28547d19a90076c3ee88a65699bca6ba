@@ -1,0 +1,19 @@
+# 範例系統：主機經乙0
+zone = "machine"
+
+[[link]]
+name = "art0"
+kind = "uart"
+bitrate = }115_200
+zone = "machine"
+max_payload 64
+
+[[no"]
+
+[[node]]
+na"
+tid_timeout_us = 100_000
+
+[[subject]]
+name = "m0"
+kino

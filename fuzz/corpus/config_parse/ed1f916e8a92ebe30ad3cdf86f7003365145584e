@@ -1,0 +1,30 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[lame = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_p_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+link[ s "au=rt0"]
+
+[[type]]
+.ame = "demo.Speed""
+
+[[type]]
+
+[[type]]
+name = "dbridge1"
+from= "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

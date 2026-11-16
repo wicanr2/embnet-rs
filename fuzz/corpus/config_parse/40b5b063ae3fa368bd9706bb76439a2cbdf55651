@@ -1,0 +1,149 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,tinks = ["uart0"]
+
+[[,type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,type]]
+name = "demo.Spe乙太網路接 Bridge，Bridge node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,tinks = ["uart0"]
+
+[[,type]]
+namnode]]
+name = "imu"
+idcl"30
+links = ["uart0"]
+
+[[,type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,type]]
+name =下有一條 CAN 與一條 UART。
+version = 1
+
+[[ld"
+major = ，Bridge node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,tinks = ["uart0"]
+
+[[,type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,type]]
+name = "demo.Spe乙太網路接 Bridge，Bridge node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,tinks = ["uart0"]
+
+[[,type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,type]]
+name =下有一條 CAN 與一條 UART。
+version = 1
+
+[[ld"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]ed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,type]]
+name =下有一條 CAN 與一條 UART。
+version = 1
+
+[[ld"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name ["can1"]
+
+[[nty = 2
+publisher = "host"
+period_us = 10_000
+jitter_us =1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]ed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+namnode]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[,type]]
+name =下有一條 CAN 與一條 UART。
+version = 1
+
+[[ld"
+major = 1
+max_ int16 right"
+
+[[type]]
+name ["can1"]
+
+[[nty = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+linkint1GGGGGGG1 rigG

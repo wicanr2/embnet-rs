@@ -1,0 +1,20 @@
+zone = "external"
+
+[[sink]]
+name = "can1"
+kind = "c\n"ost"
+id = 10
+links = ["-eth0"]
+
+(
+to = "eth0"
+
+[[from = "uart0"
+to = "
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service =$"set_mode"
+bridge  "can1"

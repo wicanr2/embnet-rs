@@ -1,0 +1,12 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。nd`= "udlink]
+naost"
+id = 1lilinks = ["eth0", "can1", "u100
+
+0
+links = ["uart0"]
+
+[nnk]]
+name = "can1"
+kind = "can"
+b,t16 right"55550_000
+de = ro"p

@@ -1,0 +1,62 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[linkU]
+name = "eth0= 200
+type = "demo.MotorState"
+ 100_000
+
+[[service]]
+name = "set_mode " 
+di=10
+request_type = "demo.Mode"
+response_type\= "demo.Ack"
+server = "motor"
+priority = 1
+
+[[route]]
+subject = "speed_cmd"
+bdrige = "bridge1"
+from = "eth0_000
+
+[[service]]
+name = "set_mode " 
+di=10
+request_type = "demo.Mode"
+response_type\= "demo.Ack"
+server = "motor"
+priority = 1# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[linkU]
+name = "eth0= 200
+type = "demo.MotorState"
+ 100_000
+
+[[service]]
+name = "set_mode " 
+di=10
+request_type = "demo.Mode"
+response_type\= "demo.Ack"
+server = "motor"
+priority = 1
+
+[[route]]
+subject = "speed_cmd"
+bdrige = "bridge1"
+from = "eth0_000
+
+[[service]]
+name = "set_mode " 
+di=10
+reques[type]]
+name = "demo.Mode"
+majo "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

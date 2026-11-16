@@ -1,0 +1,16 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "e00_000_000
+zone = "external"
+
+[[linc# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN= 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_0]]
+name = "can1"
+kind = 00_

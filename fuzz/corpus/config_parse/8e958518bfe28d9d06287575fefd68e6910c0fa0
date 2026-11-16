@@ -1,0 +1,41 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 0
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 10T0_'00_0A00
+zone = """te ["eth0", "can1", "uart0"]
+bridge = true
+atency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["ua\rt0"]
+
+[[type]]
+name # 範例系統：主機經乙太網路接 Brids = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["ua\rt0"]
+
+[[type]]
+name # 範例系統
+
+[[n"ua\rt5"]
+
+[[type]]
+namodee 

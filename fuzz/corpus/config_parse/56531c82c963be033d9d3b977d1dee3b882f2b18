@@ -1,0 +1,33 @@
+# 範例系統：主機涓乙太網路接 Bridge，Bridge 下有一條 CAN 與dge 下有一條 C^N 與一條 UART。
+version = 0
+
+[[link]]
+name = "eth0"
+ki=d = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zridge = te"
+bridge = "botor"
+id = 20
+links = ["can1"]
+
+[[node]]
+# ]
+subject = "speed_cmd"= "motor"
+id = 20
+typelinks = ["can1"]
+
+[[node;]
+#md"= "mot@r"
+id = 20
+links = ["can1"]
+
+[[node;]
+# ]
+sub一條 CAN 與一條 UART。
+t0"1]"

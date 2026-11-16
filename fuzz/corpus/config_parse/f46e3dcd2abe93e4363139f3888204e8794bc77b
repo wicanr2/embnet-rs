@@ -1,0 +1,49 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridgersion = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+me = "bridge1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+liuks = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name = "demo"
+protection = "e2e32"
+deadlype = "demo.Mode"
+response_type = "dean1"

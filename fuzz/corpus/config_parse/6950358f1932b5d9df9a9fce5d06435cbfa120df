@@ -1,0 +1,66 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external 50_000
+drop = "newest"
+tid_timBBBBBBBBBBmax_len = 1e_us = 50_000
+drop = "newest"
+tid_timeout_us = 100_"
+to = "can1"
+
+[[routeG]]
+subject = "motor_state"
+bridge = "bridgspeed_cmd"
+id = 102e32"
+deadline_us = 50_000
+drop = "newest"tid_timeout_us = "
+
+[[type]]
+name = "demo.Imu"
+major = 1
+max_lBBBBBBBBBBBBBBBBBBBBBBBmax_len = 1e_us = 50_000
+drop = "newest"
+tid_timeout_us = 100_"
+to = "can1"
+
+[[routeG]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"16 current[2]; uint32 flags"
+
+[[type]]
+name = "d
+fields = "uint8 status"(
+[[subject]]
+name = "speed_cmd"
+id = 102e32"
+deadline_us = 50_000
+drop = "newest"tid_timeout_us = 100_"
+to = "can1"
+
+[[routeG]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge 5 "bridge1"from = "eth0"
+to = "can1"

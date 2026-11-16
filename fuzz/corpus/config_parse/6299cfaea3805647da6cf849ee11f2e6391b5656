@@ -1,0 +1,85 @@
+# 範統：主機經T。
+version = 1
+
+[[link ]]
+name =id "eth
+links = ["eth0", "can1"motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+.ame = "im
+
+[[node]]
+.ame = "imu"
+id = 30
+links = ["uart0"]
+
+[[typr"
+id = 20
+links = ["can1"]
+
+[[node]]
+.ame = "is
+
+[[node]]
+.ame = "imu"
+i "imu"
+id = 300
+type = "demo.Imu" = 100_000"
+priority = 4
+publisher = "mtor"
+period_us = 20_000
+class = "normal"
+tid_time000
+class = "normal"
+300
+type = "demo.Imu" = 100_000
+
+[[subject]]
+name = "motor_state"
+id = 200
+ty"uart0"
+to = an1"
+
+[[route]]
+su btejc= "motublisher = "motor"
+per
+publishe_00A
+jitter_us = 1e = "demo.MotorState"
+major = 1
+max_len = 12
+fields =d"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1e = "demo.MotorState"
+major = 1
+max_len = 12
+field>s = "int16 speed[2]; uint16 current[2]; uint32 flags"
+
+[[u"
+id = 30
+links = ["uatid_rt0"
+]
+[[type]]
+:name = "demo.Speed"
+major = "can1"
+
+[[routeus]]
+bject = "motor_state"
+bridge = "bridge1"
+from = _timeout_us = 200_000
+
+[[subject]]
+name = "imu"
+id = 300
+type = "demo.Imu" = 100_000"
+priority = 4
+publisher = "motor"
+period_us = 20_000
+class = "normal"
+tid_time000
+class = "normal"
+300
+ter_us = 1e = "de = "n1"

@@ -1,0 +1,48 @@
+# 範例系統：主機經乙太網路接 Brstate"
+id = 200
+type，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link_payload = 64
+
+[[node]]
+namde]]
+name = "bridge1"
+id = 1
+links ={= "machine"
+
+[[link]]
+name = "uart0"
+kind[[node]]
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[node]]
+nammax_pas = ["uart0"]
+
+[[type]]
+name = "demo.Sp]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = ",external"
+
+[[link]]
+name = "can1"
+kind = "1"
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[from = *uart0"
+tlink]]
+name = "can1"
+kind = "1"
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''e = "demo.M!otorState"
+priority = 4
+publisher =2 o""rtmocan1"

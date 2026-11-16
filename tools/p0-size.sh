@@ -9,7 +9,7 @@ RUN="runs/$(date +%Y%m%d-%H%M%S)-p0-size"
 mkdir -p "$RUN"
 IMAGE="${IMAGE:-embnet-rust:1.100.0-r1}"
 
-for b in size-baseline size-canadensis size-emcyphal; do
+for b in size-baseline size-canadensis size-emcyphal size-embnet size-embnet-full; do
   tools/cargo.sh probes/p0-size build --release -p "$b" > "$RUN/$b.build.log" 2>&1
   tools/cargo.sh probes/p0-size size --release -p "$b" -- -A > "$RUN/$b.size" 2>"$RUN/$b.size.log"
 done
@@ -34,4 +34,6 @@ line() { # impl 探針檔 baseline檔 heap
   line canadensis "$RUN/size-canadensis.size" "$RUN/size-baseline.size" 16384
   line emcyphal   "$RUN/size-emcyphal.size"   "$RUN/size-baseline.size" 0
   line libcanard  "$RUN/size-libcanard.size"  "$RUN/size-baseline-c.size" 4096
+  line embnet-node "$RUN/size-embnet.size" "$RUN/size-baseline.size" 0
+  line embnet-node-full "$RUN/size-embnet-full.size" "$RUN/size-baseline.size" 0
 } | tee "$RUN/summary.txt"

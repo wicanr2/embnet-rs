@@ -1,0 +1,10 @@
+# 範例= "uart0"
+kind = "uart"
+bitrate = 115[[type]]
+pame = "demo.Mode"
+major = 1
+max_len = 1name = "demo.Ack"
+major = 1-
+max_len = 1
+fields = "uint8 stat
+fields li "s

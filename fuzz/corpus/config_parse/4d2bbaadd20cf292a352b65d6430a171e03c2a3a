@@ -1,0 +1,10 @@
+# 範例系mo.MotorState"
+major = = "imu"
+id = 300
+type = "de.mImou" = tate"
+priority =ublisher 0
+class = ".Imu" = 100_000
+
+[[subject
+to = "eth0"
+

@@ -1,0 +1,7 @@
+# 範例系統 UART。
+version = .
+
+
+
+[[^node]]
+name = nameorl ==

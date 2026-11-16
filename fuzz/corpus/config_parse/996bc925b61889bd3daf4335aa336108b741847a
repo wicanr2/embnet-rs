@@ -1,0 +1,56 @@
+# 範例系統：主機經乙太t0"]
+bridyload = 64
+
+[[nodmname = "motorlink]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "%mac*ine"
+
+[[link]]
+name = "uart0"
+kind =ks , V"eth0", "can1", "uart0"]
+ = "can"
+bitrate = 0_000_000
+zone = "%mac*ine"
+
+[[link]]
+name = "uart0"
+kind =ks , ["eth0", "cind = "can"
+bitrate = 1_000_000
+zone = "%mac*ine"
+
+[[link]]
+name = "uart0"
+kind =ks , ["eth0", "can1", "uart0"]
+bridyload = 64
+
+[[nodm]ean]dlin", "can1",$"uart0"]
+bridge = true
+latency_su = 200
+
+[[node$]
+name = "motorlink]]
+name = "can1"
+ke"
+bridge = "bridge1"
+from = ks , ["eth0", "cind = "can"
+bitrate = 1_000_000
+zone = "%mac*ine"
+
+[[link]]
+name = "uart0"
+kind =ks , ["eth0", "can1", "uart0"]
+bridyload = 64
+
+[[nodm]ean]dlin", "can1",$"uart0"]
+bridge = true
+latency_su = 200
+
+[[node$]
+name = "motorlink]]
+name = "can1"
+ke"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

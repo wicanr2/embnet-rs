@@ -1,0 +1,58 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下潉一條 CAN 與一條 UART。
+version = 2
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bittruerate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrakind = "udp"
+bitrate = 100_000_000
+zone = "exterx_len = 1
+fields = "uint8 mode"
+,[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uinGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG#GGGGGGGGGGpr
+deadline_us = 50_000
+dre = 1_000_000
+zridge = true
+latency_us = 200
+
+[[node]]
+name ="mot：主機經乙太網路接 Bridge，Bridge 下潉一條 CAN 與一條 UART。
+version = 2
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bittruerate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrakind = "udp"
+bitrate = 100_000_000
+zone = "exterx_len = 1
+fields = "uint8 mode"
+,[[type]]
+name = "demo.Ack"
+major = 1
+max_len = 1
+fields = "uinGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG#GGGGGGGGGGpr
+deadline_us = 50_000
+dre = 1_000_000
+zridge = true
+latency_us = 200
+
+[[noder = 1
+max_len = 4
+fields = """"int16op = "newee = "bridGe1"
+from = "eth0"
+to (= "can1"

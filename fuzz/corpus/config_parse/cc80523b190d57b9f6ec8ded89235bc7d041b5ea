@@ -1,0 +1,6 @@
+# 00
+drop = "newest"
+tid_tim_us = 200_eriod_us = 10 = "set_mode"
+id = 20
+r"eth0"
+to = "can1"

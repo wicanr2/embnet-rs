@@ -1,0 +1,30 @@
+# 範例.Ack"
+majo0_000
+drop = "newe"
+id = 200
+type = "demo.MotorState"
+publishe = 4
+publisher = "motor"
+period_us = 20_000
+class = "normal"
+tid_timeout_us = 200_000
+
+iod_us = 20_000
+class = "normal"
+tid_timeout_us = 200_000
+
+[[subject]]
+"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+br
+dge = "bridge1"
+from = "eth0"
+to = "can1"

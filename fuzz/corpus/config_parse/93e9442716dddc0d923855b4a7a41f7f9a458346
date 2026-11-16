@@ -1,0 +1,10 @@
+# 範例系統：主機經乙太網路接 Brate = 100_000_000
+zo = "machine"
+
+[[link]]
+name = "ua條 CAN 與一條 UART。
+version = 1
+
+[[l....................................ajor = 3
+max_len = 4
+fields = "int16 left; int1GGGGGGG1 rigG

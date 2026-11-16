@@ -1,0 +1,24 @@
+# 範例穟經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[sink]]
+name = "can1"
+kind = "c\n"ost"
+id = 10
+links = ["-eth0"]
+
+(
+to = "eth0"
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge  "can1"

@@ -1,0 +1,15 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+vint42 right"
+
+['[type]]
+name = linko.MotorSRT。
+version = 1
+
+[[link]]
+nam; uint16 current???????on = 1
+
+[[link]]
+nam; uint16 current????????????????????d = "can"
+bitrate 24
+fields = "flo
+id at32 a ==

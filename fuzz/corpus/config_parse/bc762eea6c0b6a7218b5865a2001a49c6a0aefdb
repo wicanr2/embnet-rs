@@ -1,0 +1,87 @@
+# 範例系統：主機經乙太網路接 Bri.dge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[0_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+latekind = "uart"
+bitrate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = [#eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "can1 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kijd= "demo.Speed"
+major  = "udp"
+bitrate = 101_0GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGame = "u.rt0"
+kind = "uart"
+bitrate = 115_200
+zone = "mach
+e"nimax_payload = 64
+n[o[
+de]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]NN[route]]
+subject = "motor_state"
+bridge = "bridge1"
+from = "can1"
+t=o = "eth0"
+
+n = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name = "demo.MotorState"
+ma
+zok"
+m,jor = 1
+max_len = 1
+fields = "uint = "set_mode"
+id = 10
+request_type = "demo.Mode"
+response_type = "demo.Ack"
+server = "motor"t = "speed_cmd"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_st$ate"
+bridge = "bridge1"
+from = "can1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart "bridge1"
+from = "eth0"
+to = "can1"

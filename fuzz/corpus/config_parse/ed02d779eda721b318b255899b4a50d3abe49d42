@@ -1,0 +1,22 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與฀條
+kind = "udp"
+bitrate = 100_000_
+000znoeame = "eth0"
+kind = "udp"l"
+
+[ternal"
+[link)]]
+name = "can1"
+kind eexternal"
+fiel
+[ternal"
+[link]]
+name = "caind = "udp"
+bitrate = 100_000_000
+prio = "external"
+
+[ternal"
+[link]]
+name = "can1"
+kind"Gc trueGGGGGGEGGGGGGGGGGGGGGGGGGG
+l'ate

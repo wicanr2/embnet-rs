@@ -1,0 +1,16 @@
+# 範例.Ack"
+]]
+"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+br
+dge = "bridge1"
+from = "eth0"
+to = "can1"

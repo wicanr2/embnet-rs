@@ -1,0 +1,14 @@
+# 範例系統：主機經乙太網路接 Bridge，Br有一條 CAN e，#ridge ,下有一條 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bN e，Bridge ,下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "ethit
+zon = 12
+fields  "demo.Speed"
+major == "i 1
+mnt1ax_len = 6 sp4

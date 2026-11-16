@@ -1,0 +1,86 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone # 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrachine"
+max_ = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+lin ks =["eth0", "can1", "uart0"]
+bridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 2 ["eth0", "ca
+latency_us = 200
+
+[[node]]
+nemo.Speed"
+priority = 2
+publisher = "host"
+period_us = 10_000
+jitter_us = 1_000
+class = "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG0
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+Li.nks = ["uart0"]
+
+[[typ"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "machine"
+
+[[link]]
+name = "uart0"
+kind = "uart"
+bitrate = 115_200
+zone = "mace = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+links = ["eth0", "can1", "uart0"]
+bridge = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 2 ["eth0", "can1", "uart0"]
+bridge = true
+latency_us = 200
+
+[[node]]
+nEmo.SpeeLi.nks = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+major = 2
+max_len = 4
+fields = "int16 left; int1GGGGGGG6 rigG

@@ -1,0 +1,30 @@
+]
+name = "imu"
+id = 300
+type = "demo.Imu"
+priority = 3
+publisher = "imu"
+period_us = 10_000
+class = "normal"
+tid_timeou"
+id = 30
+links = ["uart1"]
+
+[[enm= 4
+fields = [[le0"
+from = "eth0"
+to = "can1"
+
+[[route]]
+subject = "motor_state"
+bridge = "bridgeGGGGGGGGGGGG5
+links = ["can1"]
+
+[[node]]
+name = "imu"
+id = 30
+links = ["
+name = "demo.SpEed"
+major = 1
+max_len = 4
+#field: = "int16 left; int1GGGGGGG6 rigG

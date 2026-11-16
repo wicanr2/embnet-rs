@@ -1,0 +1,57 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge al"
+
+[[link]]
+name = "can1"chine"：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitrate = 100_000_000
+zone e = "bridge1"
+id = 1
+"""links = ["eth0", "caBridge，Bridge 下有一條 CAN 與一條 UART。
+version = 1
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitr*ate = 100_000_000
+zone 
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+"""links = 
+
+[[node]]
+name = "host"
+id = 10
+links = ["eth0"]
+
+[[node]]
+name = "bridge1"
+id = 1
+"""links = ["eth0", "Bgrcdiae，Bridge 下有一條 CAN 與一條 UART。
+version = 0
+
+[[link]]
+name = "eth0"
+kind = "udp"
+bitr`te = 100_000_000
+zone = "external"
+
+[[link]]
+name = "can1"
+kind = "can"
+bitrate = 1_000_000
+zone = "mpeed_cmd"
+id = 100
+tm = "eth0"
+to = "can1"

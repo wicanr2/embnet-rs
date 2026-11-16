@@ -1,0 +1,54 @@
+
+zone = "external"
+
+....# 範例系統
+nam; uint16 curr;ent[2]; uint........[[li#k]]
+n..# 範例系統
+nam; uint16 curr;ent[2]; uint........[[li#k]]
+name = "can1"
+kind = "can"00_0]= "udp"
+bitrat= "external"
+
+....# 範例系統
+nam; u"can=1"
+kind =32= "can"
+bitrate = 1_000_0]
+name = "imu"nd = "udp"
+bind = "udp"
+bitrat= "external"
+
+....# 範例系統
+nam; u"can=1"
+kind =32= "can"
+bitrate = 1_000_0]
+name = "imu"nd = "udp"
+bitrate = 100_0 "uart0"
+kind = "uart"
+700_000_000
+zone = "external"
+
+....# 範例系統
+nam; uint16 curr;ent[2]; uint........[[li#k]]
+n..# 範例系統
+nam; uint15 curr;ent[2]; uint........[[li#k]]
+name = "can1"
+kind = "can"00_0]
+name = "imu"nd = "udp"
+bit "udp"
+bitratrate = 100_0 "uart0"
+kind = "uart"
+700_000_000
+zone = "external"
+
+....# 範例系統
+nam; uint16 curr;ent[2]; uint........[[li#k]]
+n..# 範例系統
+nam; uint15 curr;ent[2]; uint........[[li#k]]
+name = "can1"
+kind = "can"00_0]
+name = "imu"nd = "udp"
+bitrate = 100_000_000bate = 1_000_0]
+name = "imu"nd = "udp"
+bitrate = 100_000_000bridge1"
+id = 1
+fl

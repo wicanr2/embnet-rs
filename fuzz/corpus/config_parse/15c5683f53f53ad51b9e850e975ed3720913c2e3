@@ -1,0 +1,9 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridg
+
+[[link]]
+namenks = [te = 115_200
+{oname = "imu"
+id = 30
+links = ["uaode]bridge1"
+from = "eth0"
+to = "can1"

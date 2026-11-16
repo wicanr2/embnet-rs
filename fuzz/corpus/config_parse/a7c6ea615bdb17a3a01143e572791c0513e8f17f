@@ -1,0 +1,8 @@
+# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+versio = "eth0"
+kind =  "moto
+"ri# 範例系統：主ersi = "eth0"
+kind = "udp"
+b "can"
+bitrate = 1o
+name .A=

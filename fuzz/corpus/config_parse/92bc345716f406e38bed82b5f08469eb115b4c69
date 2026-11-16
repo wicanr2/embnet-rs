@@ -1,0 +1,14 @@
+# 範例系統：主機經乙太網路接 Bridge，Bri= "uart"e =? ""
+bitrate = 1_000_000
+zridge = ttttttttttttttttttt = ["uart0"]
+
+[[type]]
+name = "demo.Speed"
+versi = 1
+max_len = 4
+fields = "int16 left; int16 right"
+
+[[type]]
+name = linko.MotorStatu"
+a[x_len = 1nks = ["eth0",2
+fields =  ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,A,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"c

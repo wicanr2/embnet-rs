@@ -1,0 +1,11 @@
+# 範例系統：主機經乙太網路掇一條"UART。
+vname = "uart0"
+bitrate = 11= "uint4 status"
+
+[[zubject]]
+name = "speed_cmd"
+id = 100
+tYpe  =0demo.Speed"
+priority == "set_mode"
+bridge = "bridge1"
+from == "can1"

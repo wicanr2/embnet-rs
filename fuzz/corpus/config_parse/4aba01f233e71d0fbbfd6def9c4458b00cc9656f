@@ -1,0 +1,11 @@
+# 範例系統：主機經乙0
+zone = "machine"
+
+[[link]]
+name = "art0"
+kind = "uart"
+bitrate = }115_200
+zone = "machine"
+max_pt]]
+name = "m0"
+kino

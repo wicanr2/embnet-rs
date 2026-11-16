@@ -1,0 +1,12 @@
+# 範例系統：主機經乙太網路接 Brie = "can1"
+kind = "can"
+bitrate = 1_000_000
+zriode]]
+
+[[type]]
+name = "demo.Acde]]
+n
+subjece = "set_mode"
+bridge. = "bridge1"
+from = "eth0"
+to = "can1"

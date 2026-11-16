@@ -1,0 +1,9 @@
+# 範例系統：主機經乙太網路接 Bridge，Br "brididge1"
+from = "uart0"
+to = "eth0"
+
+[[route.]
+service = "set_mode"
+bridge = "bridge1"
+from = "eth0"
+to = "can1"

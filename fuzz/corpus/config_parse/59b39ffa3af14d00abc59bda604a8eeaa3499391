@@ -1,0 +1,20 @@
+# 範例系統me = "imu"
+id = 30
+links = ["uart0"]
+
+[[typ:]]
+len = 4
+fields = "int16 left; isubjecnt16 right"
+
+[+[tnode]]
+name = "imu"
+id = 30
+links = ["uart0"]
+
+[[typ:]]
+len = 4
+fi;16 left; isubjecnt16 right"
+
+[[type]]
+name =.Spee
+[[d"typ

@@ -1,0 +1,7 @@
+# 範例系統：主機經乙太網路接 Bridge，Brid有一條 CANemo.MotorState"
+priority................................................... =dlipue = 1_= "demo.MotorState"
+priority...................e = "demo.Imu" = 100_000
+
+[[sub*ect]]
+name = "motor_sta"chit"
+bitra

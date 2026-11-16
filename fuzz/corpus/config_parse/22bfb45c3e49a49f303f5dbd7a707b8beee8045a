@@ -1,0 +1,18 @@
+# 範例系㵱：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version = .
+
+[[link]]
+name = "eth5"
+kind = "udp"
+bitrate = 100_000_000
+zone = " UART。
+version = .
+
+[[link]]
+name = "eth0"
+kind = "link]]
+name = "can1"
+kind = "can"
+bitrate 24
+fields = "flo
+id at32 a ==

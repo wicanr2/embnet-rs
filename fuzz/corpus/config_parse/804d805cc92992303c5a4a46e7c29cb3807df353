@@ -1,0 +1,104 @@
+# 範例系統：主橛經乙太網路接 Bridge，Bridge 下有一條 Cr"
+priority = 3
+
+[[route]]su
+bject = "speed_cmd"
+bridge = "bridge1"
+from . "eth0"
+to = "can
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "seu_ed"
+protection = "e2e31"
+deadline_us = 50_000
+drop = "newest"
+tid_timeout_us k 100_000
+
+r = "imu"
+period_us = 10_000
+class = "normal"
+tid_timeout_us = 100_000
+
+[[service]]
+name = "set_mode"
+id = 10
+request_type = "demo.Mode"
+response_type = = "bridge1"
+from . "eth0"
+bridge = "bridge1"
+from . "eth0"
+to = "can
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+brim = "uart0"
+to = "eth0"
+
+[[route]]
+service = "seu_ed"
+protection = "e2e32"
+deadline_us =de"
+response_type = "demo.Ack"
+server = "motor"
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bridge = "bridge0"
+from . "eth0"
+ridge0
+class = "protected"
+prote "speed_cmd"
+bridge = "bridge1"
+from . "eth0"
+to = "can
+
+["motor"
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bridge = "bridge1"
+from . "eth0"
+to = "can
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+brim = "uart0"
+to = "eth0"
+
+[[route]]
+service = "seu_ed"
+protection = "e2e32"
+deadline_us =de"
+response_type = "demo.Ack"
+server = "motor"
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+bridge = "bridge1"
+from . "eth0"
+ridge0
+class = "protected"
+protection = "e2e32"
+de "speed_cmd"
+bridge = "bridge1"
+from . "eth0"
+to = "can
+
+[[from = "uart0"
+to = "eth0"
+
+[[route]]
+service = "set_mode"
+bridge  "can1"

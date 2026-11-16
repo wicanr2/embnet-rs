@@ -1,0 +1,17 @@
+# 範例系統：主機經乙太網te = 1_000]
+
+[[# 範例系統：主機經乙太網
+name = "motor"
+id = 20
+links = ["can1"]
+
+[[# 範例系統：主機經乙太網路接 Bridge，Bridge 下有一條 CAN 與一條 UART。
+version =ink]]e = true
+latency_us = 200
+
+[[node]]
+name = "motor"
+id = 20
+links = [c"an1"]
+
+[[# 範例= " UAud

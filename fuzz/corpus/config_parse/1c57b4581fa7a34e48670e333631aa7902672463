@@ -1,0 +1,140 @@
+# 範例om = "uart0"
+to ect = "speed_cmd"
+to = "eth0"
+[[route]]
+service = "set_m
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer 000_000
+zone = "external"
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer = "motor"
+priority = 3
+
+[[roucmd"
+to = "eth0"
+[[zoute]]
+service = "set_m
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer 000_000
+zone = "exNNNNer = "motor"
+priority = 3
+
+[[route]]
+subject =bitrate = 100_000_000
+zone = "external"
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer = "motor"
+priority = 3
+
+[[route]"motor"
+priority = 3
+
+[[route]]
+subject = "speed_cmd"
+to = "eth0"
+[[route]]
+service = "set_r = 1
+max_len = 1
+fields = "uint8 status"
+
+[ accel[3]; float32 gyro[3]"
+
+[[type]]
+name = "demo.Mode"
+major = 1
+maect]]
+nmzridcan1"
+to = "eth0"
+
+[[route]]
+subject = "imu"
+bridge = "bridge1"
+from = "uart0"
+to ect d"
+to = "eth0"
+[[route]]
+service = "set_m
+
+[5
+= "set_mode"trate = 115_200
+zone = "machine"
+max_payload = 64
+
+[[node]]
+name = "host"
+id = 11
+links = ["eth0"]
+
+ternal"
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer = "motor"
+priority = 3
+
+[[route]]
+subject =bitrate = 100_000_000
+zone = 例om = "uart0"
+to ect = "speed_cmd"
+to = "eth0"
+[[route]]
+service = "set_m
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer 000_000
+zone = "external"
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer = "motor"
+priority = 3
+
+[[roucmd"
+to = "eth0"
+[[zoute]]
+service = "set_m
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer 000_000
+zone = "exNNNNer = "motor"
+priority = 3
+
+[[route]]
+subject =bitrate = 100_000_000
+zone = "external"
+
+[5
+links = ["eth0"]
+
+[[node]NNNNNNNNNNNNNer = "motor"
+priority = 3
+
+[[route]"motor"
+priority = 3
+
+[[routname = "host"
+id = 11
+links = ["eth0"]
+
+[[nosubjectme = "brieth0dge1"
+id = "
+to 1
+links = ["eth+", "ca=
