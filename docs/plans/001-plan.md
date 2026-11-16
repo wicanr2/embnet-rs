@@ -149,16 +149,18 @@ P1 定案前，這一節都是草案。
 - **目標：** 知道 Cyphal 的哪些實作可以沿用、哪些只能參考，並確認工具鏈能跑。
 - **工作：**
   1. 建一個鎖版的 Rust 容器（含 `thumbv7em-none-eabihf` target）與一個 Python 容器（給 pycyphal 與日後的 test vector 產生器）。
-  2. 把 canadensis、emcyphal 各編一個「發一筆 Subject」的最小程式到 `thumbv7em`，量 `.text`、`.rodata`、靜態 RAM，確認是否需要配置器。
+  2. 把 canadensis、emcyphal 各編一個「發一筆 Subject」的最小程式到 `thumbv7em`（`-C target-cpu=cortex-m7`），量 `.text`、`.rodata`、靜態 RAM。
+     canadensis 需要配置器，配置器與 heap 另列（K-35）。
   3. libcanard 用同樣的最小程式編出 C 端對照數字。
   4. 在 `vcan` 上跑兩個 canadensis Node 互發，量 CAN 直連的處理時間分布，當作 P2 的對照基準。
   5. 讀 cyphal-bridge-and-router 的轉送邏輯，記下它怎麼處理 Transfer-ID 與來源 Node-ID。
-  6. 確認 Renode 是否支援 STM32 的 bxCAN 與 FDCAN（K-31）。
+  6. 在 Renode 的 `nucleo_f767zi` 平台上跑一次 bxCAN loopback，確認模型能用到什麼程度（K-31）。
   7. 逐一記下各專案的授權（K-12）。
-- **產出：** `docs/plans/004-prior-art.md`，每個實作一行通過行。
+- **執行細節：** `docs/plans/004-p0-execution.md`（容器、腳本、通過行）。
+- **產出：** `docs/plans/005-prior-art.md`，每個實作一行通過行。
 - **完成條件：** 三個實作都有體積數字；`vcan` 直連有延遲分布；授權與模擬器支援都有結論。
-- **前置：** 主機同意載入 `vcan`（K-30）。
-- **風險：** K-11、K-12、K-30、K-31。
+- **前置：** 使用者手動載入 `vcan`（K-30）。
+- **風險：** K-11、K-12、K-30、K-31、K-35。
 
 ### P1：規格
 
@@ -205,7 +207,7 @@ P1 定案前，這一節都是草案。
 - **目標：** Node 程式庫與 Bridge 在 `thumbv7em` 上以 `no_std` 執行。
 - **工作：** 先在模擬器上跑（若 K-31 確認支援），再上實板；量體積、最壞中斷延遲與 FIFO 溢位次數。
 - **完成條件：** `EMBNET_SIZE` 兩行；實板上的 `EMBNET_HOP` 與溢位次數為 0。
-- **風險：** K-26、K-31、K-33、`003` 第 1.3 節。
+- **風險：** K-26、K-31、K-33、K-34、`003` 第 1.3 節。
 
 ### P6：Security
 
@@ -231,11 +233,20 @@ P1 定案前，這一節都是草案。
 
 ## 十、待審查決定
 
+已決定：
+
+| 問題 | 決定 | 影響 |
+|---|---|---|
+| MCU 參考板 | NUCLEO-F767ZI（STM32F767ZI：Cortex-M7 216 MHz、三個 bxCAN、乙太網路 MAC、沒有硬體 AES） | 參考板上沒有 CAN FD，`protected` Subject 用 `002` 第 4.4 節的方案 A 或 B（`003` K-01）；MAC 用軟體 AES（K-05）；DMA 要處理 D-cache（K-34）；板上沒有 CAN 收發器（K-33） |
+| SocketCAN `vcan` | 同意。模組由使用者手動載入，只有測試容器開 `CAP_NET_ADMIN` | P0 起可在主機量 CAN 直連的處理時間 |
+| `protected` Subject | 第一階段就有，暫不訂 SIL 目標 | E2E 保護在 P1 定義；限制資料年齡的方式在 P1 決定（`003` K-03） |
+| UART framing | COBS，用 `cobs` crate（MIT 或 Apache-2.0） | `embnet-link-uart` 的最壞長度可以直接算進預算 |
+
+待決定：
+
 | 問題 | 為什麼要先決定 |
 |---|---|
-| MCU 參考板 | STM32F4 的 bxCAN 只支援 classic CAN；CAN FD 要有 FDCAN 的晶片（例如 STM32G4、H7）。也要確認是否有硬體 AES |
 | Node-ID 空間 | 草案是全系統 7 位元共用。超過 128 個 Node 就要改 CAN ID 配置 |
 | Linux 閘道硬體與核心 | 要不要用 PREEMPT_RT，影響 p99 的量級 |
 | Legacy device 的範圍 | 只做 Modbus RTU，或也包含既有的 CAN 設備（例如以 DBC 描述的） |
-| SocketCAN `vcan` | 主機要載入 `vcan` 模組，容器要 `CAP_NET_ADMIN`，兩者都是主機設定的變更 |
-| 實板與量測設備 | 真實 Wire time 與 p99 要實板，最好還有邏輯分析儀 |
+| 量測設備 | 每條 CAN 要外接收發器；真實 Wire time 與線到線延遲要邏輯分析儀 |

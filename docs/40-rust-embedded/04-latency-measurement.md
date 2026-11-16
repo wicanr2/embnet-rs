@@ -79,6 +79,7 @@ Rust 的 `hdrhistogram` crate 用在主機端的量測程式。它在 `no_std` �
 
 - **DWT 週期計數器。** Cortex-M3、M4 有一個 32 位元的週期計數器 `DWT_CYCCNT`。啟用要兩步：先設 `DEMCR` 的 `TRCENA`，再設 `DWT_CTRL` 的 `CYCCNTENA`（ARMv7-M ARM 第 C1.6.5、C1.8.7 節）。
   Rust 的 `cortex-m` crate（0.7.10）對應 `DCB::enable_trace` 與 `DWT::enable_cycle_counter`，讀值用 `DWT::cycle_count()`。
+  參考板的 Cortex-M7 開機後 DWT 是鎖住的，要先寫 Lock Access Register 才能改設定；`cortex-m` 的文件說 `DWT::unlock()` 就是為 STM32F7 準備的（docs.rs；ST 社群，二手）。
 - **它的限制。** 在 180 MHz 下約 23.86 秒繞一圈，差值要用 `wrapping_sub`；處理器停在除錯狀態時不計數（第 C1.8.3 節）。Cortex-M0、M0+ 沒有這個計數器（Keil 支援文件 3999）。
   它適合量 Bridge 內部每一關花幾個週期（`003` 第 1.2 節），量不到線上的時間。
 - **線到線的延遲。** 收到框與送出框時各拉一次 GPIO，用邏輯分析儀同時抓兩條匯流排與 GPIO，所有事件在同一條時間軸上。sigrok 的協定解碼器支援 CAN、UART、SPI、I²C。

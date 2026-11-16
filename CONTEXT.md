@@ -8,7 +8,7 @@
 - `Native node`：跑 embnet 程式庫、直接講 embnet 線格式的 Node。
 - `Legacy device`：只講原生協定（例如 Modbus RTU）的 Node，由 Bridge 上的 Adapter 代為翻譯。
 - `Node-ID`：Node 在整個系統中的數字代號，設計期指定，全系統共用一個空間。
-- `Link`：一條實體介面加上它的 framing，例如 `can1`（CAN FD）、`uart0`（UART 加上 framing）。_避免_：port。
+- `Link`：一條實體介面加上它的 framing，例如 `can1`（bxCAN）、`uart0`（UART 加上 COBS framing）。_避免_：port。
 - `MTU`：一個 Frame 最多能帶的資料量，例如 classic CAN 8 B、CAN FD 64 B。
 - `轉送表`：`embnet-config` 在建置期產生的規則表，列出哪些（Subject、來源）可以從哪條 Link 轉往哪條 Link。執行期不能新增規則。_避免_：routing table（只在引用外文時用）。
 - `主端`、`從端`：Polled link 上發起交易的一方與回應的一方。Modbus 文件稱為主站、從站，指的是同一件事。

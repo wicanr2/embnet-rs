@@ -32,6 +32,7 @@
 | [001-plan.md](docs/plans/001-plan.md) | 借用 Cyphal 的部分與差異、四類介面、架構草案、里程碑與各階段的工作 |
 | [002-safety-security.md](docs/plans/002-safety-security.md) | 通訊故障與對策、威脅模型、CAN 上的截短 MAC、驗證方式 |
 | [003-risk-assessment.md](docs/plans/003-risk-assessment.md) | Bridge 的瓶頸分析與各類風險 |
+| [004-p0-execution.md](docs/plans/004-p0-execution.md) | P0 的容器、量測方法、通過行與執行順序 |
 
 ## 知識庫
 

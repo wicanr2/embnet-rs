@@ -186,7 +186,7 @@ SPI、I²C、Modbus 的從端不能主動發話，資料就緒後要等主端下
 | Modbus 一次一筆，逾時可達數秒 | Adapter 的逾時與重試次數要寫進設定檔，並算進流量預算；一個不回應的從站不能拖住其他 Link（`003` 第 1.4 節） |
 | I²C 的 clock stretching 讓交易時間沒有上限 | Polled link 規格要限制或禁止 clock stretching，否則該 Link 的延遲無法保證 |
 | 小 UDP 封包效率不到 10% | Bridge 往 UDP 的方向要打包 |
-| STM32F427 的 I²C 只到 400 kHz，bxCAN 不支援 CAN FD | 參考板的選擇會直接限制 Polled link 與 CAN 的速率 |
+| STM32F427 的 I²C 只到 400 kHz，bxCAN 不支援 CAN FD | 參考板的選擇會直接限制 Polled link 與 CAN 的速率。參考板定為 STM32F767，它的 bxCAN 同樣不支援 CAN FD；I²C 與 SPI 的上限待查 DS11532 |
 
 ## 來源
 

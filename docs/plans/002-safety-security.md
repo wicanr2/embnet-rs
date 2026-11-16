@@ -153,11 +153,11 @@ MAC 以 Transfer 為單位，綁在 E2E 邏輯標頭上（2.1 節）。這樣 Tr
 | C：CAN FD 單框 Transfer，MAC 64 位元 | Tail 1 B + 序號 2 B + MAC 8 B | 53 B | 64 位元，達到 NIST 對多數應用的建議 | bxCAN 不支援 CAN FD，要換有 FDCAN 的晶片；轉到 classic CAN 時變成多框，等同 B 的形式 |
 | D：classic CAN 單框 Transfer，MAC 24 位元 | Tail 1 B + 序號 1 B + MAC 3 B | 3 B | 24 位元，只容許約 16 次失敗 | 必須有換金鑰的機制 |
 
-建議以 C 為主、A 或 B 為 classic CAN 的替代，D 只在有換金鑰機制時才考慮。所有方案都需要：
+有 FDCAN 的晶片建議以 C 為主。參考板 STM32F767 只有 bxCAN，所以參考板上用 A 或 B；D 只在有換金鑰機制時才考慮。所有方案都需要：
 
 - 定期送一個完整 FV 的同步 Transfer，讓漏收過的接收端能重新對上；重建失敗的嘗試也算進失敗預算。
 - 完整 FV 跨重開機仍要單調遞增：寫入非揮發記憶體，或每次開機衍生新的 session 金鑰（`003` K-17）。
-- STM32F427 沒有硬體 AES（RM0090 第 23 章只適用於 F415/417 與 F43x），要用軟體 AES-CMAC；週期數見 `003` 第 1.2 節。
+- 參考板 STM32F767 沒有硬體 AES（同系列的 F777、F779 才有 CRYP），要用軟體 AES-CMAC；週期數見 `003` 第 1.2 節。
 - Bridge 在 Trust zone 邊界持有跨 zone Subject 的金鑰，驗證後才轉入內部；同一 zone 內的 MAC 由收發兩端驗證，Bridge 只轉送。
 - 對稱金鑰在一對多廣播時，任何持有金鑰的接收端都能偽造發送端（`003` K-18）。
 
@@ -193,8 +193,8 @@ Safety 與 security 共用：
 
 | 問題 | 影響 |
 |---|---|
-| 是否有 Subject 需要 `protected` 等級，預期的安全等級 | E2E 保護的長度、期限檢查，以及要不要做雙通道 |
-| 板內與機內 Link 是否需要認證或加密 | 第四節的方案選擇，以及 bxCAN 是否夠用 |
+| `protected` Subject 的安全等級（第一階段已確定會有 `protected` Subject，暫不訂 SIL 目標） | E2E 保護的長度、期限檢查，以及要不要做雙通道 |
+| 板內與機內 Link 是否需要認證或加密 | 第四節的方案選擇；參考板只有 bxCAN，classic CAN 的 32 位元 MAC 是否足夠 |
 | MAC 錯誤的門檻與反應 | 4.3 節的失敗預算；預算本身會被拿來做阻斷服務（`003` K-28） |
 | 要限制年齡的 `protected` Subject 採一問一答還是對時 | 接收端本地計時只能偵測停止更新（`003` K-03） |
 | 對外 Link 用什麼認證協定 | 候選要在 P1 依 MCU 體積與延遲比較，目前不預設 |

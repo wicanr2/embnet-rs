@@ -1,6 +1,6 @@
 # no_std 與不配置記憶體：緩衝由誰持有
 
-embnet-rs 的核心要跑在 STM32F4 這類 MCU 上，而且不配置記憶體（no heap）。這篇說明為什麼要這樣做、緩衝改由誰持有、
+embnet-rs 的核心要跑在 STM32F4、F7 這類 MCU 上，而且不配置記憶體（no heap）。這篇說明為什麼要這樣做、緩衝改由誰持有、
 容量怎麼在編譯期決定，以及在 MCU 上特別容易被忽略的兩個問題：堆疊溢位與 panic。最後是量測程式大小的方法。
 讀者假設會寫一般的 Rust，但沒寫過嵌入式。
 
@@ -94,7 +94,7 @@ DMA 是周邊硬體直接讀寫記憶體，CPU 只負責啟動。The Embedonomic
 
 記憶體順序也要處理：啟動 DMA 前放一個 Release 的 compiler fence，等待完成後放 Acquire。Cortex-M4 通常 compiler fence 就夠；
 有資料快取的 Cortex-M7 另外要處理快取一致性：DMA 前後對緩衝做 cache clean 與 invalidate，或用 MPU 把緩衝設成 non-cacheable，光靠 barrier 不夠。
-STM32H7 的 DMA 也碰不到 DTCM。選 H7 當參考板時要把這些列入（Embedonomicon；ST AN4839，待查證）。
+參考板 STM32F767 的 DMA 可以經 AHBS 存取 DTCM（RM0410 第 2.1.6 節），DTCM 不經過 D-cache，是放 DMA 緩衝的選擇之一；STM32H7 的 DMA 則碰不到 DTCM（Embedonomicon；ST AN4839，待查證；`003` K-34）。
 
 需要連續寫入區的 DMA 收發，可以用 `bbqueue`（0.7.0）。它基於 BipBuffer：一種永遠能提供一段連續空間的環形緩衝，
 因為 DMA 只認「起始位址加長度」，不懂環形緩衝會繞回開頭（Ferrous Systems 的部落格，2019）。

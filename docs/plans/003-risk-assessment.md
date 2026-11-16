@@ -35,30 +35,35 @@
 
 ### 1.2 Bridge 的 CPU
 
-以 STM32F427（最高 180 MHz，有兩個 bxCAN）當 Bridge、兩條 classic CAN 都滿載來計算。最壞的框率出現在最短的框：
+以參考板 NUCLEO-F767ZI 的 STM32F767ZI（Cortex-M7，最高 216 MHz，三個 bxCAN，沒有硬體 AES）當 Bridge 來計算。最壞的框率出現在最短的框：
 Cyphal 式的框至少帶 1 B（Tail byte），1 B 資料的延伸框不含填充是 75 bit（第 1.3 節）。
 
-- 每條 1 Mbit/s 的 CAN 最多約 13,333 框/s，兩條合計約 26,667 框/s，每框可用約 6,750 個時脈週期（CPU 全滿時）。
-  保留一半餘裕，就剩約 3,375 個週期，而且這還沒算 UART、SPI 與 UDP 的流量。
+| 滿載的 CAN 條數 | 合計框率 | 每框可用週期（CPU 全滿） | 保留一半餘裕 |
+|---|---|---|---|
+| 2 | 約 26,667 框/s | 約 8,100 | 約 4,050 |
+| 3 | 約 40,000 框/s | 約 5,400 | 約 2,700 |
+
+這還沒算 UART、SPI 與 UDP 的流量。
+
 - 每框要做的事：解析、查轉送表、檢查 E2E、必要時重組或重新分片、放入出口佇列。
-- 驗證或產生 MAC：STM32F427 沒有硬體 AES，只能用軟體。MAC 的輸入包含 Data ID、Type hash、完整 FV 與 payload（`002` 第 4.4 節），
-  通常超過 16 B，要算 2 個 AES 區塊。公開數字：STM32F407 上查表式 AES-128 一個區塊約 662 個週期；常數時間的 bitsliced 版以 CTR 模式計約 1,618 個，
-  但那是兩個區塊並行處理的攤提值，CMAC 是串接計算，單一區塊的成本可能接近兩倍（Schwabe & Stoffelen 2016，待實測）。
-  合計：查表式約 1,300 個週期以上，常數時間版可能超過 3,000 個，等於吃掉大部分甚至全部的每框預算。
+- 驗證或產生 MAC：STM32F767 沒有硬體 AES（腳位相容的 F777 才有 CRYP），只能用軟體。MAC 的輸入包含 Data ID、Type hash、完整 FV 與 payload（`002` 第 4.4 節），
+  通常超過 16 B，要算 2 個 AES 區塊。公開數字來自 Cortex-M4（STM32F407）：查表式 AES-128 一個區塊約 662 個週期；常數時間的 bitsliced 版以 CTR 模式計約 1,618 個，
+  但那是兩個區塊並行處理的攤提值，CMAC 是串接計算，單一區塊的成本可能接近兩倍（Schwabe & Stoffelen 2016）。
+  合計：查表式約 1,300 個週期以上，常數時間版可能超過 3,000 個。Cortex-M7 是雙發射管線，週期數可能較少，但沒有公開數字，要在 P1 實測。
 - 一筆進來、要轉往多條 Link 的 Transfer（fan-out），工作量按出口數倍增。
 
-結論：P1 實測之前，不能判斷 STM32F427 能否在兩條滿載 CAN 上做常數時間的 MAC 驗證。
+結論：P1 實測之前，不能判斷 STM32F767 能否在兩條以上滿載 CAN 上做常數時間的 MAC 驗證。
 
 對策：
 
 - P1 用 DWT 週期計數器量每一步的週期數，算出這顆晶片能扛的最大框率，寫進規格。
 - 格式相同的 Link 之間（例如 CAN 轉 CAN），不重組也不重新分片，直接轉送單框。
 - 只有跨 Trust zone 的 `protected` Subject 才在 Bridge 驗證 MAC，同一 zone 內的 MAC 由收發兩端自己驗證。
-- 負載超過一台 MCU 能扛的量時，改用有硬體 AES 的晶片（例如 F437、F439）或 Linux 當 Bridge，或拆成多台 Bridge（見 1.5）。
+- 負載超過一台 MCU 能扛的量時，改用有硬體 AES 的晶片（同系列的 F777、F779，腳位相容）或 Linux 當 Bridge，或拆成多台 Bridge（見 1.5）。
 
 ### 1.3 接收中斷與硬體 FIFO
 
-這是 MCU 當 Bridge 時最容易被忽略的瓶頸。依 STM32F4 參考手冊（RM0090），bxCAN 有兩個接收 FIFO，每個 3 格；
+這是 MCU 當 Bridge 時最容易被忽略的瓶頸。參考板 STM32F767 的三個 bxCAN 都是兩個接收 FIFO、每個 3 格（DS11532 第 3.33 節；與 F4 的 RM0090 相同）；
 STM32G4 的 FDCAN 也是兩個 FIFO 各 3 格，H7 才可以配置到每個 64 格（細節見 `docs/10-buses/01` 第七節）。
 1 Mbit/s 下，帶 1 B 資料的延伸框約 75 bit，約 75 µs 就來一框。全部框都進同一個 FIFO 時，
 Bridge 必須在約 225 µs 內把 FIFO 讀走，否則就會溢位掉框。這個時間包含其他中斷與關中斷的臨界區。
@@ -108,11 +113,11 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 
 | 編號 | 風險 | 成因 | 最早看得出來 | 對策 |
 |---|---|---|---|---|
-| K-01 | classic CAN 上加 MAC 後，單框可用資料只剩 2 到 3 B | 8 B 中要放 Tail byte、序號與截短 MAC | P1 的 CAN 配置計算 | `protected` Subject 走 CAN FD，或以 Transfer 為單位放一個 MAC；參考板選有 FDCAN 的晶片 |
+| K-01 | classic CAN 上加 MAC 後，單框可用資料只剩 2 到 3 B | 8 B 中要放 Tail byte、序號與截短 MAC；參考板 STM32F767 只有 bxCAN，不支援 CAN FD | P1 的 CAN 配置計算 | 參考板上的 `protected` Subject 用 `002` 第 4.4 節的方案 A 或 B；CAN FD 的方案 C 留給有 FDCAN 的晶片 |
 | K-02 | 7 位元 Node-ID 不夠用 | 全系統共用一個 Node-ID 空間 | P1 估算系統規模 | 預留 CAN ID 的配置彈性；不在 Bridge 轉換 Node-ID（會讓 E2E 與 MAC 失效），改為擴充來源 ID 的寬度，例如由 E2E 邏輯標頭帶完整的來源 ID |
 | K-03 | 期限檢查無法限制資料的年齡 | 單向的週期發佈只看接收間隔，只偵測得到「停止更新」；Bridge 把每筆都多壓一段固定時間再照週期送出，接收間隔看起來完全正常 | P1 寫規格時 | 本地計時只用來偵測停止更新；要限制年齡的 `protected` Subject，採一問一答式的序號回送（PROFIsafe 的做法），或加對時（原理見 `docs/30-safety-security/01` 第四節） |
 | K-04 | 截短 FV 失步，合法訊息被拒 | 線上只送 FV 的低位（由 E2E 序號兼任），連續漏收超過低位的範圍，高位就重建錯誤 | P6 的 FV 同步測試 | 定期送完整 FV；失步期間的行為（拒收或降級）由 Subject 等級決定 |
-| K-05 | 軟體 AES 太慢 | STM32F427 沒有硬體 AES（已確認），只能用軟體；常數時間的實作可能吃掉整個每框預算 | P1 實測週期數 | 見 1.2；只在 Trust zone 邊界驗證；需要時改選有硬體 AES 的晶片（例如 F437、F439） |
+| K-05 | 軟體 AES 太慢 | 參考板 STM32F767 沒有硬體 AES，只能用軟體；常數時間的實作可能吃掉大部分每框預算 | P1 實測週期數 | 見 1.2；只在 Trust zone 邊界驗證；需要時改用腳位相容、有 CRYP 的 F777 或 F779 |
 | K-06 | 不同格式的 Link 之間轉送時，語意不清 | CAN FD 的 64 B 轉成 classic 的 8 B 要重新分片；CAN 與 UDP 的 Transfer-ID 寬度與 CRC 都不同 | P1 寫規格時 | 規格明定兩層：E2E 保護與 MAC 只綁與 Link 無關的邏輯標頭（Subject-ID、來源 Node-ID、E2E 序號、payload），以 Transfer 為單位，端到端保留；Transfer-ID、Tail byte、多框 CRC 屬於 Link 層，由 Bridge 重做 |
 | K-07 | Polled link 的 Native node 要多寫 Mailbox 韌體 | SPI、I²C 從端沒有主動發話的能力 | P4 | Mailbox 格式寫成規格，`embnet-node` 提供從端實作 |
 | K-08 | I²C 交易時間沒有上限 | 從端可以用 clock stretching 讓主端無限期等待 | P4 | Polled link 規格限制或禁止 clock stretching；Bridge 對每筆交易設逾時（原理見 `docs/10-buses/02` 第 3.3 節） |
@@ -152,10 +157,12 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 
 | 編號 | 風險 | 成因 | 最早看得出來 | 對策 |
 |---|---|---|---|---|
-| K-30 | 主機要載入 `vcan` 模組、容器要 `CAP_NET_ADMIN` | SocketCAN 在核心裡 | P0 | 先取得同意；只在測試容器開這項權限 |
-| K-31 | 模擬器不支援 bxCAN 或 FDCAN | Renode 對 STM32 CAN 周邊的支援尚未確認 | P0 | P0 先確認；不支援就提早準備實板 |
+| K-30 | 主機要載入 `vcan` 模組、容器要 `CAP_NET_ADMIN` | SocketCAN 在核心裡 | P0 | 已同意；模組由使用者手動載入，只在測試容器開這項權限 |
+| K-31 | 模擬器的 bxCAN 模型不完整 | Renode 有 `nucleo_f767zi.repl` 與 bxCAN 模型 `STMCAN.cs`，但 TXFP 只存不用、mailbox 一請求就送出，錯誤計數器不會累加、不會進 bus off；DWT 頻率設為 72 MHz | P0 實際跑一次確認 | Renode 只做功能與回歸測試；K-23、K-29 與週期數只在實板測 |
 | K-32 | 主機上的延遲數字被誤當成真實延遲 | `vcan` 與 pty 沒有 Wire time | 每次報告 | 通過行標明環境；主機數字只稱為處理時間 |
-| K-33 | 沒有實板或邏輯分析儀 | 硬體尚未決定 | P3 | `001` 的待審查決定先處理參考板 |
+| K-33 | 實板缺 CAN 收發器或邏輯分析儀 | NUCLEO-F767ZI 板上沒有 CAN 收發器；CAN2 的一組腳位被板上乙太網路的 RMII 占用 | P3 | 每條 CAN 外接收發器模組（例如 SN65HVD230，3.3 V）；腳位依 UM1974 排定；邏輯分析儀另行準備 |
+| K-34 | DMA 緩衝與 D-cache 不一致 | Cortex-M7 有 16 KB D-cache；DMA 寫進 RAM 後 CPU 可能讀到快取中的舊值，CPU 寫的資料也可能還沒寫回 RAM；write-through 模式另有勘誤（ES0334 第 2.1.1 節，二手） | P5 | DMA 緩衝放在 MPU 設為 non-cacheable 的區域，或放在 DTCM（F7 的 DMA 可經 AHBS 存取 DTCM，RM0410 第 2.1.6 節）；緩衝依 32 B cache line 對齊 |
+| K-35 | 沿用的 Cyphal 實作需要配置器 | canadensis 是 `no_std` 但 `extern crate alloc`，README 寫明會動態配置；與核心「不配置記憶體」的原則不合 | P0 | P0 量體積時把配置器與 heap 大小一併計入並分開列出；emcyphal 只用靜態配置，作為零配置的對照 |
 
 ## 六、範圍與進度
 

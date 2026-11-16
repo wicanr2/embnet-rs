@@ -20,6 +20,8 @@ SPI、I²C、Modbus。核心同時編成 `std`（Linux）與 `no_std`（MCU，�
 | 主從介面 | SPI、I²C 定義 Polled link 給 Native node；Modbus 的 Legacy device 由 Adapter 翻譯 |
 | 平台 | 同一份核心編成 `std` 與 `no_std`。核心不配置記憶體 |
 | 第一階段介面 | UART/RS-485、CAN/CAN FD、Ethernet/UDP、SPI/I²C/Modbus |
+| 參考板 | NUCLEO-F767ZI（STM32F767ZI：Cortex-M7、三個 bxCAN，沒有 CAN FD 與硬體 AES）。編譯用 `thumbv7em-none-eabihf` 加 `-C target-cpu=cortex-m7` |
+| UART framing | COBS，`cobs` crate |
 | 延遲目標 | 先量再定。報告分布（p50、p99、max），不用平均值 |
 | 授權 | MIT。每個相依都要記授權 |
 | 公開 | GitHub public repo |
