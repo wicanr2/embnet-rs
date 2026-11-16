@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="1000" height="420" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="420" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">截短 MAC 每把金鑰能容許幾次驗證失敗（偽造成功的風險上限取 2⁻²⁰）</text>
+  <text x="30" y="52" font-size="12" fill="#777">NIST SP 800-38B 附錄 A.2：Tlen ≥ lg(MaxInvalids / Risk)，所以 MaxInvalids ≤ Risk × 2^Tlen。橫軸為對數刻度。</text>
+
+  <!-- grid: x = 230 + e*15.5, e = log2(MaxInvalids) -->
+  <g stroke="#eee">
+    <line x1="230" y1="70" x2="230" y2="310"/><line x1="385" y1="70" x2="385" y2="310"/><line x1="540" y1="70" x2="540" y2="310"/>
+    <line x1="695" y1="70" x2="695" y2="310"/><line x1="850" y1="70" x2="850" y2="310"/>
+  </g>
+  <g font-size="11" fill="#888" text-anchor="middle">
+    <text x="230" y="326">1</text><text x="385" y="326">2¹⁰（約一千）</text><text x="540" y="326">2²⁰（約一百萬）</text>
+    <text x="695" y="326">2³⁰（約十億）</text><text x="850" y="326">2⁴⁰</text>
+  </g>
+
+  <g font-size="13" fill="#333" text-anchor="end">
+    <text x="220" y="94">24 位元（SecOC Profile 1、2）</text>
+    <text x="220" y="132">28 位元（SecOC Profile 3）</text>
+    <text x="220" y="170">32 位元（Ascon 規範下限）</text>
+    <text x="220" y="208">40 位元</text>
+    <text x="220" y="246">48 位元</text>
+    <text x="220" y="284">64 位元（NIST 對多數應用的建議）</text>
+  </g>
+
+  <g fill="#3b7dc4">
+    <path d="M230,80 H288 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 H230 z"/>
+    <path d="M230,118 H350 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 H230 z"/>
+    <path d="M230,156 H412 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 H230 z"/>
+    <path d="M230,194 H536 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 H230 z"/>
+    <path d="M230,232 H660 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 H230 z"/>
+    <path d="M230,270 H908 a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 H230 z"/>
+  </g>
+  <g font-size="12" fill="#333">
+    <text x="300" y="94">16 次</text>
+    <text x="362" y="132">256 次</text>
+    <text x="424" y="170">4,096 次</text>
+    <text x="548" y="208">約 100 萬次</text>
+    <text x="672" y="246">約 2.7 億次</text>
+    <text x="760" y="264">約 1.8 × 10¹³ 次</text>
+  </g>
+
+  <rect x="30" y="342" width="940" height="68" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="364">• 次數是同一把金鑰在「所有接收端合計」的上限，超過就要換金鑰。24 位元時只有 16 次，等於一被攻擊就得換金鑰。</text>
+    <text x="48" y="386">• NIST 規定 64 位元以下的 tag 只能在協定確實限制失敗次數、且經過風險分析時使用；Ascon 規範（SP 800-232）的 tag 不得短於 32 位元。</text>
+  </g>
+</svg>

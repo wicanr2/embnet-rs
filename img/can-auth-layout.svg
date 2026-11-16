@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" width="1000" height="340" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="340" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">protected Subject 在 CAN 單框中的配置（草案，P1 定案）</text>
+  <text x="30" y="52" font-size="12" fill="#777">E2E 序號兼作 FV 的低位；Data ID、Type hash、完整 FV 只參與 MAC 計算，不上線。每格寬度依 byte 數。</text>
+
+  <!-- classic CAN 8 B: 60 px per byte -->
+  <text x="30" y="98" font-size="14" font-weight="bold" fill="#333">classic CAN</text>
+  <text x="30" y="116" font-size="12" fill="#777">8 B</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="160" y="80" width="120" height="40" fill="#e3f0fb" stroke="#3b7dc4"/><text x="220" y="105">payload 2 B</text>
+    <rect x="280" y="80" width="60" height="40" fill="#fde7cc" stroke="#e07b00"/><text x="310" y="98">序號</text><text x="310" y="113" font-size="10">1 B</text>
+    <rect x="340" y="80" width="240" height="40" fill="#ede7f6" stroke="#7b5ea7"/><text x="460" y="105">MAC 32 位元（4 B）</text>
+    <rect x="580" y="80" width="60" height="40" fill="#f2f2f2" stroke="#666"/><text x="610" y="98">Tail</text><text x="610" y="113" font-size="10">1 B</text>
+  </g>
+  <text x="660" y="98" font-size="12" fill="#333">只剩 2 B 資料；</text>
+  <text x="660" y="116" font-size="12" fill="#333">更長的資料改用多框，每筆 Transfer 一個 MAC</text>
+
+  <!-- CAN FD 64 B: 11 px per byte -->
+  <text x="30" y="178" font-size="14" font-weight="bold" fill="#333">CAN FD</text>
+  <text x="30" y="196" font-size="12" fill="#777">64 B</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="160" y="160" width="583" height="40" fill="#e3f0fb" stroke="#3b7dc4"/><text x="451" y="185">payload 53 B</text>
+    <rect x="743" y="160" width="22" height="40" fill="#fde7cc" stroke="#e07b00"/><text x="754" y="185" font-size="10">序</text>
+    <rect x="765" y="160" width="88" height="40" fill="#ede7f6" stroke="#7b5ea7"/><text x="809" y="185">MAC 8 B</text>
+    <rect x="853" y="160" width="11" height="40" fill="#f2f2f2" stroke="#666"/>
+  </g>
+  <text x="160" y="220" font-size="12" fill="#555">序號 2 B、MAC 64 位元、Tail 1 B，達到 NIST 對多數應用建議的長度</text>
+
+  <rect x="30" y="242" width="940" height="88" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="266">• classic CAN 用 24 位元的 MAC 可以多 1 B 資料，但每把金鑰只能容許約 16 次驗證失敗（前一張圖），需要換金鑰的機制才能用。</text>
+    <text x="48" y="290">• 一個序號同時當 E2E 序號與 FV 低位，做法同 SecOC 的 SecOCUseAuthDataFreshness（SWS_SecOC_00219）。</text>
+    <text x="48" y="314">• MAC 也能偵測隨機錯誤，但不像 CRC 有 HD 保證；有 MAC 的 Subject 是否還要保留 E2E CRC，P1 依殘餘錯誤率的分析決定。</text>
+  </g>
+</svg>

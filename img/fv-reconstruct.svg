@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="400" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">截短 FV 的重建：線上只送低位，接收端用自己記住的高位補齊</text>
+  <text x="30" y="52" font-size="12" fill="#777">例：完整 FV 為 16 位元，線上只送低 4 位元。依 AUTOSAR SecOC SWS R24-11 附錄 A.2 的重建規則。</text>
+
+  <g font-family="'DejaVu Sans Mono','Menlo','Consolas',monospace" font-size="15">
+    <text x="40" y="96" font-size="13" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif" fill="#333">接收端記住的上一個 FV</text>
+    <rect x="300" y="78" width="180" height="28" rx="3" fill="#f2f2f2" stroke="#999"/><text x="390" y="98" text-anchor="middle">0x012</text>
+    <rect x="482" y="78" width="60" height="28" rx="3" fill="#e3f0fb" stroke="#3b7dc4"/><text x="512" y="98" text-anchor="middle">D</text>
+    <text x="560" y="98" font-size="12" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif" fill="#555">高 12 位元 | 低 4 位元</text>
+  </g>
+
+  <!-- case 1 -->
+  <rect x="30" y="126" width="940" height="74" rx="8" fill="#e8f5e9" stroke="#2e7d32"/>
+  <g font-size="13" fill="#333">
+    <text x="48" y="150" font-weight="bold" fill="#2e7d32">收到低位 F（比 D 大）</text>
+    <text x="48" y="174">高位不變：重建為 0x012F。新於上一個，接受並用它驗證 MAC。</text>
+    <text x="48" y="192" font-size="12" fill="#555">中間的 E 遺失也沒關係，只要遺失不到 16 筆。</text>
+  </g>
+
+  <!-- case 2 -->
+  <rect x="30" y="210" width="940" height="74" rx="8" fill="#fff3e0" stroke="#e07b00"/>
+  <g font-size="13" fill="#333">
+    <text x="48" y="234" font-weight="bold" fill="#a65c00">收到低位 2（不比 D 大）</text>
+    <text x="48" y="258">視為已經繞過一圈：高位加 1，重建為 0x0132。</text>
+    <text x="48" y="276" font-size="12" fill="#555">收到相同的 D 也一樣會進位成 0x013D，所以同一個值不會被接受第二次，重放因此失敗。</text>
+  </g>
+
+  <rect x="30" y="296" width="940" height="94" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="318">• MAC 一律用重建後的完整 FV 計算，線上的截短 FV 只是提示（PRS_SecOc_00208、00103）。</text>
+    <text x="48" y="340">• 連續遺失 2^n 筆以上（這裡是 16 筆），重建的高位就會錯，MAC 驗不過。要靠完整 FV 的同步訊息恢復。</text>
+    <text x="48" y="362">• 每次「試另一個候選 FV」都算一次驗證失敗，會用掉上一張圖的失敗次數預算。</text>
+    <text x="48" y="384">• 完整 FV 必須單調遞增。重開機後不能從 0 開始，要從非揮發記憶體讀回，或改用新的 session 金鑰（LeiA 的做法）。</text>
+  </g>
+</svg>

@@ -108,44 +108,49 @@ classic CAN（包括 STM32F4 的 bxCAN）每框只有 8 B 資料，所以值得�
 | CRC、ACK、EOF | 無 | 不可用 | 由硬體產生與檢查 |
 | DLC 9 到 15 | 約 3 | 不建議 | classic CAN 中這些值都代表 8 B，各控制器是否原樣收送不一致，位元也太少 |
 | 29 位元 ID 剩下的位元 | Subject 5、Service 1（見 `001` 5.1） | 可用，當作 MAC 的延伸 | 放在 ID 最低位、來源 Node-ID 之下。只有來源與 Subject 都相同的框才會比到這幾位，而這些框來自同一個 Node，不會互相競爭仲裁。接收端的過濾器要遮掉這幾位 |
-| Tail byte 的 Transfer-ID | 5 | 可當截短 FV | 它本來就每筆遞增，不必再多佔一個 byte |
+| Tail byte 的 Transfer-ID | 5 | 不當 FV | Bridge 轉送時可能改寫（`003` K-13），也太短（K-16）；FV 改由 E2E 序號兼任 |
 | 沒用完的資料 bytes | 0 到 7 | 主要做法 | 截短 MAC 放這裡，做法同 AUTOSAR SecOC |
 
 結論：只用未使用的位元放不下足夠的 MAC。ID 剩下的 5 位元若單獨當 MAC，攻擊者平均猜 32 次就能成功；
 在 1 Mbit/s 下只要幾毫秒。這些位元適合用來延伸放在資料區的 MAC。
 
-### 4.3 偽造成功需要多久
+### 4.3 截短 MAC 的強度由失敗次數上限決定
 
-假設攻擊者以最高速率送假框（1 Mbit/s 的 classic CAN 每秒約 7,600 框），Bridge 和接收端也不做任何封鎖。
-每一框猜中的機率是 2^-n，平均要送 2^n 框才猜中一次：
+隨機猜一個 n 位元的 MAC，猜中的機率是 2⁻ⁿ。所以截短 MAC 的安全性取決於「攻擊者能猜幾次」。
+NIST SP 800-38B 附錄 A.2 給出條件：n ≥ lg(容許的驗證失敗次數 ÷ 可接受的偽造風險）。
+風險取 2⁻²⁰ 時，同一把金鑰在所有接收端合計能容許的失敗次數是：
 
-| MAC 長度 | 平均成功時間 |
+| MAC 長度 | 容許的失敗次數 |
 |---|---|
-| 5 位元（只用 ID 剩餘位元） | 約 4 ms |
-| 24 位元（SecOC Profile 1 的長度） | 約 37 分鐘 |
-| 29 位元（資料區 24 位元加 ID 5 位元） | 約 20 小時 |
-| 32 位元 | 約 6.5 天 |
+| 24 位元（SecOC Profile 1、2） | 16 |
+| 28 位元（SecOC Profile 3） | 256 |
+| 32 位元 | 4,096 |
+| 64 位元 | 約 1.8 × 10¹³ |
 
-連續送這麼多假框本身就會塞滿匯流排，而且每一框都會讓 MAC 錯誤計數增加。
-所以 MAC 長度要搭配偵測：計數超過門檻就發警報，並讓接收端進入安全狀態。
-門檻與反應方式在 P1 決定。
+NIST 規定 64 位元以下的 tag 只能在協定確實限制失敗次數、並經風險分析後使用；Ascon 的規範（SP 800-232 第 4.3 節）要求 tag 至少 32 位元。
+推導與圖見 `docs/30-safety-security/02`。
 
-### 4.4 classic CAN 的配置候選
+所以截短 MAC 一定要搭配失敗計數：每個接收端分配到一部分失敗預算，用完就發警報、把該 Subject 判為 INVALID，並要求換金鑰。
+門檻與換金鑰的流程在 P1 決定。
 
-AUTOSAR SecOC Profile 1 用 AES-128 CMAC，截成 24 位元，再加 8 位元的截短 FV，共佔 4 B。
-套到我們的框上，再借用 Tail byte 和 ID 剩下的位元：
+### 4.4 CAN 上的配置候選
 
-| 方案 | 每框開銷 | 單框可放資料 | MAC 強度 | 代價 |
+E2E 序號兼任 FV 的低位（做法同 SecOC 的 `SecOCUseAuthDataFreshness`），完整 FV、Data ID、Type hash 只參與 MAC 計算，不上線。
+
+| 方案 | 每框開銷 | 單框可放資料 | MAC 長度 | 代價 |
 |---|---|---|---|---|
-| A：每框 MAC 24 位元，Transfer-ID 當 FV | Tail byte 1 B + MAC 3 B | 4 B | 24 位元，加上 ID 位元可到 29 位元 | Transfer-ID 只有 5 位元，連續漏收超過 31 筆就要重新同步 FV |
-| B：每個 Transfer 一個 MAC，取代多框的 CRC-16 | 最後一框多 4 B | 單框 3 B；多框攤提 | 32 位元 | 要收齊整個 Transfer 才能驗證 |
-| C：`protected` Subject 只走 CAN FD | Tail byte 1 B + MAC 8 B + FV 1 B | 54 B | 64 位元 | bxCAN 不支援 CAN FD，要換有 FDCAN 的晶片 |
+| A：classic CAN，每框 MAC 32 位元 | Tail 1 B + 序號 1 B + MAC 4 B | 2 B | 32 位元，容許約 4,096 次失敗 | 資料很少；長資料要多框 |
+| B：classic CAN，每個 Transfer 一個 32 位元 MAC，放在最後一框 | 最後一框多 5 B | 多框攤提 | 32 位元 | 要收齊整筆才能驗證 |
+| C：CAN FD，每框 MAC 64 位元 | Tail 1 B + 序號 2 B + MAC 8 B | 53 B | 64 位元，達到 NIST 對多數應用的建議 | bxCAN 不支援 CAN FD，要換有 FDCAN 的晶片 |
+| D：classic CAN，每框 MAC 24 位元 | Tail 1 B + 序號 1 B + MAC 3 B | 3 B | 24 位元，只容許約 16 次失敗 | 必須有換金鑰的機制；低於 Ascon 規範的下限 |
 
-所有方案都需要：
+建議以 C 為主、A 或 B 為 classic CAN 的替代，D 只在有換金鑰機制時才考慮。所有方案都需要：
 
-- 定期送一個完整 FV 的同步 Transfer，讓漏收過的接收端能重新對上。
-- 確認所選 MCU 有沒有硬體 AES。沒有的話用軟體 AES-CMAC，每框的計算時間要在 P1 量測，並算進 Bridge 處理時間。
+- 定期送一個完整 FV 的同步 Transfer，讓漏收過的接收端能重新對上；重建失敗的嘗試也算進失敗預算。
+- 完整 FV 跨重開機仍要單調遞增：寫入非揮發記憶體，或每次開機衍生新的 session 金鑰（`003` K-17）。
+- STM32F427 沒有硬體 AES（RM0090 第 23 章只適用於 F415/417 與 F43x），要用軟體 AES-CMAC；週期數見 `003` 第 1.2 節。
 - Bridge 在 Trust zone 邊界持有跨 zone Subject 的金鑰，驗證後才轉入內部；同一 zone 內的 MAC 由收發兩端驗證，Bridge 只轉送。
+- 對稱金鑰在一對多廣播時，任何持有金鑰的接收端都能偽造發送端（`003` K-18）。
 
 ### 4.5 金鑰
 
@@ -170,7 +175,7 @@ Safety 與 security 共用：
 | 畸形輸入 | 每個解析器 fuzz 固定時數 | `EMBNET_FUZZ target=<名稱> hours=<N> cov=<N>% crashes=0` |
 | 通訊故障 | 在 Link 層注入遺失、重複、亂序、毀損、延遲，檢查接收端的判定 | `EMBNET_FAULT PASS kind=<類型> injected=<N> detected=<N>` |
 | 偽造 | 以隨機 MAC 送假框，檢查全部被拒且計數正確 | `EMBNET_FORGE PASS sent=<N> accepted=0 counted=<N>` |
-| FV 同步 | 讓接收端漏收超過 31 筆，檢查重新同步所需時間 | `EMBNET_FV_RESYNC recover_ms=<N>` |
+| FV 同步 | 讓接收端連續漏收超過截短 FV 的範圍，檢查重新同步所需時間與用掉的失敗預算 | `EMBNET_FV_RESYNC recover_ms=<N>` |
 | 洪泛隔離 | 一條 Link 以線速洪泛，量其他 Link 的 p99 | `EMBNET_FLOOD link=<名稱> other_p99_delta_us=<N>` |
 | 跨 Trust zone | 未列入轉送表的 Transfer 一律被拒 | `EMBNET_ZONE PASS attempts=<N> forwarded=0` |
 | 重啟 | Bridge 重啟後恢復轉送所需時間 | `EMBNET_RESTART recover_ms=<N>` |

@@ -40,8 +40,10 @@
 - 合計約 15,300 框/s，每框可用約 11,800 個時脈週期（CPU 全滿時）。要保留一半餘裕，就剩約 5,900 個週期，
   而且這還沒算 UART、SPI 與 UDP 的流量。
 - 每框要做的事：解析、查轉送表、檢查 E2E、必要時重組或重新分片、放入出口佇列。
-- 若要驗證或產生 MAC，每框至少要算一次 AES 區塊。這顆晶片沒有硬體 AES 時，軟體 AES 的週期數要在 P1 實測，
-  它很可能是最大的一項。
+- 若要驗證或產生 MAC，每框至少要算一次 AES 區塊。STM32F427 沒有硬體 AES，只能用軟體。
+  公開數字：STM32F407（Cortex-M4）上查表式 AES-128 一個區塊約 662 個週期，常數時間的 bitsliced 版約 1,618 個（以 CTR 模式計）；
+  AES-CMAC 在 Cortex-M3/M4 上約 89 個週期/byte（Schwabe & Stoffelen 2016；Mouha 等人 2014）。
+  一個 8 B 訊息的 CMAC 是一個區塊，約占上面 5,900 週期預算的 11% 到 27%。實際用的 Rust 實作要在 P1 實測。
 - 一筆進來、要轉往多條 Link 的 Transfer（fan-out），工作量按出口數倍增。
 
 對策：
@@ -103,8 +105,9 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 | K-01 | classic CAN 上加 MAC 後，單框可用資料只剩 3 到 4 B | 8 B 中要放 Tail byte 與截短 MAC | P1 的 CAN 配置計算 | `protected` Subject 走 CAN FD，或接受多框；參考板選有 FDCAN 的晶片 |
 | K-02 | 7 位元 Node-ID 不夠用 | 全系統共用一個 Node-ID 空間 | P1 估算系統規模 | 預留 CAN ID 的配置彈性；超過時改成每個 Bridge 區域各自一個空間，再由 Bridge 轉換 |
 | K-03 | 期限檢查需要對時 | `002` 的「延遲過大」對策依賴發送端時戳，但各 Node 的時鐘沒有同步 | P1 寫規格時 | 預設改用接收端本地的接收間隔判斷新鮮度；需要絕對時間的 Subject 才加對時協定（Cyphal 有對時的設計可參考） |
-| K-04 | 截短 FV 失步，合法訊息被拒 | Transfer-ID 只有 5 位元，連續漏收超過 31 筆就對不上 | P6 的 FV 同步測試 | 定期送完整 FV；失步期間的行為（拒收或降級）由 Subject 等級決定 |
-| K-05 | 軟體 AES 太慢 | 晶片沒有硬體 AES | P1 實測週期數 | 見 1.2；選有硬體 AES 的晶片 |
+| K-04 | 截短 FV 失步，合法訊息被拒 | 線上只送 FV 的低位（由 E2E 序號兼任），連續漏收超過低位的範圍，高位就重建錯誤 | P6 的 FV 同步測試 | 定期送完整 FV；失步期間的行為（拒收或降級）由 Subject 等級決定 |
+| K-05 | 軟體 AES 太慢 | STM32F427 沒有硬體 AES（已確認），只能用軟體 | P1 實測週期數 | 見 1.2；只在 Trust zone 邊界驗證；需要時改選有硬體 AES 的晶片（例如 F437、F439） |
+| K-19 | 截短 MAC 的失敗預算被用完 | 24 位元 MAC 每把金鑰只容許約 16 次驗證失敗（NIST SP 800-38B 附錄 A.2） | P1 | 優先用 CAN FD 的 64 位元 MAC；classic CAN 至少 32 位元；失敗計數用完就判 INVALID 並換金鑰（`002` 第 4.3 節） |
 | K-06 | MTU 不同的 Link 之間轉送時，分片語意不清 | CAN FD 的 64 B 轉成 classic 的 8 B 要重新分片，Transfer-ID 要不要保留、CRC 要不要重算都要定義 | P1 寫規格時 | 規格明定：Transfer-ID 與 E2E 保護欄位端到端保留，只有 Link 層的分片與 Tail byte 由 Bridge 重做 |
 | K-07 | Polled link 的 Native node 要多寫 Mailbox 韌體 | SPI、I²C 從端沒有主動發話的能力 | P4 | Mailbox 格式寫成規格，`embnet-node` 提供從端實作 |
 | K-08 | I²C 交易時間沒有上限 | 從端可以用 clock stretching 讓主端無限期等待 | P4 | Polled link 規格限制或禁止 clock stretching；Bridge 對每筆交易設逾時（原理見 `docs/10-buses/02` 第 3.3 節） |
@@ -125,6 +128,8 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 |---|---|---|---|---|
 | K-15 | 誤以為 CAN 硬體的 CRC 足夠 | CRC-15/CAN 帳面上在 8 B 框內有 HD 6，但填充位元出錯會讓位元錯位，實際只剩 HD 2（FAA DOT/FAA/TC-14/49 第 5.2 節） | P1 | `protected` Subject 一律加 E2E CRC；E2E CRC 依最大長度選多項式（`docs/20-protocol/03` 第十一節） |
 | K-16 | Bridge 暫存的舊訊息被重送後通過序號檢查 | E2E 序號的範圍小於路徑上可能暫存的訊息數時，舊訊息可能帶著「下一個」序號被接收（PROFIsafe 因此用 32 位元序號） | P1 | E2E 序號與 Transfer-ID 分開；寬度大於建置期算出的路徑最大暫存量加 MaxDeltaCounter；搭配看門狗（原理見 `docs/30-safety-security/01` 第 2.1 節） |
+| K-17 | 重開機後 FV 回到舊值，舊訊息可被重放 | 完整 FV 存在 RAM，重開機後從 0 開始 | P6 | 完整 FV 的高位寫入非揮發記憶體（SecOC 附錄 A.4 的 TripCnt 做法），或每次開機衍生新的 session 金鑰（LeiA 的 epoch 做法）；注意快閃記憶體的寫入壽命 |
+| K-18 | 一個接收端被攻破，就能偽造同一金鑰下的所有發送端 | 對稱金鑰在一對多廣播時，接收端也持有發送用的金鑰（RFC 4082 第 1 節） | P1 | 依發送端分金鑰，縮小影響範圍；跨 Trust zone 只由 Bridge 驗證再轉入；TESLA 類的延遲揭露不適合即時控制（vatiCAN 第 7 節），不採用 |
 | K-20 | 使用者把 Bridge 當成安全功能 | 統一介面讓人想把所有訊號都接上去 | 第一個應用整合時 | 文件與 README 寫明限制；`protected` Subject 的接收端一定要有本地的安全狀態 |
 | K-21 | 部署時沒有安全的金鑰儲存 | 金鑰管理屬於平台責任，本專案不涵蓋 | 第一次實板部署 | 定義金鑰介面；沒有安全儲存時，在 Heartbeat 標示認證功能未啟用 |
 | K-22 | Bridge 成為攻擊跳板 | 原本隔離的乙太網路與 CAN 被接通 | P1 的轉送表設計 | 跨 Trust zone 預設拒絕；P6 測試未列入的轉送全部被拒 |
