@@ -246,16 +246,259 @@ def gen_heartbeat():
     return {"spec": "03-node-services.md §2", "subject_id": 8190, "cases": cases}
 
 
+# ---------------------------------------------------------------- 04 datagram 與 COBS
+
+
+def crc32c(data: bytes) -> int:
+    return crc(data, 32, 0x1EDC6F41, 0xFFFFFFFF, True, True, 0xFFFFFFFF)
+
+
+def crc64xz(data: bytes) -> int:
+    return crc(data, 64, 0x42F0E1EBA9EA3693, (1 << 64) - 1, True, True, (1 << 64) - 1)
+
+
+assert crc32c(b"123456789") == 0xE3069283
+assert crc64xz(b"123456789") == 0x995DC9BBDF1939FA
+
+
+def datagram(prio, kind_service, request, port, src, dst, tid, payload: bytes) -> bytes:
+    flags = prio | (int(kind_service) << 3) | (int(request) << 4)
+    head = bytes([0, flags]) + port.to_bytes(2, "little") + bytes([src, 0xFF if not kind_service else dst, tid & 0xFF, 0])
+    body = head + payload
+    return body + crc32c(body).to_bytes(4, "big")
+
+
+def cobs_encode(data: bytes, trailing_01: bool = False) -> bytes:
+    """COBS：每段最多 254 個非零位元組，前面放一個 code byte。
+
+    資料以剛好 254 個非零位元組的區塊結束時，規格不再附加 0x01（trailing_01=False）；
+    trailing_01=True 產生另一種常見寫法，給解碼端的相容性測試用。
+    """
+    out = bytearray()
+    block = bytearray()
+    ended_full = False
+    for b in data:
+        ended_full = False
+        if b == 0:
+            out.append(len(block) + 1)
+            out += block
+            block = bytearray()
+        else:
+            block.append(b)
+            if len(block) == 254:
+                out.append(255)
+                out += block
+                block = bytearray()
+                ended_full = True
+    if not ended_full or trailing_01:
+        out.append(len(block) + 1)
+        out += block
+    return bytes(out)
+
+
+def gen_datagram():
+    cases = []
+    for args in [(4, False, False, 100, 10, 0, 0, b""), (2, False, False, 7999, 127, 0, 255, pattern(20)),
+                 (5, True, True, 510, 3, 42, 7, b"\x01"), (5, True, False, 510, 42, 3, 7, b"\x00\x00\x00")]:
+        d = datagram(*args)
+        prio, ks, req, port, src, dst, tid, p = args
+        cases.append({"priority": prio, "kind": "service" if ks else "subject", "request": req, "port": port,
+                      "source": src, "destination": dst if ks else 255, "transfer_id": tid, "payload": p.hex(),
+                      "datagram": d.hex(), "uart": (cobs_encode(d) + b"\x00").hex()})
+    cobs = []
+    for data in [b"", b"\x00", b"\x00\x00", b"\x11\x22\x00\x33", b"\x11\x00\x00\x00", bytes(range(1, 255)),
+                 bytes(range(1, 256)), bytes(range(0, 256)), bytes([0x01] * 300)]:
+        cobs.append({"data": data.hex(), "encoded": cobs_encode(data).hex(),
+                     "also_accept": cobs_encode(data, trailing_01=True).hex()})
+    return {"spec": "04-datagram-links.md", "crc32c_check": "E3069283", "cases": cases, "cobs": cobs}
+
+
+def type_hash(name: str, major: int, max_len: int, fields: str) -> int:
+    norm = " ".join(fields.split())
+    norm = ";".join(part.strip() for part in norm.split(";"))
+    return crc64xz(f"{name}:{major}:{max_len}:{norm}".encode())
+
+
+def gen_type_hash():
+    cases = []
+    for name, major, max_len, fields in [("demo.Speed", 1, 4, "int16 left; int16 right"),
+                                         ("demo.Speed", 1, 4, "  int16   left ;int16 right  "),
+                                         ("demo.Speed", 2, 4, "int16 left; int16 right"),
+                                         ("demo.Empty", 1, 0, "")]:
+        cases.append({"name": name, "major": major, "max_len": max_len, "fields": fields,
+                      "type_hash": f"{type_hash(name, major, max_len, fields):016X}"})
+    assert cases[0]["type_hash"] == cases[1]["type_hash"]
+    return {"spec": "07-config.md §2", "crc64xz_check": "995DC9BBDF1939FA", "cases": cases}
+
+
+# ---------------------------------------------------------------- 05 MAC：AES-128（FIPS 197）與 CMAC（RFC 4493）
+
+
+def _xtime(a: int) -> int:
+    return ((a << 1) ^ 0x1B) & 0xFF if a & 0x80 else a << 1
+
+
+def _gmul(a: int, b: int) -> int:
+    r = 0
+    while b:
+        if b & 1:
+            r ^= a
+        a = _xtime(a)
+        b >>= 1
+    return r
+
+
+def _sbox():
+    inv = [0] * 256
+    for x in range(1, 256):
+        for y in range(1, 256):
+            if _gmul(x, y) == 1:
+                inv[x] = y
+                break
+    s = []
+    for x in range(256):
+        b = inv[x]
+        r = b
+        for i in range(1, 5):
+            r ^= ((b << i) | (b >> (8 - i))) & 0xFF
+        s.append(r ^ 0x63)
+    return s
+
+
+SBOX = _sbox()
+assert SBOX[0x00] == 0x63 and SBOX[0x53] == 0xED
+
+
+def aes128_encrypt(key: bytes, block: bytes) -> bytes:
+    rcon = [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36]
+    w = [list(key[i : i + 4]) for i in range(0, 16, 4)]
+    for i in range(4, 44):
+        t = list(w[i - 1])
+        if i % 4 == 0:
+            t = t[1:] + t[:1]
+            t = [SBOX[b] for b in t]
+            t[0] ^= rcon[i // 4 - 1]
+        w.append([w[i - 4][j] ^ t[j] for j in range(4)])
+    s = [list(block[c * 4 : c * 4 + 4]) for c in range(4)]  # s[column][row]
+
+    def add(rnd):
+        for c in range(4):
+            for r in range(4):
+                s[c][r] ^= w[rnd * 4 + c][r]
+
+    add(0)
+    for rnd in range(1, 11):
+        for c in range(4):
+            s[c] = [SBOX[b] for b in s[c]]
+        for r in range(1, 4):
+            row = [s[c][r] for c in range(4)]
+            row = row[r:] + row[:r]
+            for c in range(4):
+                s[c][r] = row[c]
+        if rnd != 10:
+            for c in range(4):
+                a = s[c]
+                s[c] = [_gmul(a[0], 2) ^ _gmul(a[1], 3) ^ a[2] ^ a[3],
+                        a[0] ^ _gmul(a[1], 2) ^ _gmul(a[2], 3) ^ a[3],
+                        a[0] ^ a[1] ^ _gmul(a[2], 2) ^ _gmul(a[3], 3),
+                        _gmul(a[0], 3) ^ a[1] ^ a[2] ^ _gmul(a[3], 2)]
+        add(rnd)
+    return bytes(b for c in s for b in c)
+
+
+# FIPS 197 附錄 C.1
+assert aes128_encrypt(bytes(range(16)), bytes.fromhex("00112233445566778899aabbccddeeff")).hex() == \
+    "69c4e0d86a7b0430d8cdb78070b4c55a"
+
+
+def cmac(key: bytes, msg: bytes) -> bytes:
+    def dbl(b: bytes) -> bytes:
+        v = int.from_bytes(b, "big") << 1
+        if v >> 128:
+            v = (v ^ 0x87) & ((1 << 128) - 1)
+        return v.to_bytes(16, "big")
+
+    l = aes128_encrypt(key, bytes(16))
+    k1 = dbl(l)
+    k2 = dbl(k1)
+    n = max(1, (len(msg) + 15) // 16)
+    complete = len(msg) > 0 and len(msg) % 16 == 0
+    last = msg[(n - 1) * 16 :]
+    if complete:
+        last = bytes(a ^ b for a, b in zip(last, k1))
+    else:
+        last = last + b"\x80" + bytes(15 - len(last))
+        last = bytes(a ^ b for a, b in zip(last, k2))
+    x = bytes(16)
+    for i in range(n - 1):
+        x = aes128_encrypt(key, bytes(a ^ b for a, b in zip(x, msg[i * 16 : i * 16 + 16])))
+    return aes128_encrypt(key, bytes(a ^ b for a, b in zip(x, last)))
+
+
+_K = bytes.fromhex("2b7e151628aed2a6abf7158809cf4f3c")
+assert cmac(_K, b"").hex() == "bb1d6929e95937287fa37d129b756746"  # RFC 4493 第 4 節 Example 1
+assert cmac(_K, bytes.fromhex("6bc1bee22e409f96e93d7e117393172a")).hex() == "070a16b46b4d4144f79bdd9dd04a287c"  # Example 2
+
+
+def mac_input(subject, src, th, seq, data):
+    return subject.to_bytes(2, "little") + bytes([src]) + th.to_bytes(8, "little") + (seq & 0xFFFFFFFF).to_bytes(4, "little") + data
+
+
+def mac_encode(key, tag_len, subject, src, th, seq, data):
+    return bytes([seq & 0xFF]) + data + cmac(key, mac_input(subject, src, th, seq, data))[:tag_len]
+
+
+def gen_mac():
+    key = bytes.fromhex("000102030405060708090a0b0c0d0e0f")  # test-only
+    S, SRC, TH = 1234, 42, 0x0123456789ABCDEF
+    enc = []
+    for tag_len in (4, 8):
+        for seq, data in [(0, b""), (1, b"\x10\x20"), (256, b"\x01"), (70000, pattern(20))]:
+            enc.append({"protection": f"mac{tag_len * 8}", "key": key.hex(), "subject_id": S, "source": SRC,
+                        "type_hash": f"{TH:016X}", "seq": seq, "data": data.hex(),
+                        "wire": mac_encode(key, tag_len, S, SRC, TH, seq, data).hex()})
+    rfc = [{"key": _K.hex(), "msg": "", "cmac": cmac(_K, b"").hex()},
+           {"key": _K.hex(), "msg": "6bc1bee22e409f96e93d7e117393172a",
+            "cmac": cmac(_K, bytes.fromhex("6bc1bee22e409f96e93d7e117393172a")).hex()}]
+    return {"spec": "05-mac.md §1", "note": "key 是 test-only", "rfc4493": rfc, "encode": enc}
+
+
+# ---------------------------------------------------------------- 06 Transfer-ID 對應
+
+
+def gen_tid_remap():
+    """入口 Transfer-ID 序列 → 展開值 U → 出口 Transfer-ID。"""
+    cases = []
+    for name, m_in, m_out, seq in [("CAN 到 datagram，連續且繞圈", 32, 256, list(range(28, 32)) + list(range(0, 6))),
+                                    ("CAN 到 datagram，有漏收", 32, 256, [0, 1, 5, 9, 30, 2]),
+                                    ("datagram 到 CAN", 256, 32, [250, 251, 255, 0, 3, 40]),
+                                    ("CAN 到 CAN", 32, 32, [7, 8, 9])]:
+        u = None
+        steps = []
+        for t in seq:
+            if u is None:
+                u = t
+            else:
+                d = (t - (u % m_in)) % m_in
+                u = (u + d) & 0xFFFFFFFF
+            steps.append({"in": t, "u": u, "out": u % m_out})
+            assert u % m_in == t
+        cases.append({"name": name, "modulo_in": m_in, "modulo_out": m_out, "steps": steps})
+    return {"spec": "06-forwarding.md §3", "cases": cases}
+
+
 def main():
     out = Path(sys.argv[1] if len(sys.argv) > 1 else "docs/spec/vectors")
     out.mkdir(parents=True, exist_ok=True)
     files = {"can-id.json": gen_can_id(), "segment.json": gen_segment(), "reassembly.json": gen_reassembly(),
-             "e2e.json": gen_e2e(), "e2e-sync.json": gen_sync(), "heartbeat.json": gen_heartbeat()}
+             "e2e.json": gen_e2e(), "e2e-sync.json": gen_sync(), "heartbeat.json": gen_heartbeat(),
+             "datagram.json": gen_datagram(), "type-hash.json": gen_type_hash(), "mac.json": gen_mac(),
+             "tid-remap.json": gen_tid_remap()}
     for name, obj in files.items():
         obj["generator"] = "tools/vectors/gen.py"
         (out / name).write_text(json.dumps(obj, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    n = sum(len(o.get("cases", [])) + len(o.get("encode", [])) + len(o.get("receive", [])) for o in files.values())
-    print(f"EMBNET_VECTORS files={len(files)} cases={n} crc16_check=29B1 crc32a_check=1697D06A out={out}")
+    n = sum(len(o.get(k, [])) for o in files.values() for k in ("cases", "encode", "receive", "cobs", "rfc4493"))
+    print(f"EMBNET_VECTORS files={len(files)} cases={n} crc16_check=29B1 crc32a_check=1697D06A crc32c_check=E3069283 crc64xz_check=995DC9BBDF1939FA aes_fips197=ok cmac_rfc4493=ok out={out}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,99 @@
+{
+ "spec": "05-mac.md §1",
+ "note": "key 是 test-only",
+ "rfc4493": [
+  {
+   "key": "2b7e151628aed2a6abf7158809cf4f3c",
+   "msg": "",
+   "cmac": "bb1d6929e95937287fa37d129b756746"
+  },
+  {
+   "key": "2b7e151628aed2a6abf7158809cf4f3c",
+   "msg": "6bc1bee22e409f96e93d7e117393172a",
+   "cmac": "070a16b46b4d4144f79bdd9dd04a287c"
+  }
+ ],
+ "encode": [
+  {
+   "protection": "mac32",
+   "key": "000102030405060708090a0b0c0d0e0f",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 0,
+   "data": "",
+   "wire": "001e35a40b"
+  },
+  {
+   "protection": "mac32",
+   "key": "000102030405060708090a0b0c0d0e0f",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 1,
+   "data": "1020",
+   "wire": "0110204d6f3879"
+  },
+  {
+   "protection": "mac32",
+   "key": "000102030405060708090a0b0c0d0e0f",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 256,
+   "data": "01",
+   "wire": "00012cb3a77a"
+  },
+  {
+   "protection": "mac32",
+   "key": "000102030405060708090a0b0c0d0e0f",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 70000,
+   "data": "030a11181f262d343b424950575e656c737a8188",
+   "wire": "70030a11181f262d343b424950575e656c737a8188307c4972"
+  },
+  {
+   "protection": "mac64",
+   "key": "000102030405060708090a0b0c0d0e0f",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 0,
+   "data": "",
+   "wire": "001e35a40b7771e3dc"
+  },
+  {
+   "protection": "mac64",
+   "key": "000102030405060708090a0b0c0d0e0f",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 1,
+   "data": "1020",
+   "wire": "0110204d6f38795aa634c5"
+  },
+  {
+   "protection": "mac64",
+   "key": "000102030405060708090a0b0c0d0e0f",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 256,
+   "data": "01",
+   "wire": "00012cb3a77a1b4d9931"
+  },
+  {
+   "protection": "mac64",
+   "key": "000102030405060708090a0b0c0d0e0f",
+   "subject_id": 1234,
+   "source": 42,
+   "type_hash": "0123456789ABCDEF",
+   "seq": 70000,
+   "data": "030a11181f262d343b424950575e656c737a8188",
+   "wire": "70030a11181f262d343b424950575e656c737a8188307c497252806095"
+  }
+ ],
+ "generator": "tools/vectors/gen.py"
+}

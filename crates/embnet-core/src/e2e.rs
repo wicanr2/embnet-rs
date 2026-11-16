@@ -99,26 +99,38 @@ impl SeqReceiver {
 
     /// 檢查一筆 E2E-32 payload。結果可交給應用時，回傳應用資料。
     pub fn check<'a>(&mut self, id: &DataId, wire: &'a [u8]) -> (Status, Option<&'a [u8]>) {
-        if wire.len() < OVERHEAD {
+        self.check_with(wire, 4, |seq, data, trailer| {
+            let mut cb = [0u8; 4];
+            cb.copy_from_slice(trailer);
+            crc_of(id, seq, data) == u32::from_be_bytes(cb)
+        })
+    }
+
+    /// 規格第四節的判定，尾端的驗證交給 `verify(完整序號, 應用資料, 尾端)`。CRC 與 MAC 共用。
+    /// `trailer_len` 是尾端長度：CRC 為 4，MAC 為 4 或 8。
+    pub fn check_with<'a>(
+        &mut self,
+        wire: &'a [u8],
+        trailer_len: usize,
+        verify: impl Fn(u32, &[u8], &[u8]) -> bool,
+    ) -> (Status, Option<&'a [u8]>) {
+        if wire.len() < trailer_len.saturating_add(1) {
             return (Status::Error, None);
         }
         if !self.synced {
             return (Status::NoSync, None);
         }
         let Some((&low, rest)) = wire.split_first() else { return (Status::Error, None) };
-        let Some((data, crc)) = rest.split_at_checked(rest.len().saturating_sub(4)) else {
+        let Some((data, trailer)) = rest.split_at_checked(rest.len().saturating_sub(trailer_len)) else {
             return (Status::Error, None);
         };
-        let mut cb = [0u8; 4];
-        cb.copy_from_slice(crc);
-        let got = u32::from_be_bytes(cb);
         let d = low.wrapping_sub(self.last.to_le_bytes()[0]);
         if d == 0 {
-            let st = if crc_of(id, self.last, data) == got { Status::Repeated } else { Status::Error };
+            let st = if verify(self.last, data, trailer) { Status::Repeated } else { Status::Error };
             return (st, None);
         }
         let cand = self.last.wrapping_add(u32::from(d));
-        if crc_of(id, cand, data) != got {
+        if !verify(cand, data, trailer) {
             return (Status::Error, None);
         }
         self.last = cand;

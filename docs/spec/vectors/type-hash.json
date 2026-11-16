@@ -1,0 +1,35 @@
+{
+ "spec": "07-config.md §2",
+ "crc64xz_check": "995DC9BBDF1939FA",
+ "cases": [
+  {
+   "name": "demo.Speed",
+   "major": 1,
+   "max_len": 4,
+   "fields": "int16 left; int16 right",
+   "type_hash": "4FF00AF1D8128708"
+  },
+  {
+   "name": "demo.Speed",
+   "major": 1,
+   "max_len": 4,
+   "fields": "  int16   left ;int16 right  ",
+   "type_hash": "4FF00AF1D8128708"
+  },
+  {
+   "name": "demo.Speed",
+   "major": 2,
+   "max_len": 4,
+   "fields": "int16 left; int16 right",
+   "type_hash": "5BB50D1A1EB4FEF5"
+  },
+  {
+   "name": "demo.Empty",
+   "major": 1,
+   "max_len": 0,
+   "fields": "",
+   "type_hash": "D64989D9F9CAEDE9"
+  }
+ ],
+ "generator": "tools/vectors/gen.py"
+}

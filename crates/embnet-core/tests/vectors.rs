@@ -222,3 +222,143 @@ fn e2e_state_machine_basic() {
     }
     assert_eq!(m.state(), StreamState::Valid);
 }
+
+#[test]
+fn datagram_and_cobs() {
+    use embnet_core::datagram::{self, CobsReceiver, Header};
+    let v = load("datagram.json");
+    let cases = v["cases"].as_array().unwrap();
+    for c in cases {
+        let h = Header {
+            priority: u(&c["priority"]) as u8,
+            service: s(&c["kind"]) == "service",
+            request: c["request"].as_bool().unwrap(),
+            port: u(&c["port"]) as u16,
+            source: u(&c["source"]) as u8,
+            destination: u(&c["destination"]) as u8,
+            transfer_id: u(&c["transfer_id"]) as u8,
+        };
+        let payload = hex(s(&c["payload"]));
+        let mut out = [0u8; 512];
+        let n = datagram::encode(&h, &payload, &mut out).unwrap();
+        assert_eq!(hex::encode(&out[..n]), s(&c["datagram"]));
+        let (h2, p2) = datagram::decode(&out[..n]).unwrap();
+        assert_eq!((h2, p2), (h, &payload[..]));
+
+        let mut framed = [0u8; 600];
+        let m = datagram::cobs_frame(&out[..n], &mut framed).unwrap();
+        assert_eq!(hex::encode(&framed[..m]), s(&c["uart"]));
+        let mut rx = CobsReceiver::<600>::new();
+        let mut got = None;
+        for &b in std::iter::once(&0u8).chain(framed[..m].iter()) {
+            if let Some(r) = rx.push(b) {
+                got = Some(r.unwrap().to_vec());
+            }
+        }
+        assert_eq!(got.unwrap(), out[..n].to_vec());
+
+        // 任一位元組毀損都要被 CRC 抓到
+        for i in 0..n {
+            let mut bad = out[..n].to_vec();
+            bad[i] ^= 0x01;
+            assert!(datagram::decode(&bad).is_err(), "byte {i}");
+        }
+    }
+    let cobs = v["cobs"].as_array().unwrap();
+    for c in cobs {
+        let data = hex(s(&c["data"]));
+        let mut out = [0u8; 600];
+        let n = datagram::cobs_frame(&data, &mut out).unwrap();
+        assert_eq!(hex::encode(&out[..n - 1]), s(&c["encoded"]));
+        // 兩種寫法都要能解回原資料
+        for key in ["encoded", "also_accept"] {
+            let mut rx = CobsReceiver::<600>::new();
+            let mut got = None;
+            for b in hex(s(&c[key])).into_iter().chain(std::iter::once(0)) {
+                if let Some(r) = rx.push(b) {
+                    got = Some(r.unwrap().to_vec());
+                }
+            }
+            assert_eq!(got.unwrap_or_default(), data, "{key}");
+        }
+    }
+    println!("EMBNET_VEC datagram cases={} cobs={}", cases.len(), cobs.len());
+}
+
+#[test]
+fn type_hash() {
+    let v = load("type-hash.json");
+    let cases = v["cases"].as_array().unwrap();
+    for c in cases {
+        // 正規化依 docs/spec/07-config.md 第二節；正式實作在 embnet-config
+        let fields: String = s(&c["fields"]).split_whitespace().collect::<Vec<_>>().join(" ");
+        let fields: Vec<&str> = fields.split(';').map(str::trim).collect();
+        let canon = format!("{}:{}:{}:{}", s(&c["name"]), u(&c["major"]), u(&c["max_len"]), fields.join(";"));
+        let h = embnet_core::crc::crc64_xz(canon.as_bytes());
+        assert_eq!(format!("{h:016X}"), s(&c["type_hash"]), "{canon}");
+    }
+    println!("EMBNET_VEC type-hash cases={}", cases.len());
+}
+
+#[test]
+fn mac() {
+    use embnet_core::mac::{self, TagLen};
+    let v = load("mac.json");
+    let enc = v["encode"].as_array().unwrap();
+    for c in enc {
+        let key: [u8; 16] = hex(s(&c["key"])).try_into().unwrap();
+        let tag = if s(&c["protection"]) == "mac32" { TagLen::Bits32 } else { TagLen::Bits64 };
+        let data = hex(s(&c["data"]));
+        let seq = u(&c["seq"]) as u32;
+        let id = data_id(c);
+        let mut out = [0u8; 64];
+        let n = mac::encode(&key, tag, &id, seq, &data, &mut out).unwrap();
+        assert_eq!(hex::encode(&out[..n]), s(&c["wire"]), "{c}");
+
+        // 接收：同步在前一筆，應為 OK；改一個位元或換金鑰應為 ERROR
+        let mut rx = SeqReceiver::new(3);
+        rx.sync(seq);
+        let (st, d) = mac::check(&mut rx, &key, tag, &id, &out[..n]);
+        assert_eq!((st, d), (Status::Ok, Some(&data[..])));
+        let mut rx = SeqReceiver::new(3);
+        rx.sync(seq);
+        let mut bad = out[..n].to_vec();
+        *bad.last_mut().unwrap() ^= 1;
+        assert_eq!(mac::check(&mut rx, &key, tag, &id, &bad).0, Status::Error);
+        let mut rx = SeqReceiver::new(3);
+        rx.sync(seq);
+        let mut other = key;
+        other[0] ^= 1;
+        assert_eq!(mac::check(&mut rx, &other, tag, &id, &out[..n]).0, Status::Error);
+    }
+    println!("EMBNET_VEC mac encode={}", enc.len());
+}
+
+#[test]
+fn cmac_rfc4493() {
+    // RFC 4493 第 4 節 Example 1 與 2：用 Data ID 以外的路徑直接算，確認底層 AES-CMAC 正確
+    use aes::Aes128;
+    use cmac::{Cmac, KeyInit, Mac};
+    let v = load("mac.json");
+    for c in v["rfc4493"].as_array().unwrap() {
+        let mut m = <Cmac<Aes128> as KeyInit>::new_from_slice(&hex(s(&c["key"]))).unwrap();
+        m.update(&hex(s(&c["msg"])));
+        assert_eq!(hex::encode(&m.finalize().into_bytes()), s(&c["cmac"]));
+    }
+}
+
+#[test]
+fn tid_remap() {
+    use embnet_core::remap::TidRemap;
+    let v = load("tid-remap.json");
+    let cases = v["cases"].as_array().unwrap();
+    for c in cases {
+        let (mi, mo) = (u(&c["modulo_in"]) as u32, u(&c["modulo_out"]) as u32);
+        let mut r = TidRemap::new();
+        for st in c["steps"].as_array().unwrap() {
+            assert_eq!(u64::from(r.ingress(u(&st["in"]) as u8, mi)), u(&st["u"]), "{}", s(&c["name"]));
+            assert_eq!(u64::from(r.egress(mo).unwrap()), u(&st["out"]), "{}", s(&c["name"]));
+        }
+    }
+    println!("EMBNET_VEC tid-remap cases={}", cases.len());
+}

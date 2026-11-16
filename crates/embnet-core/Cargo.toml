@@ -11,6 +11,12 @@ rust-version.workspace = true
 workspace = true
 
 [dependencies]
+aes = { version = "0.9", default-features = false }
+cmac = { version = "0.8", default-features = false }
+cobs = { version = "0.5", default-features = false }
+subtle = { version = "2.6", default-features = false }
 
 [dev-dependencies]
 serde_json = "1"
+aes = "0.9"
+cmac = "0.8"

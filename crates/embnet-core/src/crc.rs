@@ -129,3 +129,58 @@ mod tests {
         assert_eq!(crc32_autosar(b"123456789"), 0x1697_D06A);
     }
 }
+
+const fn table_reflected32(poly_reflected: u32) -> [u32; 256] {
+    let mut t = [0u32; 256];
+    let mut i = 0usize;
+    while i < 256 {
+        let mut c = i as u32;
+        let mut j = 0u8;
+        while j < 8 {
+            c = if c & 1 != 0 { (c >> 1) ^ poly_reflected } else { c >> 1 };
+            j = j.wrapping_add(1);
+        }
+        #[allow(clippy::indexing_slicing)]
+        {
+            t[i] = c;
+        }
+        i = i.wrapping_add(1);
+    }
+    t
+}
+
+// CRC-32C 的多項式 0x1EDC6F41，反射後為 0x82F63B78。
+static T32C: [u32; 256] = table_reflected32(0x82F6_3B78);
+
+/// CRC-32C（CRC-32/ISCSI），datagram 用（`docs/spec/04-datagram-links.md`）。
+pub fn crc32c(data: &[u8]) -> u32 {
+    let mut c = 0xFFFF_FFFFu32;
+    for &b in data {
+        let t = T32C.get(usize::from((c as u8) ^ b)).copied().unwrap_or(0);
+        c = (c >> 8) ^ t;
+    }
+    c ^ 0xFFFF_FFFF
+}
+
+/// CRC-64/XZ，Type hash 用（`docs/spec/07-config.md` 第二節）。逐位元計算，只在建置期用。
+pub fn crc64_xz(data: &[u8]) -> u64 {
+    let mut c = u64::MAX;
+    for &b in data {
+        c ^= u64::from(b);
+        for _ in 0..8 {
+            c = if c & 1 != 0 { (c >> 1) ^ 0xC96C_5795_D787_0F42 } else { c >> 1 };
+        }
+    }
+    c ^ u64::MAX
+}
+
+#[cfg(test)]
+mod tests_more {
+    use super::*;
+
+    #[test]
+    fn check_values_more() {
+        assert_eq!(crc32c(b"123456789"), 0xE306_9283);
+        assert_eq!(crc64_xz(b"123456789"), 0x995D_C9BB_DF19_39FA);
+    }
+}
