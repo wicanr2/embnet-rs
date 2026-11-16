@@ -194,7 +194,8 @@ P1 定案前，這一節都是草案。
 ### P4：Polled link
 
 - **目標：** 主從介面上的 Node 也能用同一套介面。
-- **工作：** Mailbox 格式與 `embnet-node` 的從端實作；Bridge 的輪詢排程；Modbus Adapter 與暫存器對應設定；
+- **工作：** Mailbox 格式與 `embnet-node` 的從端實作（設計依 `docs/10-buses/03`）；`embnet-config` 產生輪詢時刻表；
+  Modbus Adapter 與暫存器對應設定（逐欄位的 word 與 byte 順序、逐台逾時）；
   用模擬從站測試逾時與重試。
 - **完成條件：** SPI 或 I²C 至少一種、Modbus RTU 一種有 `EMBNET_POLL PASS`；輪詢佔用算進流量預算。
 - **風險：** K-07、`003` 第 1.4 節。

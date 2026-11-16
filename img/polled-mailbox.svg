@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 450" width="960" height="450" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="960" height="450" fill="#ffffff"/>
+  <defs>
+    <marker id="mb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b7dc4"/></marker>
+    <marker id="mo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e07b00"/></marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">SPI Mailbox：從端用中斷線通知，主端用一次全雙工交易取走</text>
+
+  <!-- actors -->
+  <rect x="120" y="50" width="200" height="36" rx="8" fill="#f2f2f2" stroke="#666"/>
+  <text x="220" y="74" font-size="14" text-anchor="middle">Native node（SPI 從端）</text>
+  <rect x="640" y="50" width="200" height="36" rx="8" fill="#f2f2f2" stroke="#666"/>
+  <text x="740" y="74" font-size="14" text-anchor="middle">Bridge（SPI 主端）</text>
+  <g stroke="#bbb" stroke-dasharray="4 4"><line x1="220" y1="86" x2="220" y2="370"/><line x1="740" y1="86" x2="740" y2="370"/></g>
+
+  <!-- 1 -->
+  <rect x="140" y="100" width="160" height="30" rx="6" fill="#ffffff" stroke="#666"/>
+  <text x="220" y="120" font-size="12" text-anchor="middle">① Transfer 放進 Mailbox</text>
+  <!-- 2 -->
+  <path d="M222,152 H736" stroke="#e07b00" stroke-width="2" stroke-dasharray="7 4" fill="none" marker-end="url(#mo)"/>
+  <text x="480" y="146" font-size="12" fill="#a65c00" text-anchor="middle">② 拉高 DRDY 線（主端收到中斷）</text>
+  <!-- 3 -->
+  <rect x="390" y="172" width="180" height="22" rx="4" fill="#e3f0fb"/>
+  <text x="480" y="188" font-size="12" fill="#2a5d94" text-anchor="middle">③ 一次 SPI 交易（CS 拉低）</text>
+  <path d="M738,214 H224" stroke="#3b7dc4" stroke-width="2" fill="none" marker-end="url(#mb)"/>
+  <text x="480" y="208" font-size="12" fill="#333" text-anchor="middle">MOSI：標頭 len = 0，或 Bridge 要給這個 Node 的 Transfer</text>
+  <path d="M222,246 H736" stroke="#3b7dc4" stroke-width="2" fill="none" marker-end="url(#mb)"/>
+  <text x="480" y="240" font-size="12" fill="#333" text-anchor="middle">MISO：標頭 len = N，接著 N bytes 的 Transfer</text>
+  <!-- 4 -->
+  <path d="M222,288 H736" stroke="#e07b00" stroke-width="2" stroke-dasharray="7 4" fill="none" marker-end="url(#mo)"/>
+  <text x="480" y="282" font-size="12" fill="#a65c00" text-anchor="middle">④ Mailbox 空了就放低 DRDY；還有資料就維持高</text>
+  <!-- 5 -->
+  <rect x="650" y="306" width="180" height="30" rx="6" fill="#ffffff" stroke="#666"/>
+  <text x="740" y="326" font-size="12" text-anchor="middle">⑤ 依轉送表送往其他 Link</text>
+
+  <rect x="30" y="384" width="900" height="56" rx="8" fill="#f7f7f7" stroke="#ccc"/>
+  <text x="48" y="406" font-size="12" fill="#333">雙向同時都有資料不是衝突：SPI 每次交易本來就雙向交換，兩端各自看標頭的 len 判斷收到的是不是有效資料（ESP-Hosted 的做法）。</text>
+  <text x="48" y="428" font-size="12" fill="#333">保險：即使沒收到 DRDY，Bridge 也以較長的週期輪詢一次，避免中斷遺漏時資料永遠卡在 Mailbox（W5500 社群回報過中斷遺漏）。</text>
+</svg>

@@ -11,6 +11,8 @@
 - `Link`：一條實體介面加上它的 framing，例如 `can1`（CAN FD）、`uart0`（HDLC）。_避免_：port。
 - `Polled link`：只有主端能發起交易的 Link，例如 SPI、I²C、Modbus RTU。Node 的輸出要等主端來讀。
 - `Mailbox`：Native node 在 Polled link 上放待送 Transfer 的緩衝區，由 Bridge 輪詢讀取。
+- `DRDY`：Polled link 上 Native node 拉給 Bridge 的中斷線，位準高表示 Mailbox 不是空的。_避免_：IRQ、INT（指其他晶片的腳位時才用）。
+- `輪詢時刻表`：`embnet-config` 在建置期產生的 cyclic executive 時刻表，決定 Bridge 在每個 minor cycle 輪詢哪些 Node。
 - `Bridge`：在不同 Link 或不同 Trust zone 之間轉送 Transfer 的節點。同一條匯流排上的 Node 直接互通，不經過 Bridge。_避免_：router、agent、gateway。
 - `Adapter`：Bridge 裡把 Legacy device 的原生協定對應到 Subject 的元件。
 - `Trust zone`：信任等級相同的一組 Link。Bridge 是 Trust zone 的邊界。

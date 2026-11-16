@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="960" height="360" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">32 位元浮點數放進兩個 Modbus 暫存器：四種排法都有人用</text>
+  <text x="30" y="54" font-size="13" fill="#555">例：1.0 的 IEEE 754 表示是 0x3F800000，四個 byte 依序記為 A = 3F、B = 80、C = 00、D = 00</text>
+
+  <g font-size="13" fill="#555" text-anchor="middle">
+    <text x="300" y="88">暫存器 N</text><text x="460" y="88">暫存器 N+1</text>
+  </g>
+
+  <g font-size="14">
+    <text x="40" y="123" font-weight="bold">ABCD</text>
+    <rect x="230" y="102" width="140" height="32" rx="4" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="300" y="123" text-anchor="middle" font-family="monospace">3F 80</text>
+    <rect x="390" y="102" width="140" height="32" rx="4" fill="#f2f2f2" stroke="#999"/>
+    <text x="460" y="123" text-anchor="middle" font-family="monospace">00 00</text>
+    <text x="560" y="123" font-size="12" fill="#555">高位 word 在前，word 內 big-endian。例：Eaton Foreseer</text>
+
+    <text x="40" y="171" font-weight="bold">CDAB</text>
+    <rect x="230" y="150" width="140" height="32" rx="4" fill="#f2f2f2" stroke="#999"/>
+    <text x="300" y="171" text-anchor="middle" font-family="monospace">00 00</text>
+    <rect x="390" y="150" width="140" height="32" rx="4" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="460" y="171" text-anchor="middle" font-family="monospace">3F 80</text>
+    <text x="560" y="171" font-size="12" fill="#555">低位 word 在前（first word low）。例：GE EPM6000</text>
+
+    <text x="40" y="219" font-weight="bold">BADC</text>
+    <rect x="230" y="198" width="140" height="32" rx="4" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="300" y="219" text-anchor="middle" font-family="monospace">80 3F</text>
+    <rect x="390" y="198" width="140" height="32" rx="4" fill="#f2f2f2" stroke="#999"/>
+    <text x="460" y="219" text-anchor="middle" font-family="monospace">00 00</text>
+    <text x="560" y="219" font-size="12" fill="#555">word 內的 byte 對調</text>
+
+    <text x="40" y="267" font-weight="bold">DCBA</text>
+    <rect x="230" y="246" width="140" height="32" rx="4" fill="#f2f2f2" stroke="#999"/>
+    <text x="300" y="267" text-anchor="middle" font-family="monospace">00 00</text>
+    <rect x="390" y="246" width="140" height="32" rx="4" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="460" y="267" text-anchor="middle" font-family="monospace">80 3F</text>
+    <text x="560" y="267" font-size="12" fill="#555">完全反過來</text>
+  </g>
+
+  <rect x="30" y="296" width="900" height="54" rx="8" fill="#f7f7f7" stroke="#ccc"/>
+  <text x="48" y="318" font-size="13" fill="#333">Modbus 規格只規定暫存器內是 big-endian，跨暫存器的順序由廠商決定（Application Protocol V1.1b3 第 4.2、4.4 節）。</text>
+  <text x="48" y="340" font-size="13" fill="#333">讀錯順序不會報錯，只會得到一個看似合理的錯誤數值。所以 Adapter 的設定檔要逐欄位指定 word order 與 byte order。</text>
+</svg>
