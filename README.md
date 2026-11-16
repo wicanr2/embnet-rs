@@ -7,7 +7,7 @@
 涵蓋 CAN/CAN FD、UART/RS-485、Ethernet/UDP，也補上 Cyphal 沒有定義的 SPI、I²C 與 Modbus。
 核心同時跑在 Linux（`std`）與 MCU（`no_std`、不配置記憶體）上。線格式自訂，不與 Cyphal 相容。
 
-**現況：規格 0.1 版與 `embnet-core` 的線格式已完成並通過 test vector，接著做 P2。** 進度見 `PLAN.md`，規格見 [docs/spec](docs/spec/README.md)。
+**現況：P1 完成，規格 0.2 版、`embnet-core` 與 `embnet-config` 通過全部 test vector，接著做 P2。** 進度見 `PLAN.md`，規格見 [docs/spec](docs/spec/README.md)。
 
 ## 從哪裡開始讀
 
@@ -34,6 +34,7 @@
 | [003-risk-assessment.md](docs/plans/003-risk-assessment.md) | Bridge 的瓶頸分析與各類風險 |
 | [004-p0-execution.md](docs/plans/004-p0-execution.md) | P0 的容器、量測方法、通過行與執行順序 |
 | [005-prior-art.md](docs/plans/005-prior-art.md) | P0 結果：既有實作的體積、Renode 的能力、bridge 參考實作的轉送語意 |
+| [006-p1-results.md](docs/plans/006-p1-results.md) | P1 結果：規格與實作的對應、每一步的成本、還沒有答案的決定 |
 
 ## 知識庫
 

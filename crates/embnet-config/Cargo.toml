@@ -1,0 +1,21 @@
+[package]
+name = "embnet-config"
+version = "0.1.0"
+description = "embnet 設定檔的讀取與建置期檢查（docs/spec/07-config.md）。主機端工具，使用 std。"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+
+[dependencies]
+embnet-core = { path = "../embnet-core" }
+serde = { version = "1", features = ["derive"] }
+toml = "1"

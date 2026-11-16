@@ -83,7 +83,7 @@ CRC-64/XZ：poly 0x42F0E1EBA9EA3693、init 全 1、refin 與 refout 是、xorout
 | C5 | 轉送：Bridge 同時接在 `from` 與 `to` 上；`from` 上確實有這個 Subject | |
 | C6 | 沒有迴路，而且每個 Subject 進入每條 Link 的路徑唯一（含發佈者自己所在的 Link） | `003` K-27 |
 | C7 | 每條 Link 的使用率 Σr/R 不超過 `util_limit` | `docs/20-protocol/04` 第三節 |
-| C8 | 每個 `protected` Subject 在它出現的每條 Link 上，依優先等級算出的延遲上限不超過 `deadline_us` | `docs/20-protocol/04` 第 3.3 節、第八節 |
+| C8 | 每個 `protected` Subject 從發佈者到它出現的每條 Link，沿路徑把各段上限相加，不超過 `deadline_us` | `docs/20-protocol/04` 第 3.3 節、第八節 |
 | C9 | `uart` 的 `max_payload` 不小於經過它的最大 Transfer；`udp` 不超過 1460 B | `04-datagram-links.md` |
 
 ### C7、C8 的算法
@@ -100,6 +100,7 @@ CRC-64/XZ：poly 0x42F0E1EBA9EA3693、init 全 1、refin 與 refout 是、xorout
 - 服務曲線：R = `bitrate`。T = 最長的較低優先序框的時間（非搶占阻擋）；這條 Link 若由 Bridge 送出，再加上該 Bridge 的 `latency_us`。
 - 優先等級 p 的上限：令 r_H、b_H 為優先序較高者的總和，R' = R − r_H，T' = T + (b_H + r_H·T)/R'，上限 = T' + b_p / R'，b_p 是同一等級的總突發量。
 - R' ≤ 0 時檢查失敗。
+- 端到端：沿轉送路徑把各段的上限相加。逐段相加比把整條路徑當成一個節點計算（突發量只付一次）保守。
 
 ## 四、輸出
 

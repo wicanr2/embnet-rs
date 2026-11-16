@@ -1,0 +1,19 @@
+# P1 的每步成本量測（docs/plans/001 P1 第 4 項）。在 Renode 上跑，結果是指令數，不是實機週期數。
+[package]
+name = "p1-cycles"
+version = "0.0.0"
+edition = "2024"
+publish = false
+license = "MIT"
+
+[dependencies]
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7"
+embnet-core = { path = "../../crates/embnet-core" }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+debug = 2
+panic = "abort"

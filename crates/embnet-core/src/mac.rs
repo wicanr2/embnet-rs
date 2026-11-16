@@ -163,3 +163,54 @@ impl SourceGuard {
         false
     }
 }
+
+/// 預先展開好的金鑰：AES 輪金鑰與 CMAC 子金鑰只在建立時算一次（SP 800-38B 第 9 頁），每則訊息只剩 AES 區塊本身的成本。
+#[derive(Clone)]
+pub struct MacKey {
+    proto: Cmac<Aes128>,
+}
+
+impl core::fmt::Debug for MacKey {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        f.write_str("MacKey(..)")
+    }
+}
+
+impl MacKey {
+    /// 展開金鑰。
+    pub fn new(key: &Key) -> Option<Self> {
+        <Cmac<Aes128> as KeyInit>::new_from_slice(key).ok().map(|proto| Self { proto })
+    }
+
+    /// 完整的 16 B CMAC，輸入與 [`cmac_full`] 相同。
+    pub fn tag(&self, id: &DataId, seq: u32, data: &[u8]) -> [u8; 16] {
+        let mut m = self.proto.clone();
+        m.update(&id.subject_id.to_le_bytes());
+        m.update(&[id.source]);
+        m.update(&id.type_hash.to_le_bytes());
+        m.update(&seq.to_le_bytes());
+        m.update(data);
+        let mut out = [0u8; 16];
+        out.copy_from_slice(&m.finalize().into_bytes());
+        out
+    }
+
+    /// 同 [`encode`]，用預先展開的金鑰。
+    pub fn encode(&self, tag: TagLen, id: &DataId, seq: u32, data: &[u8], out: &mut [u8]) -> Option<usize> {
+        let n = data.len().checked_add(1)?.checked_add(tag.bytes())?;
+        let dst = out.get_mut(..n)?;
+        let (head, rest) = dst.split_first_mut()?;
+        *head = seq.to_le_bytes()[0];
+        let (body, t) = rest.split_at_mut(data.len());
+        body.copy_from_slice(data);
+        t.copy_from_slice(self.tag(id, seq, data).get(..tag.bytes())?);
+        Some(n)
+    }
+
+    /// 同 [`check`]，用預先展開的金鑰。
+    pub fn check<'a>(&self, rx: &mut SeqReceiver, tag: TagLen, id: &DataId, wire: &'a [u8]) -> (Status, Option<&'a [u8]>) {
+        rx.check_with(wire, tag.bytes(), |seq, data, t| {
+            self.tag(id, seq, data).get(..t.len()).is_some_and(|full| bool::from(full.ct_eq(t)))
+        })
+    }
+}

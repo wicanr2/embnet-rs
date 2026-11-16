@@ -52,7 +52,8 @@ Cyphal 式的框至少帶 1 B（Tail byte），1 B 資料的延伸框不含填�
   合計：查表式約 1,300 個週期以上，常數時間版可能超過 3,000 個。Cortex-M7 是雙發射管線，週期數可能較少，但沒有公開數字，要在 P1 實測。
 - 一筆進來、要轉往多條 Link 的 Transfer（fan-out），工作量按出口數倍增。
 
-結論：P1 實測之前，不能判斷 STM32F767 能否在兩條以上滿載 CAN 上做常數時間的 MAC 驗證。
+P1 在 Renode 上量到（`006` 第三節）：預先展開金鑰後，一則 `mac32` 約 13,000 個指令，其餘協定步驟每框在幾百個指令以內。
+結論：STM32F767 不能在兩條滿載 CAN 上逐框驗證 MAC；只驗跨 Trust zone 的 `protected` Subject，並以建置期檢查限制每秒的驗證數。實際週期數在 P5 實板確認。
 
 對策：
 
@@ -117,7 +118,7 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 | K-02 | 7 位元 Node-ID 不夠用 | 全系統共用一個 Node-ID 空間 | P1 估算系統規模 | 預留 CAN ID 的配置彈性；不在 Bridge 轉換 Node-ID（會讓 E2E 與 MAC 失效），改為擴充來源 ID 的寬度，例如由 E2E 邏輯標頭帶完整的來源 ID |
 | K-03 | 期限檢查無法限制資料的年齡 | 單向的週期發佈只看接收間隔，只偵測得到「停止更新」；Bridge 把每筆都多壓一段固定時間再照週期送出，接收間隔看起來完全正常 | P1 寫規格時 | 本地計時只用來偵測停止更新；要限制年齡的 `protected` Subject，採一問一答式的序號回送（PROFIsafe 的做法），或加對時（原理見 `docs/30-safety-security/01` 第四節） |
 | K-04 | 截短 FV 失步，合法訊息被拒 | 線上只送 FV 的低位（由 E2E 序號兼任），連續漏收超過低位的範圍，高位就重建錯誤 | P6 的 FV 同步測試 | 定期送完整 FV；失步期間的行為（拒收或降級）由 Subject 等級決定 |
-| K-05 | 軟體 AES 太慢 | 參考板 STM32F767 沒有硬體 AES，只能用軟體；常數時間的實作可能吃掉大部分每框預算 | P1 實測週期數 | 見 1.2；只在 Trust zone 邊界驗證；需要時改用腳位相容、有 CRYP 的 F777 或 F779 |
+| K-05 | 軟體 AES 太慢 | 參考板 STM32F767 沒有硬體 AES，只能用軟體；P1 在 Renode 上量到一則 `mac32` 約 13,000 個指令（`006`） | 已在 P1 確認，P5 量實機週期數 | 見 1.2；只在 Trust zone 邊界驗證；需要時改用腳位相容、有 CRYP 的 F777 或 F779 |
 | K-06 | 不同格式的 Link 之間轉送時，語意不清 | CAN FD 的 64 B 轉成 classic 的 8 B 要重新分片；CAN 與 UDP 的 Transfer-ID 寬度與 CRC 都不同 | P1 寫規格時 | 規格明定兩層：E2E 保護與 MAC 只綁與 Link 無關的邏輯標頭（Subject-ID、來源 Node-ID、E2E 序號、payload），以 Transfer 為單位，端到端保留；Transfer-ID、Tail byte、多框 CRC 屬於 Link 層，由 Bridge 重做 |
 | K-07 | Polled link 的 Native node 要多寫 Mailbox 韌體 | SPI、I²C 從端沒有主動發話的能力 | P4 | Mailbox 格式寫成規格，`embnet-node` 提供從端實作 |
 | K-08 | I²C 交易時間沒有上限 | 從端可以用 clock stretching 讓主端無限期等待 | P4 | Polled link 規格限制或禁止 clock stretching；Bridge 對每筆交易設逾時（原理見 `docs/10-buses/02` 第 3.3 節） |

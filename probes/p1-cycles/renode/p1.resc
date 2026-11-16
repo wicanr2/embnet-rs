@@ -1,0 +1,23 @@
+# P1 的每步成本：跑 2 秒虛擬時間後讀出 P1_RESULT（位址由 tools/p1-cycles.sh 確認）。
+mach create "p1"
+machine LoadPlatformDescription @platforms/boards/nucleo_f767zi.repl
+sysbus LoadELF $elf
+emulation RunFor "2"
+echo "P1_RESULT_BEGIN"
+sysbus ReadDoubleWord 0x20000004
+sysbus ReadDoubleWord 0x20000008
+sysbus ReadDoubleWord 0x2000000C
+sysbus ReadDoubleWord 0x20000010
+sysbus ReadDoubleWord 0x20000014
+sysbus ReadDoubleWord 0x20000018
+sysbus ReadDoubleWord 0x2000001C
+sysbus ReadDoubleWord 0x20000020
+sysbus ReadDoubleWord 0x20000024
+sysbus ReadDoubleWord 0x20000028
+sysbus ReadDoubleWord 0x2000002C
+sysbus ReadDoubleWord 0x20000030
+sysbus ReadDoubleWord 0x20000034
+echo "P1_RESULT_END"
+echo "MIPS"
+cpu PerformanceInMips
+quit
