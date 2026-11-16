@@ -58,7 +58,7 @@ fn can_id() {
 
 #[test]
 fn can_id_reserved_bits_rejected() {
-    // Subject 的位元 24–20、Service 的位元 23 是保留位元
+    // Subject 的位元 24-20、Service 的位元 23 是保留位元
     assert!(CanId::decode(1 << 20).is_err());
     assert!(CanId::decode((1 << 25) | (1 << 23)).is_err());
     assert!(CanId::decode(1 << 29).is_err());

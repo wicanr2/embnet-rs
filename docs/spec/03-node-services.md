@@ -32,8 +32,8 @@ status：
 
 | 位元 | 欄位 | 值 |
 |---|---|---|
-| 1–0 | health | 0 正常、1 注意、2 降級、3 故障 |
-| 4–2 | mode | 0 運作、1 初始化、2 維護、3 軟體更新；4 到 7 保留 |
+| 1-0 | health | 0 正常、1 注意、2 降級、3 故障 |
+| 4-2 | mode | 0 運作、1 初始化、2 維護、3 軟體更新；4 到 7 保留 |
 | 5 | fault_log_unread | 1 表示有未讀的異常紀錄（`002` 第 2.2 節） |
 | 6 | auth_disabled | 1 表示認證功能未啟用，例如沒有安全的金鑰儲存（`003` K-21） |
 | 7 | 保留 | 0 |
@@ -42,8 +42,8 @@ link_state：這個 Node 所有 CAN Link 中最差的狀態。
 
 | 位元 | 欄位 | 值 |
 |---|---|---|
-| 1–0 | can_state | 0 error active、1 error passive、2 曾經 bus off 並已恢復、3 目前 bus off |
-| 7–2 | 保留 | 0 |
+| 1-0 | can_state | 0 error active、1 error passive、2 曾經 bus off 並已恢復、3 目前 bus off |
+| 7-2 | 保留 | 0 |
 
 ## 三、Service
 

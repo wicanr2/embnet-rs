@@ -8,23 +8,23 @@
 
 | 位元 | 欄位 | 寬度 | 說明 |
 |---|---|---|---|
-| 28–26 | Priority | 3 | 0 最高，7 最低 |
+| 28-26 | Priority | 3 | 0 最高，7 最低 |
 | 25 | 種類 | 1 | 0 |
-| 24–20 | 保留 | 5 | 填 0 |
-| 19–7 | Subject-ID | 13 | 0 到 8191 |
-| 6–0 | 來源 Node-ID | 7 | 0 到 127 |
+| 24-20 | 保留 | 5 | 填 0 |
+| 19-7 | Subject-ID | 13 | 0 到 8191 |
+| 6-0 | 來源 Node-ID | 7 | 0 到 127 |
 
 ### 1.2 Service（種類位元 = 1）
 
 | 位元 | 欄位 | 寬度 | 說明 |
 |---|---|---|---|
-| 28–26 | Priority | 3 | |
+| 28-26 | Priority | 3 | |
 | 25 | 種類 | 1 | 1 |
 | 24 | request | 1 | 1 是 request，0 是 response |
 | 23 | 保留 | 1 | 填 0 |
-| 22–14 | Service-ID | 9 | 0 到 511 |
-| 13–7 | 目的 Node-ID | 7 | |
-| 6–0 | 來源 Node-ID | 7 | |
+| 22-14 | Service-ID | 9 | 0 到 511 |
+| 13-7 | 目的 Node-ID | 7 | |
+| 6-0 | 來源 Node-ID | 7 | |
 
 仲裁的結果：Priority 先決定；同 Priority 時 Subject 贏 Service；同一個 Subject 由來源 Node-ID 小的贏。
 同一個 CAN ID 在一條匯流排上只能有一個發送者（`003` K-27），設定檔在建置期檢查。
@@ -40,7 +40,7 @@
 | 7 | SOT | 這筆 Transfer 的第一框 |
 | 6 | EOT | 這筆 Transfer 的最後一框 |
 | 5 | toggle | 第一框為 1，之後逐框交替 |
-| 4–0 | Transfer-ID | 0 到 31 |
+| 4-0 | Transfer-ID | 0 到 31 |
 
 單框 Transfer 的 Tail byte 是 SOT=1、EOT=1、toggle=1。
 
@@ -51,7 +51,7 @@
 - **L ≤ M：單框。** Frame 的資料是 payload 加上 Tail byte，長度 L + 1。不加 CRC。
 - **L > M：多框。** 把 payload 後面接上 CRC-16/IBM-3740（big-endian，2 B），得到長度 L + 2 的串流，依序切成每段 M 位元組，最後一段可以較短；每段後面加 Tail byte。
   CRC 計算的範圍是 payload 本身（含 CAN FD 的補位，見下一點）。
-- **CAN FD 的補位：** CAN FD 的長度只能是 0–8、12、16、20、24、32、48、64。最後一框的長度不是合法值時，在 CRC **之前**補 0x00 到合法長度，補位計入 CRC。
+- **CAN FD 的補位：** CAN FD 的長度只能是 0 到 8、12、16、20、24、32、48、64。最後一框的長度不是合法值時，在 CRC **之前**補 0x00 到合法長度，補位計入 CRC。
   單框的補位放在 payload 之後、Tail byte 之前。classic CAN 不補位。
 - 每框的 Transfer-ID 相同，toggle 逐框交替。
 
