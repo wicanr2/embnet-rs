@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" width="960" height="440" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="960" height="440" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">仲裁：三個 Node 同時開始送 ID，逐位元比較</text>
+
+  <!-- highlight columns where nodes drop out -->
+  <rect x="370" y="52" width="70" height="320" fill="#fde7cc" opacity="0.6"/>
+  <rect x="440" y="52" width="70" height="320" fill="#fff3e0" opacity="0.8"/>
+
+  <!-- bit grid -->
+  <g stroke="#e5e5e5" stroke-width="1">
+    <line x1="160" y1="52" x2="160" y2="372"/><line x1="230" y1="52" x2="230" y2="372"/>
+    <line x1="300" y1="52" x2="300" y2="372"/><line x1="370" y1="52" x2="370" y2="372"/>
+    <line x1="440" y1="52" x2="440" y2="372"/><line x1="510" y1="52" x2="510" y2="372"/>
+    <line x1="580" y1="52" x2="580" y2="372"/><line x1="650" y1="52" x2="650" y2="372"/>
+    <line x1="720" y1="52" x2="720" y2="372"/>
+  </g>
+  <g font-size="12" fill="#888" text-anchor="middle">
+    <text x="195" y="66">ID 第 1 位</text><text x="265" y="66">2</text><text x="335" y="66">3</text>
+    <text x="405" y="66">4</text><text x="475" y="66">5</text><text x="545" y="66">6</text>
+    <text x="615" y="66">7</text><text x="685" y="66">8</text>
+  </g>
+
+  <!-- row labels -->
+  <g font-size="14" fill="#333">
+    <text x="30" y="95">Node A</text><text x="30" y="113" font-size="11" fill="#888">0110 1001</text>
+    <text x="30" y="175">Node B</text><text x="30" y="193" font-size="11" fill="#888">0110 0110</text>
+    <text x="30" y="255">Node C</text><text x="30" y="273" font-size="11" fill="#888">0111 ....</text>
+    <text x="30" y="345" font-weight="bold">匯流排</text><text x="30" y="363" font-size="11" fill="#888">所有人的 AND</text>
+  </g>
+
+  <!-- waveforms: high = recessive(1), low = dominant(0) -->
+  <g fill="none" stroke-width="2.5">
+    <path d="M160,108 H230 V72 H370 V108 H440 V72 H510" stroke="#555"/>
+    <path d="M510,72 H720" stroke="#bbb" stroke-dasharray="6 4"/>
+    <path d="M160,188 H230 V152 H370 V188 H510 V152 H650 V188 H720" stroke="#3b7dc4"/>
+    <path d="M160,268 H230 V232 H440" stroke="#555"/>
+    <path d="M440,232 H720" stroke="#bbb" stroke-dasharray="6 4"/>
+    <path d="M160,358 H230 V322 H370 V358 H510 V322 H650 V358 H720" stroke="#e07b00" stroke-width="3"/>
+  </g>
+
+  <!-- annotations -->
+  <g font-size="13">
+    <text x="735" y="82" fill="#777">第 5 位退出，改為接收</text>
+    <text x="735" y="175" fill="#3b7dc4" font-weight="bold">贏得仲裁，框完整送出</text>
+    <text x="735" y="242" fill="#777">第 4 位退出，改為接收</text>
+    <text x="735" y="345" fill="#e07b00">與 Node B 的位元完全相同</text>
+  </g>
+  <g font-size="12" fill="#a65c00" text-anchor="middle">
+    <text x="405" y="300">C 送 1、看到 0</text>
+    <text x="475" y="130">A 送 1、看到 0</text>
+  </g>
+
+  <g font-size="13" fill="#333">
+    <text x="30" y="400">高位準 = recessive（1），低位準 = dominant（0）。只要有一個 Node 送 0，匯流排就是 0。</text>
+    <text x="30" y="424">送 1 卻看到 0 的 Node 知道自己輸了，立刻停止發送。勝出者的框沒有被破壞，所以仲裁不浪費匯流排時間。</text>
+  </g>
+</svg>

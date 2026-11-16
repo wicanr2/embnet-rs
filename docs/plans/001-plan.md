@@ -68,7 +68,7 @@ Cyphal 是為車載與航空的內部匯流排設計的 pub/sub 協定。它的�
 
 | Link | 條件 | 推算 |
 |---|---|---|
-| CAN classic | 1 Mbit/s、29 位元 ID、8 B 資料 | 不含填充位元 131 bit，約 0.13 ms；每秒最多約 7,600 框 |
+| CAN classic | 1 Mbit/s、29 位元 ID、8 B 資料（含 IFS） | 不含填充位元 131 bit，約 131 µs；最壞填充 160 bit，約 160 µs。每秒最多約 6,250 到 7,600 框（推導見 `docs/10-buses/01`） |
 | UART | 115200 baud、8N1（每 byte 10 bit） | 約 86.8 µs/byte；16 B 的框約 1.39 ms |
 | Ethernet | 100 Mbit/s、最小框（含前導碼與框間隔共 84 B） | 約 6.7 µs |
 | I²C | 400 kHz（每 byte 9 bit） | 約 22.5 µs/byte |

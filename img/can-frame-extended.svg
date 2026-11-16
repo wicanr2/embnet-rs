@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 300" width="1040" height="300" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1040" height="300" fill="#ffffff"/>
+  <text x="40" y="30" font-size="17" font-weight="bold" fill="#222">classic CAN 延伸框（29 位元 ID）的欄位與位元數</text>
+
+  <!-- top brackets -->
+  <g stroke="#e07b00" stroke-width="2" fill="none">
+    <path d="M70,78 V68 H420 V78"/>
+    <path d="M420,78 V68 H530 V78" stroke="#555"/>
+  </g>
+  <text x="245" y="60" font-size="13" fill="#e07b00" text-anchor="middle">仲裁欄位：逐位元比較，ID 小的勝出</text>
+  <text x="475" y="60" font-size="13" fill="#555" text-anchor="middle">控制欄位</text>
+
+  <!-- fields -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="40" y="90" width="30" height="56" fill="#f2f2f2" stroke="#666"/>
+    <text x="55" y="114">SOF</text><text x="55" y="134" fill="#666">1</text>
+
+    <rect x="70" y="90" width="110" height="56" fill="#fde7cc" stroke="#e07b00"/>
+    <text x="125" y="114">Base ID</text><text x="125" y="134" fill="#666">11</text>
+    <rect x="180" y="90" width="30" height="56" fill="#fde7cc" stroke="#e07b00"/>
+    <text x="195" y="114">SRR</text><text x="195" y="134" fill="#666">1</text>
+    <rect x="210" y="90" width="30" height="56" fill="#fde7cc" stroke="#e07b00"/>
+    <text x="225" y="114">IDE</text><text x="225" y="134" fill="#666">1</text>
+    <rect x="240" y="90" width="150" height="56" fill="#fde7cc" stroke="#e07b00"/>
+    <text x="315" y="114">Extended ID</text><text x="315" y="134" fill="#666">18</text>
+    <rect x="390" y="90" width="30" height="56" fill="#fde7cc" stroke="#e07b00"/>
+    <text x="405" y="114">RTR</text><text x="405" y="134" fill="#666">1</text>
+
+    <rect x="420" y="90" width="30" height="56" fill="#f2f2f2" stroke="#666"/>
+    <text x="435" y="114">r1</text><text x="435" y="134" fill="#666">1</text>
+    <rect x="450" y="90" width="30" height="56" fill="#f2f2f2" stroke="#666"/>
+    <text x="465" y="114">r0</text><text x="465" y="134" fill="#666">1</text>
+    <rect x="480" y="90" width="50" height="56" fill="#f2f2f2" stroke="#666"/>
+    <text x="505" y="114">DLC</text><text x="505" y="134" fill="#666">4</text>
+
+    <rect x="530" y="90" width="170" height="56" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="615" y="114">Data</text><text x="615" y="134" fill="#666">0 到 64（8n）</text>
+
+    <rect x="700" y="90" width="120" height="56" fill="#f2f2f2" stroke="#666"/>
+    <text x="760" y="114">CRC</text><text x="760" y="134" fill="#666">15</text>
+    <rect x="820" y="90" width="30" height="56" fill="#ffffff" stroke="#666"/>
+    <text x="835" y="114">Del</text><text x="835" y="134" fill="#666">1</text>
+    <rect x="850" y="90" width="40" height="56" fill="#ffffff" stroke="#666"/>
+    <text x="870" y="114">ACK</text><text x="870" y="134" fill="#666">2</text>
+    <rect x="890" y="90" width="70" height="56" fill="#ffffff" stroke="#666"/>
+    <text x="925" y="114">EOF</text><text x="925" y="134" fill="#666">7</text>
+    <rect x="960" y="90" width="40" height="56" fill="#ffffff" stroke="#999" stroke-dasharray="4 3"/>
+    <text x="980" y="114">IFS</text><text x="980" y="134" fill="#666">3</text>
+  </g>
+
+  <!-- bottom brackets -->
+  <g stroke-width="2" fill="none">
+    <path d="M40,158 V168 H820 V158" stroke="#3b7dc4"/>
+    <path d="M820,158 V168 H960 V158" stroke="#999"/>
+  </g>
+  <text x="430" y="188" font-size="13" fill="#3b7dc4" text-anchor="middle">位元填充的範圍：SOF 到 CRC，共 54 + 8n 位元</text>
+  <text x="890" y="188" font-size="13" fill="#777" text-anchor="middle">固定格式，不填充</text>
+
+  <g font-size="13" fill="#333">
+    <text x="40" y="228">不含填充：64 + 8n 位元；加上框間隔 IFS 共 67 + 8n。8 B 資料時為 131 位元，1 Mbit/s 下約 131 µs。</text>
+    <text x="40" y="252">最壞填充：再加 ⌊(54 + 8n − 1) / 4⌋ 位元。8 B 資料時多 29 位元，共 160 位元，約 160 µs。</text>
+    <text x="40" y="276" fill="#777">依 Bosch CAN 2.0 Part B 第 3.2 節的欄位加總；填充公式依 Nolte 2002 式 (4)(5)。</text>
+  </g>
+</svg>

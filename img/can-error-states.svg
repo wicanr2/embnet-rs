@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="960" height="400" fill="#ffffff"/>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">錯誤侷限：用兩個計數器決定 Node 還能對匯流排做什麼</text>
+
+  <!-- states -->
+  <rect x="40" y="80" width="230" height="96" rx="14" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="155" y="112" font-size="16" font-weight="bold" text-anchor="middle" fill="#2e7d32">Error active</text>
+  <text x="155" y="136" font-size="13" text-anchor="middle">TEC ≤ 127 且 REC ≤ 127</text>
+  <text x="155" y="158" font-size="12" text-anchor="middle" fill="#555">正常收發，出錯時送 active flag</text>
+
+  <rect x="365" y="80" width="230" height="96" rx="14" fill="#fff3e0" stroke="#e07b00" stroke-width="2"/>
+  <text x="480" y="112" font-size="16" font-weight="bold" text-anchor="middle" fill="#a65c00">Error passive</text>
+  <text x="480" y="136" font-size="13" text-anchor="middle">TEC ≥ 128 或 REC ≥ 128</text>
+  <text x="480" y="158" font-size="12" text-anchor="middle" fill="#555">只能送 passive flag，送完要多等 8 位元</text>
+
+  <rect x="690" y="80" width="230" height="96" rx="14" fill="#fdecea" stroke="#c62828" stroke-width="2"/>
+  <text x="805" y="112" font-size="16" font-weight="bold" text-anchor="middle" fill="#c62828">Bus off</text>
+  <text x="805" y="136" font-size="13" text-anchor="middle">TEC ≥ 256</text>
+  <text x="805" y="158" font-size="12" text-anchor="middle" fill="#555">不得影響匯流排，等於離線</text>
+
+  <!-- arrows -->
+  <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#ar)">
+    <path d="M270,112 H362"/>
+    <path d="M365,150 H273"/>
+    <path d="M595,128 H687"/>
+    <path d="M805,176 V220 H155 V180"/>
+  </g>
+  <g font-size="12" fill="#333" text-anchor="middle">
+    <text x="318" y="104">任一 ≥ 128</text>
+    <text x="318" y="168">兩者都 ≤ 127</text>
+    <text x="641" y="120">TEC ≥ 256</text>
+    <text x="480" y="240">監看到 128 次「連續 11 個 recessive」後，兩個計數器歸零（bxCAN 的 ABOM=1 時由硬體自動恢復）</text>
+  </g>
+
+  <!-- drift panel -->
+  <rect x="40" y="270" width="880" height="110" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <text x="60" y="296" font-size="14" font-weight="bold" fill="#222">為什麼是 +8 與 −1</text>
+  <text x="60" y="322" font-size="13" fill="#333">發送出錯 TEC + 8，發送成功 TEC − 1。若每次發送出錯的機率是 p，每送一次 TEC 的期望變化是 8p − (1 − p) = 9p − 1。</text>
+  <text x="60" y="346" font-size="13" fill="#333">p &lt; 1/9（約 11%）時 TEC 長期往 0 走，偶發雜訊不會讓 Node 離線；p &gt; 1/9 時 TEC 持續上升，</text>
+  <text x="60" y="368" font-size="13" fill="#333">壞掉的 Node 最後被自己的計數器關掉，不會一直送 error flag 拖垮整條匯流排。</text>
+</svg>

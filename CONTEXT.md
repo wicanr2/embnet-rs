@@ -35,6 +35,14 @@
 - `MAC`：以金鑰計算的訊息認證碼。可截短，長度決定偽造成功的機率。_避免_：指紋、簽章（簽章指非對稱演算法）。
 - `FV`：Freshness value，單調遞增的新鮮度值，加進 MAC 計算以防重放。線上只送低位（截短 FV）。
 
+## CAN
+
+- `dominant`、`recessive`：CAN 線上的兩種狀態，分別是邏輯 0 與 1。任一 Node 送 dominant，整條線就是 dominant。_避免_：顯性、隱性（只在首次解釋時附上）。
+- `仲裁`（arbitration）：多個 Node 同時發送時，逐位元比較 ID，ID 小的勝出，勝出者的框不受破壞。
+- `填充位元`（stuff bit）：每 5 個相同位元後插入的反相位元，讓接收端有邊緣可以校正時鐘。
+- `TEC`、`REC`：發送與接收錯誤計數器，決定 Node 處於 error active、error passive 或 bus off。
+- `bus off`：TEC 達 256 後，Node 不得再影響匯流排的狀態。
+
 ## 量測
 
 - `Hop`：Transfer 經過一次 Bridge。
