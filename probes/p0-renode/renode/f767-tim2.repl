@@ -1,0 +1,6 @@
+// Renode 1.17.0 的 stm32f777.repl 沒有定義 TIM2（只有 TIM6 與 TIM5 的 Python 替身），embassy 的 time driver 因此不會前進。
+// 照 stm32f746.repl 的寫法補上 TIM2。頻率設為 16 MHz：embassy-stm32 預設以 HSI 16 MHz 運作，APB1 計時器時脈同為 16 MHz。
+timer2: Timers.STM32_Timer @ sysbus 0x40000000
+    -> nvic@28
+    frequency: 16000000
+    initialLimit: 0xFFFFFFFF

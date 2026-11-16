@@ -1,6 +1,7 @@
 # P0 的 Renode 檢查：載入 nucleo_f767zi 平台與韌體，跑 0.5 秒虛擬時間，讀出 P0_RESULT。
 mach create "p0"
 machine LoadPlatformDescription @platforms/boards/nucleo_f767zi.repl
+machine LoadPlatformDescription @/w/renode/f767-tim2.repl
 sysbus LoadELF $elf
 emulation RunFor "2"
 echo "P0_RESULT_BEGIN"

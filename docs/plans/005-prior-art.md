@@ -46,7 +46,7 @@ EMBNET_P0_SIZE impl=libcanard target=thumbv7em-none-eabihf cpu=cortex-m7 text=55
 ## 四、Renode
 
 ```
-EMBNET_P0_RENODE platform=nucleo_f767zi renode=1.17.0 can_loopback=PASS tx_order_by_id=no rx_order=0x00000300,0x00000200,0x00000100 dwt_hz=72000000 embassy_timer_advances=no run=runs/20261116-173751-p0-renode
+EMBNET_P0_RENODE platform=nucleo_f767zi renode=1.17.0 can_loopback=PASS tx_order_by_id=no rx_order=0x00000300,0x00000200,0x00000100 dwt_hz=71999928 embassy_timer_advances=yes run=runs/20261116-183806-p0-renode
 ```
 
 | 項目 | 結果 | 對 embnet-rs 的影響 |
@@ -55,7 +55,7 @@ EMBNET_P0_RENODE platform=nucleo_f767zi renode=1.17.0 can_loopback=PASS tx_order
 | CAN3 loopback | 通過：embassy-stm32 0.6.0 的 bxCAN 驅動在模型上能收發 | 功能測試可以在 Renode 上跑 |
 | 送出順序 | 依 ID 0x300、0x200、0x100 連續送出，收到的順序不變，不依 ID 排序 | 與原始碼一致（TXFP 只存不用）。K-29 只能在實板驗 |
 | DWT 頻率 | CYCCNT 在 2 秒虛擬時間內增加 144,000,000，等於 72 MHz | 平台描述把 DWT 設為 72 MHz，不是實機的 216 MHz。週期數只在實板量 |
-| embassy 的計時 | `Timer::after_millis` 不會返回：預設選到的 TIM12 不在平台描述裡；改用 TIM2 後，TIM2 的計數器仍停在 0 | 需要計時的韌體目前不能在 Renode 上跑。原因待查，P5 前處理 |
+| embassy 的計時 | 原因：1.17.0 的 `stm32f777.repl` 只定義 TIM6 與 TIM5 的 Python 替身，沒有 TIM2 與 TIM12，embassy 的 time driver 找不到計時器。補上 `probes/p0-renode/renode/f767-tim2.repl`（照 `stm32f746.repl` 定義 TIM2，16 MHz）後，100 ms 的 `Timer` 對應 71,999,280 個 DWT 計數，和虛擬時間一致 | 韌體選 `time-driver-tim2`，Renode 載入這個補充平台檔 |
 | DWT 解鎖 | 模型不處理寫入 Lock Access Register（0xE0000FB0 偏移 0xFB0），只記警告 | 無影響 |
 
 ## 五、cyphal-bridge-and-router 的轉送語意

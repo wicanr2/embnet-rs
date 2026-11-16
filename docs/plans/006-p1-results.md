@@ -60,7 +60,7 @@ MAC 的輸入是 Data ID 11 B、序號 4 B、資料 2 B，共 17 B，要 2 個 A
 |---|---|---|
 | 對外 Link 的認證協定 | `002` 第七節 | 未定；UDP 可先用 `mac64`，連線層的協定在 P6 前決定 |
 | `protected` Subject 的安全等級 | `002` 第七節 | 暫不訂 SIL 目標 |
-| Linux 閘道是否用 PREEMPT_RT | `001` 第十節 | 未定，P3 量測前決定 |
+| Linux 閘道是否用 PREEMPT_RT | `001` 第十節 | 已決定：用 PREEMPT_RT |
 | Legacy device 的範圍 | `001` 第十節 | 未定，P4 前決定 |
 | `vcan` 直連的處理時間 | `005` 第三節 | 延後 |
-| embassy 計時在 Renode 上不前進 | `005` 第四節 | 未查 |
+| embassy 計時在 Renode 上不前進 | `005` 第四節 | 已解決：平台檔缺 TIM2，以補充平台檔補上 |

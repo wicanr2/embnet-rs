@@ -241,12 +241,12 @@ P1 定案前，這一節都是草案。
 | SocketCAN `vcan` | 同意。模組由使用者手動載入，只有測試容器開 `CAP_NET_ADMIN` | P0 起可在主機量 CAN 直連的處理時間 |
 | `protected` Subject | 第一階段就有，暫不訂 SIL 目標 | E2E 保護在 P1 定義；限制資料年齡的方式在 P1 決定（`003` K-03） |
 | UART framing | COBS，用 `cobs` crate（MIT 或 Apache-2.0） | `embnet-link-uart` 的最壞長度可以直接算進預算 |
+| Linux 閘道的核心 | 用 PREEMPT_RT（Linux 6.12 起併入主線） | P3 的主機量測在 PREEMPT_RT 核心上做，先跑 `cyclictest` 當底線（`docs/40-rust-embedded/04` 第 5.1 節） |
 
 待決定：
 
 | 問題 | 為什麼要先決定 |
 |---|---|
 | Node-ID 空間 | 草案是全系統 7 位元共用。超過 128 個 Node 就要改 CAN ID 配置 |
-| Linux 閘道硬體與核心 | 要不要用 PREEMPT_RT，影響 p99 的量級 |
 | Legacy device 的範圍 | 只做 Modbus RTU，或也包含既有的 CAN 設備（例如以 DBC 描述的） |
 | 量測設備 | 每條 CAN 要外接收發器；真實 Wire time 與線到線延遲要邏輯分析儀 |
