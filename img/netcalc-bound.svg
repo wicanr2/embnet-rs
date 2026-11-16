@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" width="1000" height="440" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="440" fill="#ffffff"/>
+  <defs>
+    <marker id="nb" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c62828"/></marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">Network calculus：兩條曲線之間的最大距離，就是最壞情況</text>
+
+  <!-- axes -->
+  <line x1="120" y1="380" x2="580" y2="380" stroke="#999"/><line x1="120" y1="60" x2="120" y2="380" stroke="#999"/>
+  <text x="540" y="400" font-size="12" fill="#555">時間 t</text>
+  <text x="128" y="62" font-size="12" fill="#555">累積的位元數</text>
+
+  <!-- arrival curve -->
+  <path d="M120,380 V280 L560,126" fill="none" stroke="#3b7dc4" stroke-width="2.5"/>
+  <text x="236" y="222" font-size="13" fill="#2a5d94">到達曲線 α(t) = b + rt</text>
+  <!-- service curve -->
+  <path d="M120,380 H200 L560,92" fill="none" stroke="#e07b00" stroke-width="2.5"/>
+  <text x="392" y="262" font-size="13" fill="#a65c00">服務曲線 β(t) = R(t − T)⁺</text>
+
+  <!-- b and T marks -->
+  <g font-size="12" fill="#555">
+    <text x="104" y="284" text-anchor="end">b</text>
+    <line x1="200" y1="380" x2="200" y2="388" stroke="#999"/><text x="200" y="402" text-anchor="middle">T</text>
+  </g>
+
+  <!-- horizontal deviation: delay bound -->
+  <line x1="122" y1="280" x2="323" y2="280" stroke="#c62828" stroke-width="2" marker-start="url(#nb)" marker-end="url(#nb)"/>
+  <text x="264" y="272" font-size="12" fill="#c62828" text-anchor="middle">延遲上限 T + b/R</text>
+  <!-- vertical deviation: backlog bound -->
+  <line x1="200" y1="254" x2="200" y2="378" stroke="#c62828" stroke-width="2" stroke-dasharray="5 3" marker-start="url(#nb)" marker-end="url(#nb)"/>
+  <text x="208" y="340" font-size="12" fill="#c62828">緩衝上限 b + rT</text>
+
+  <!-- right panel -->
+  <rect x="610" y="60" width="360" height="330" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="13" fill="#333">
+    <text x="628" y="88" font-weight="bold" font-size="14">兩條曲線各代表什麼</text>
+    <text x="628" y="114">到達曲線：任何長度 t 的時間內，</text>
+    <text x="628" y="136">最多進來 b + rt 位元。週期性的 Subject</text>
+    <text x="628" y="158">自然滿足這種形式。</text>
+    <text x="628" y="188">服務曲線：Bridge 出口最晚在 T 之後，</text>
+    <text x="628" y="210">開始以至少 R 的速率送出。</text>
+    <text x="628" y="244" font-weight="bold" font-size="14">結論（r ≤ R 時）</text>
+    <text x="628" y="270">• 延遲 ≤ T + b/R（水平距離）</text>
+    <text x="628" y="294">• 緩衝 ≤ b + rT（垂直距離）</text>
+    <text x="628" y="318">• r &gt; R 時沒有上限：使用率超過 1</text>
+    <text x="628" y="348" font-size="12" fill="#555">Le Boudec &amp; Thiran《Network Calculus》</text>
+    <text x="628" y="368" font-size="12" fill="#555">定理 1.4.1、1.4.2，第 24 頁 Fig. 1.10</text>
+  </g>
+  <text x="30" y="428" font-size="12" fill="#777">定理 1.4.4 證明這些上限是緊的：存在一種發送方式剛好達到它們，所以它們就是真正的最壞情況，不是保守的估計。</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" width="1000" height="430" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="430" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">平均等待時間隨使用率 ρ 的變化（以平均服務時間為單位）</text>
+
+  <!-- grid -->
+  <g stroke="#eee"><line x1="100" y1="290" x2="560" y2="290"/><line x1="100" y1="220" x2="560" y2="220"/><line x1="100" y1="150" x2="560" y2="150"/><line x1="100" y1="80" x2="560" y2="80"/></g>
+  <line x1="100" y1="360" x2="560" y2="360" stroke="#999"/><line x1="100" y1="70" x2="100" y2="360" stroke="#999"/>
+  <g font-size="11" fill="#888" text-anchor="end">
+    <text x="92" y="364">0</text><text x="92" y="294">5</text><text x="92" y="224">10</text><text x="92" y="154">15</text><text x="92" y="84">20</text>
+  </g>
+  <g font-size="11" fill="#888" text-anchor="middle">
+    <text x="100" y="378">0</text><text x="192" y="378">0.2</text><text x="284" y="378">0.4</text><text x="376" y="378">0.6</text>
+    <text x="468" y="378">0.8</text><text x="560" y="378">1</text>
+  </g>
+  <text x="330" y="400" font-size="12" fill="#555" text-anchor="middle">使用率 ρ</text>
+
+  <!-- reference lines -->
+  <g stroke="#bbb" stroke-dasharray="3 3"><line x1="330" y1="70" x2="330" y2="360"/><line x1="514" y1="70" x2="514" y2="360"/></g>
+  <g font-size="11" fill="#777" text-anchor="middle"><text x="330" y="66">ρ = 0.5</text><text x="514" y="66">ρ = 0.9</text></g>
+
+  <!-- curves -->
+  <path fill="none" stroke="#3b7dc4" stroke-width="2.5" d="M100.0,360.0 L146.0,358.4 L192.0,356.5 L238.0,354.0 L284.0,350.7 L330.0,346.0 L376.0,339.0 L422.0,327.3 L445.0,318.0 L468.0,304.0 L477.2,296.2 L486.4,286.5 L495.6,274.0 L504.8,257.3 L509.4,246.7 L514.0,234.0 L518.6,218.4 L523.2,199.0 L527.8,174.0 L532.4,140.7 L537.0,94.0"/>
+  <path fill="none" stroke="#e07b00" stroke-width="2.5" d="M100.0,360.0 L146.0,359.2 L192.0,358.2 L238.0,357.0 L284.0,355.3 L330.0,353.0 L376.0,349.5 L422.0,343.7 L445.0,339.0 L468.0,332.0 L477.2,328.1 L486.4,323.2 L495.6,317.0 L504.8,308.7 L509.4,303.4 L514.0,297.0 L518.6,289.2 L523.2,279.5 L527.8,267.0 L532.4,250.3 L537.0,227.0"/>
+  <g stroke="#fff" stroke-width="2">
+    <circle cx="330" cy="346" r="5" fill="#3b7dc4"/><circle cx="514" cy="234" r="5" fill="#3b7dc4"/>
+    <circle cx="330" cy="353" r="5" fill="#e07b00"/><circle cx="514" cy="297" r="5" fill="#e07b00"/>
+  </g>
+  <g font-size="12" fill="#333">
+    <text x="320" y="338" text-anchor="end">1</text><text x="504" y="230" text-anchor="end">9</text>
+    <text x="504" y="312" text-anchor="end">4.5</text>
+  </g>
+
+  <!-- legend / direct labels -->
+  <g font-size="13" fill="#333">
+    <line x1="130" y1="100" x2="154" y2="100" stroke="#3b7dc4" stroke-width="2.5"/><text x="160" y="104">M/M/1：服務時間隨機（指數分布）</text>
+    <line x1="130" y1="124" x2="154" y2="124" stroke="#e07b00" stroke-width="2.5"/><text x="160" y="128">M/D/1：服務時間固定</text>
+  </g>
+
+  <!-- right panel -->
+  <rect x="610" y="60" width="360" height="300" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="13" fill="#333">
+    <text x="628" y="88" font-weight="bold" font-size="14">P-K 公式（M/G/1）</text>
+    <text x="628" y="114">W = λE[X²] / (2(1 − ρ))</text>
+    <text x="628" y="140">改寫成</text>
+    <text x="628" y="164">W = ρ/(1 − ρ) × (1 + C²)/2 × E[X]</text>
+    <text x="628" y="188" font-size="12" fill="#555">C 是服務時間的變異係數（推導）</text>
+    <text x="628" y="222" font-weight="bold" font-size="14">兩個教訓</text>
+    <text x="628" y="248">• ρ 接近 1 時，1/(1 − ρ) 讓等待急遽上升。</text>
+    <text x="628" y="274">• 變異愈大等待愈久：固定服務時間</text>
+    <text x="628" y="296">  （C = 0）的等待只有指數分布的一半。</text>
+    <text x="628" y="328" font-size="12" fill="#555">依 Modiano，MIT 6.263 講義〈M/G/1 Queues〉</text>
+    <text x="628" y="348" font-size="12" fill="#555">第 3 到 6 張投影片</text>
+  </g>
+  <text x="30" y="420" font-size="12" fill="#777">這些都是平均值。平均值告訴我們 Bridge 會不會過載，但不能保證任何一筆訊息的延遲上限。</text>
+</svg>

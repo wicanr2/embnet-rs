@@ -86,10 +86,15 @@ Modbus 的逾時與重試次數寫在設定檔，並算進流量預算。
 
 ### 1.6 怎麼量
 
+延遲上限先在建置期算：每個跨 Link 的 Subject 依週期、大小、抖動得到 token bucket 到達曲線，出口以 rate-latency 服務曲線描述，
+延遲 ≤ T + Σb/R，緩衝 ≤ Σb + ΣrT（network calculus，推導見 `docs/20-protocol/04` 第三節）。量測的作用是驗證這個模型。
+
 P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量的 10% 到 100%，記錄每一級的 p99 與丟棄數，
 找出延遲開始急遽上升的轉折點。
 
-通過行：`EMBNET_LOAD in=<link> out=<link> knee_util=<N>% p99_at_50pct_us=<N> drops_at_90pct=<N>`
+通過行：`EMBNET_LOAD in=<link> out=<link> knee_util=<N>% p99_at_50pct_us=<N> max_us=<N> bound_us=<N> drops_at_90pct=<N>`
+
+`max_us` 超過建置期算出的 `bound_us` 時，表示 R 或 T 的模型錯了，要先修模型再看其他數字。
 
 ## 二、技術可行性
 

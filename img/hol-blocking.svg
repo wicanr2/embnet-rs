@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" width="1000" height="360" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="360" fill="#ffffff"/>
+  <defs>
+    <marker id="hb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">Head-of-line blocking：共用一條佇列時，慢的出口會擋住所有人</text>
+
+  <!-- left: shared FIFO -->
+  <text x="40" y="70" font-size="14" font-weight="bold" fill="#c62828">共用一條 FIFO</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="40" y="90" width="80" height="36" rx="4" fill="#f2f2f2" stroke="#999"/><text x="80" y="113">往 UDP</text>
+    <rect x="124" y="90" width="80" height="36" rx="4" fill="#f2f2f2" stroke="#999"/><text x="164" y="113">往 CAN</text>
+    <rect x="208" y="90" width="80" height="36" rx="4" fill="#fde7cc" stroke="#e07b00" stroke-width="2"/><text x="248" y="113">往 UART</text>
+  </g>
+  <text x="248" y="146" font-size="11" fill="#a65c00" text-anchor="middle">佇列頭在等忙碌的 UART</text>
+  <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#hb)">
+    <path d="M292,108 H330 V80 H380"/><path d="M292,108 H380"/><path d="M292,108 H330 V136 H380"/>
+  </g>
+  <g font-size="12" fill="#333"><text x="388" y="84">UART（慢）</text><text x="388" y="112">CAN（閒置）</text><text x="388" y="140">UDP（閒置）</text></g>
+  <text x="40" y="180" font-size="12" fill="#c62828">CAN 與 UDP 都閒著，往它們的訊息卻被 UART 那筆擋住</text>
+
+  <!-- right: per-output queues -->
+  <text x="540" y="70" font-size="14" font-weight="bold" fill="#2e7d32">每個出口一條佇列</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="540" y="82" width="80" height="28" rx="4" fill="#fde7cc" stroke="#e07b00"/><text x="580" y="101">往 UART</text>
+    <rect x="540" y="116" width="80" height="28" rx="4" fill="#f2f2f2" stroke="#999"/><text x="580" y="135">往 CAN</text>
+    <rect x="540" y="150" width="80" height="28" rx="4" fill="#f2f2f2" stroke="#999"/><text x="580" y="169">往 UDP</text>
+  </g>
+  <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#hb)">
+    <path d="M624,96 H700"/><path d="M624,130 H700"/><path d="M624,164 H700"/>
+  </g>
+  <g font-size="12" fill="#333"><text x="708" y="100">UART：慢慢送</text><text x="708" y="134">CAN：立刻送</text><text x="708" y="168">UDP：立刻送</text></g>
+  <text x="540" y="200" font-size="12" fill="#2e7d32">各出口互不影響；每條佇列內再依 Priority 排序</text>
+
+  <rect x="30" y="230" width="940" height="118" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="254">• 交換器的經典結果：每個輸入只有一條 FIFO 時，head-of-line blocking 讓飽和吞吐量在埠數很多時趨近 2 − √2 ≈ 58.6%</text>
+    <text x="48" y="276">  （Karol、Hluchyj、Morgan 1987；固定長度封包、目的地均勻分布的假設下）。</text>
+    <text x="48" y="300">• 交換器要用 virtual output queue 加上配對演算法才能達到 100%（McKeown 等人 1999）。</text>
+    <text x="48" y="324">• Bridge 的每個出口只有自己一個傳送者，不需要配對：每個出口各開一條佇列，就足以消除這個問題（推論）。</text>
+  </g>
+</svg>
