@@ -111,6 +111,7 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 |---|---|---|---|---|
 | K-10 | 規格和實作一起錯，測試卻全綠 | 不與 Cyphal 相容，沒有外部對照組 | P1 之後的每個里程碑 | test vector 至少一份由獨立的 Python 程式產生；規格先於實作合入 |
 | K-11 | 借用的 Cyphal 設計日後改變 | Cyphal v1.1 目前在 RFC 階段 | P0 | 不相容就不受影響；借用時記下對應的 Cyphal 版本與章節 |
+| K-13 | 跨 Link 轉送時 Transfer-ID 對不上 | Cyphal/CAN 的 Transfer-ID 是 5 位元循環，UDP 是 64 位元；Cyphal 社群的結論是兩者沒有直接對應、Service 無法跨網段 | P1 寫規格時 | 二選一並寫進規格：全系統統一寬度（CAN 上靠擴充欄位或 Tail byte 以外的位元），或 Bridge 為每個跨 Link 的 session 維護對應表與進行中的 request（見 `docs/20-protocol/01` 第十一節） |
 | K-12 | 想沿用的既有程式碼授權不相容 | canadensis 等專案的授權尚未逐一確認 | P0 | 沿用任何程式碼前先記下授權；與 MIT 不相容就只參考設計 |
 
 ## 四、Safety 與 Security

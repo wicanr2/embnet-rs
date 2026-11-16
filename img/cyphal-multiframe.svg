@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" width="1000" height="360" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="360" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">多框 Transfer：12 B 的 payload 在 classic CAN 上拆成兩框</text>
+
+  <!-- frame 1 -->
+  <text x="30" y="86" font-size="14" fill="#333">第 1 框</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="110" y="64" width="560" height="36" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="390" y="87">payload 第 0 到 6 byte（7 B）</text>
+    <rect x="670" y="64" width="80" height="36" fill="#fde7cc" stroke="#e07b00"/>
+    <text x="710" y="87">Tail byte</text>
+  </g>
+  <text x="770" y="80" font-size="12" fill="#333">start = 1、end = 0</text>
+  <text x="770" y="96" font-size="12" fill="#333">toggle = 1、Transfer-ID = 5</text>
+
+  <!-- frame 2 -->
+  <text x="30" y="146" font-size="14" fill="#333">第 2 框</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="110" y="124" width="400" height="36" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="310" y="147">payload 第 7 到 11 byte（5 B）</text>
+    <rect x="510" y="124" width="160" height="36" fill="#f2f2f2" stroke="#666"/>
+    <text x="590" y="147">CRC-16（2 B）</text>
+    <rect x="670" y="124" width="80" height="36" fill="#fde7cc" stroke="#e07b00"/>
+    <text x="710" y="147">Tail byte</text>
+  </g>
+  <text x="770" y="140" font-size="12" fill="#333">start = 0、end = 1</text>
+  <text x="770" y="156" font-size="12" fill="#333">toggle = 0、Transfer-ID = 5</text>
+
+  <!-- explanation -->
+  <rect x="30" y="186" width="940" height="162" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <text x="48" y="212" font-size="14" font-weight="bold" fill="#222">每個欄位擋住什麼問題</text>
+  <g font-size="13" fill="#333">
+    <text x="48" y="238">• start、end：接收端知道一筆 Transfer 從哪一框開始、到哪一框結束，不需要長度欄位。</text>
+    <text x="48" y="262">• toggle：每框交替。CAN 自動重送造成同一框收到兩次時，toggle 沒有變化，接收端就能丟掉重複的那一框。</text>
+    <text x="48" y="286">• Transfer-ID：同一筆 Transfer 的每框都相同，接收端用它把框歸到正確的 Transfer，也用它去除重複的整筆 Transfer。</text>
+    <text x="48" y="310">• CRC-16：涵蓋整個 payload，抓「每一框各自正確、拼起來卻錯了」的情況。單框 Transfer 不加，靠 CAN 本身的 CRC。</text>
+    <text x="48" y="334">• 單框 Transfer 的 start、end、toggle 都是 1。payload 湊不滿一框時，在最後一框的 CRC 之前補 0。</text>
+  </g>
+</svg>
