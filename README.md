@@ -31,7 +31,7 @@
 | 主題 | 文章 |
 |---|---|
 | 匯流排與時序 | [CAN：仲裁、填充位元與錯誤侷限](docs/10-buses/01-can-arbitration.md)、[Wire time 與延遲的組成](docs/10-buses/02-wire-time.md)、[Polled link：讓不能主動發話的從端也能發佈](docs/10-buses/03-polled-links.md) |
-| 協定設計 | [Cyphal 的設計：去中心化、Subject 與 Service、Transfer](docs/20-protocol/01-cyphal-design.md) |
+| 協定設計 | [Cyphal 的設計：去中心化、Subject 與 Service、Transfer](docs/20-protocol/01-cyphal-design.md)、[分片與重組：狀態機、緩衝與 Bridge 的轉送](docs/20-protocol/02-fragmentation.md) |
 | Safety 與 Security | 未開始 |
 | Rust 嵌入式實作 | 未開始 |
 

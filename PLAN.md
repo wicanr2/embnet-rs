@@ -21,7 +21,7 @@
 | 2 | `docs/10-buses/02-wire-time.md` | Wire time 怎麼推算，延遲由哪幾段組成 | 完成 |
 | 3 | `docs/10-buses/03-polled-links.md` | Polled link 怎麼設計：Mailbox、中斷線、輪詢排程、RS-485 多主仲裁、Modbus 暫存器對應 | 完成 |
 | 4 | `docs/20-protocol/01-cyphal-design.md` | Cyphal 的設計：去中心化、Subject 與 Service、Transfer | 完成 |
-| 5 | `docs/20-protocol/02-fragmentation.md` | 分片、重組與 Tail byte | 未開始 |
+| 5 | `docs/20-protocol/02-fragmentation.md` | 分片與重組：狀態機、緩衝、逾時、Bridge 跨 MTU 轉送 | 完成 |
 | 6 | `docs/20-protocol/03-crc-and-framing.md` | CRC 從多項式除法推起；HDLC 與 COBS 的 framing | 未開始 |
 | 7 | `docs/20-protocol/04-bridge-queueing.md` | 集中式與去中心化；Bridge 的轉送語意與排隊 | 未開始 |
 | 8 | `docs/30-safety-security/01-fault-model-e2e.md` | 通訊故障模型與 E2E 保護 | 未開始 |

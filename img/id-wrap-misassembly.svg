@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" width="1000" height="340" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="340" fill="#ffffff"/>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">ID 太短時會拼錯：殘片留在緩衝區，等 ID 繞一圈後被接上</text>
+
+  <line x1="60" y1="150" x2="950" y2="150" stroke="#555" stroke-width="2"/>
+  <text x="955" y="154" font-size="12" fill="#555">時間</text>
+
+  <!-- datagram k with ID 7: fragment 1 lost, fragment 2 arrives -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="90" y="96" width="80" height="34" rx="4" fill="#ffffff" stroke="#c62828" stroke-dasharray="5 3"/>
+    <text x="130" y="117" fill="#c62828">ID 7 第 1 片</text>
+    <text x="130" y="88" fill="#c62828">遺失</text>
+    <rect x="180" y="96" width="80" height="34" rx="4" fill="#fde7cc" stroke="#e07b00"/>
+    <text x="220" y="117">ID 7 第 2 片</text>
+    <text x="220" y="88" fill="#a65c00">留在緩衝區</text>
+  </g>
+
+  <!-- many datagrams -->
+  <rect x="290" y="100" width="420" height="26" rx="4" fill="#f2f2f2" stroke="#bbb"/>
+  <text x="500" y="118" font-size="12" text-anchor="middle" fill="#666">ID 8、9、……繞一圈（IPv4 是 65536 個，Cyphal/CAN 是 32 個）</text>
+
+  <!-- new datagram with ID 7 -->
+  <g font-size="12" text-anchor="middle">
+    <rect x="740" y="96" width="80" height="34" rx="4" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="780" y="117">新 ID 7 第 1 片</text>
+    <rect x="830" y="96" width="80" height="34" rx="4" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="870" y="117">新 ID 7 第 2 片</text>
+  </g>
+
+  <!-- misassembly -->
+  <path d="M220,134 C300,182 680,182 774,136" stroke="#c62828" stroke-width="2" fill="none" stroke-dasharray="6 4"/>
+  <text x="500" y="200" font-size="13" fill="#c62828" text-anchor="middle">接收端把舊的第 2 片接在新的第 1 片後面，交出一個拼錯的封包</text>
+
+  <rect x="30" y="226" width="940" height="104" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="250">• RFC 4963 的實驗：100 Mbit/s 下約 10 TB 的隨機資料，出現 8,847,668 次 UDP checksum 錯誤，其中 121 次的錯誤資料通過了 checksum。</text>
+    <text x="48" y="274">• Cyphal/CAN 的 Transfer-ID 只有 5 位元，每 32 筆就繞一圈，比 IPv4 短得多。它靠另外幾條規則擋住拼錯：</text>
+    <text x="48" y="298">  CAN 保證同一 ID 的框依序到達；只有 start 框能開始一筆 Transfer；toggle 逐框交替；多框有 CRC-16；同一 session 太久沒動靜就作廢。</text>
+    <text x="48" y="320">• 逾時的作用是讓殘片在 ID 繞回來之前就被清掉。</text>
+  </g>
+</svg>
