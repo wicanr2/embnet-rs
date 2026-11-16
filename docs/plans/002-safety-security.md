@@ -31,7 +31,7 @@ Safety 處理系統自己出錯的情況：線路雜訊、記憶體錯誤、某�
 | 重複 | 重傳或迴路造成同一筆收兩次 | Transfer-ID，接收端拒收重複或回退的值 |
 | 遺失 | 佇列滿、鏈路斷線 | Transfer-ID 跳號計數；`protected` Subject 的期限檢查 |
 | 順序錯亂 | 多框 Transfer 的框交錯 | Tail byte 的 toggle 與 Transfer-ID；重組有上限與逾時 |
-| 延遲過大 | 低優先序資料卡在佇列 | 每個 Subject 設定期限，接收端依時戳判斷是否過期 |
+| 延遲過大 | 低優先序資料卡在佇列 | 每個 Subject 設定期限。預設以接收端本地的接收間隔判斷；各 Node 的時鐘沒有同步，需要絕對時間的 Subject 才加對時（見 `003` K-03） |
 | 插入 | 不該出現的 Transfer | Bridge 只轉送轉送表內的 Transfer，其餘丟棄 |
 | 冒充 | 錯誤的 Node 送出某 Subject | 轉送表綁定來源 Node-ID 與來源 Link；要對抗惡意時改用 MAC（第四節） |
 | 定址錯誤 | ID 設定衝突 | 建置期檢查 ID 唯一性與 Type hash |

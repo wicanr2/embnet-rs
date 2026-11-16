@@ -11,6 +11,7 @@ Subject（發佈與訂閱）和 Service（一問一答），不管資料實際�
 - Node 程式庫與 Bridge 在 `thumbv7em-none-eabihf` 上佔多少 Flash 與 RAM。
 - 一條 Link 滿載或故障時，其他 Link 受多少影響。
 - 畸形輸入與通訊故障下的行為是否可預期（見 `002`）。
+- 跨匯流排的流量增加時，Bridge 在哪個負載下開始成為瓶頸（見 `003` 第一節）。
 
 ## 二、設計取向：參考 Cyphal
 
@@ -131,16 +132,86 @@ P1 定案前，這一節都是草案。
 ## 七、里程碑
 
 每個里程碑都有一行可 grep 的通過行，附 run 目錄。fuzz 與故障注入從 P2 開始就跟著跑。
+「風險」欄的編號對應 `003`。
 
 | 里程碑 | 內容 | 通過行 |
 |---|---|---|
-| P0 | 量第六節的實作：體積、配置方式、CAN 直連延遲 | `EMBNET_PRIOR_ART impl=<名稱> no_alloc=<0\|1> text_kb=<N> ram_kb=<N>` |
-| P1 | 規格寫進 `docs/spec/`：線格式、CAN ID、Tail byte、E2E 保護，附 test vector；`002` 定案 | 無，這是取捨 |
+| P0 | 量第六節的實作：體積、配置方式、CAN 直連延遲；確認工具鏈 | `EMBNET_PRIOR_ART impl=<名稱> no_alloc=<0\|1> text_kb=<N> ram_kb=<N>` |
+| P1 | 規格寫進 `docs/spec/`：線格式、CAN ID、Tail byte、E2E 保護，附 test vector；`002`、`003` 定案 | 無，這是取捨 |
 | P2 | 單一匯流排：兩個 Native node 在 SocketCAN `vcan` 上直接 pub/sub 與 service | `EMBNET_BUS PASS link=can samples=<N> p50_us=<N> p99_us=<N> max_us=<N>` |
-| P3 | Bridge：CAN 與 UDP、CAN 與 UART 之間轉送 | `EMBNET_HOP PASS in=<link> out=<link> samples=<N> p50_us=<N> p99_us=<N> max_us=<N>` |
+| P3 | Bridge：CAN 與 UDP、CAN 與 UART 之間轉送，加上負載測試 | `EMBNET_HOP PASS ...` 與 `EMBNET_LOAD ...` |
 | P4 | Polled link：SPI 或 I²C 的 Mailbox；Modbus Adapter 對模擬從站 | `EMBNET_POLL PASS link=<名稱> period_us=<N> p99_us=<N>` |
 | P5 | Node 程式庫與 Bridge 以 `no_std` 跑在 MCU，先模擬器後實板 | `EMBNET_SIZE target=thumbv7em part=<node\|bridge> text_kb=<N> ram_kb=<N>` |
 | P6 | `002` 的 security 措施：CAN 上的截短 MAC、Trust zone 邊界、洪泛隔離、fuzz 覆蓋率 | `EMBNET_SEC PASS fuzz_cov=<N>% flood_other_p99_delta_us=<N>` |
+
+### P0：既有實作對照
+
+- **目標：** 知道 Cyphal 的哪些實作可以沿用、哪些只能參考，並確認工具鏈能跑。
+- **工作：**
+  1. 建一個鎖版的 Rust 容器（含 `thumbv7em-none-eabihf` target）與一個 Python 容器（給 pycyphal 與日後的 test vector 產生器）。
+  2. 把 canadensis、emcyphal 各編一個「發一筆 Subject」的最小程式到 `thumbv7em`，量 `.text`、`.rodata`、靜態 RAM，確認是否需要配置器。
+  3. libcanard 用同樣的最小程式編出 C 端對照數字。
+  4. 在 `vcan` 上跑兩個 canadensis Node 互發，量 CAN 直連的處理時間分布，當作 P2 的對照基準。
+  5. 讀 cyphal-bridge-and-router 的轉送邏輯，記下它怎麼處理 Transfer-ID 與來源 Node-ID。
+  6. 確認 Renode 是否支援 STM32 的 bxCAN 與 FDCAN（K-31）。
+  7. 逐一記下各專案的授權（K-12）。
+- **產出：** `docs/plans/004-prior-art.md`，每個實作一行通過行。
+- **完成條件：** 三個實作都有體積數字；`vcan` 直連有延遲分布；授權與模擬器支援都有結論。
+- **前置：** 主機同意載入 `vcan`（K-30）。
+- **風險：** K-11、K-12、K-30、K-31。
+
+### P1：規格
+
+- **目標：** 把線格式與行為寫成可以獨立實作的規格。
+- **工作：**
+  1. `docs/spec/` 寫 Transfer 模型、CAN ID 配置、Tail byte、多框 CRC、Heartbeat、Service 的 request 與 response。
+  2. 定義跨 MTU 轉送的語意（K-06）與新鮮度判斷方式（K-03）。
+  3. 依參考板算 classic CAN 與 CAN FD 的保護欄位配置，選定 `002` 第四節的方案（K-01）。
+  4. 在參考板或模擬器上量 AES-CMAC 與每一步轉送的週期數（K-05、`003` 第 1.2 節）。
+  5. 定義 `embnet-config` 的設定檔格式，以及建置期檢查：ID 唯一、型別一致、流量預算、無迴路。
+  6. 用 Python 寫獨立的 test vector 產生器（K-10）。
+- **產出：** `docs/spec/` 第一版、test vector、`002` 與 `003` 改為定案。
+- **完成條件：** 規格中的每個欄位都有 test vector；待審查決定都有答案。
+- **風險：** K-01、K-02、K-03、K-05、K-06、K-10。
+
+### P2：單一匯流排
+
+- **目標：** `embnet-core` 與 `embnet-node` 能在一條 CAN 上完成 pub/sub 與 service。
+- **工作：** 實作編解碼、分片與重組、去重複、E2E CRC、Heartbeat；Link trait 與 `embnet-link-can`（SocketCAN）；
+  每個解析器的 fuzz target；在 Link 層注入遺失、重複、亂序與毀損。
+- **完成條件：** 通過所有 test vector；`EMBNET_BUS PASS`；`EMBNET_FAULT` 各類型都被偵測；fuzz 有覆蓋率數字。
+- **風險：** K-24、K-32。
+
+### P3：Bridge
+
+- **目標：** 跨 Link 轉送可用，並找出負載的轉折點。
+- **工作：** `embnet-bridge` 的轉送表、Trust zone 檢查、入口限流、依 Priority 排序的出口佇列；
+  `embnet-link-udp`、`embnet-link-uart`（HDLC）；負載測試（`003` 第 1.6 節）。
+- **完成條件：** CAN 與 UDP、CAN 與 UART 雙向都有 `EMBNET_HOP PASS`；有 `EMBNET_LOAD` 的轉折點數字；
+  未列入轉送表的 Transfer 全部被拒。
+- **風險：** `003` 第一節、K-06、K-22。
+
+### P4：Polled link
+
+- **目標：** 主從介面上的 Node 也能用同一套介面。
+- **工作：** Mailbox 格式與 `embnet-node` 的從端實作；Bridge 的輪詢排程；Modbus Adapter 與暫存器對應設定；
+  用模擬從站測試逾時與重試。
+- **完成條件：** SPI 或 I²C 至少一種、Modbus RTU 一種有 `EMBNET_POLL PASS`；輪詢佔用算進流量預算。
+- **風險：** K-07、`003` 第 1.4 節。
+
+### P5：MCU
+
+- **目標：** Node 程式庫與 Bridge 在 `thumbv7em` 上以 `no_std` 執行。
+- **工作：** 先在模擬器上跑（若 K-31 確認支援），再上實板；量體積、最壞中斷延遲與 FIFO 溢位次數。
+- **完成條件：** `EMBNET_SIZE` 兩行；實板上的 `EMBNET_HOP` 與溢位次數為 0。
+- **風險：** K-31、K-33、`003` 第 1.3 節。
+
+### P6：Security
+
+- **目標：** `002` 的 security 措施可用且有數字。
+- **工作：** CAN 上的截短 MAC 與 FV 同步；對外 Link 的認證；偽造、重放、洪泛與跨 zone 測試；長時間 fuzz。
+- **完成條件：** `002` 第六節的通過行全部出現。
+- **風險：** K-04、K-21、K-22、K-23。
 
 ## 八、延遲怎麼量
 

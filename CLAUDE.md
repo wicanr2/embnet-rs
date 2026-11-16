@@ -55,4 +55,5 @@ SPI、I²C、Modbus。核心同時編成 `std`（Linux）與 `no_std`（MCU，�
 | 延遲 | 同匯流排直連與經 Bridge 單跳的分布，拆成 Wire time、Bridge 處理時間、排隊、輪詢等待 |
 | 體積 | `thumbv7em-none-eabihf` 上 Node 程式庫與 Bridge 各自的 `.text` + `.rodata` 與靜態 RAM |
 | 隔離 | 一條 Link 滿載或故障時，其他 Link 的 p99 變化 |
+| 負載 | Bridge 出口使用率從 10% 到 100% 的 p99 與丟棄數，找出轉折點（`docs/plans/003` 第一節） |
 | 安全性 | 畸形輸入不 panic、不越界，fuzz 附覆蓋率；故障注入下的行為符合 `docs/plans/002` |
