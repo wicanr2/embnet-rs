@@ -175,8 +175,8 @@ Safety 與 security 共用：
 
 | 項目 | 方法 | 通過行 |
 |---|---|---|
-| 畸形輸入 | 每個解析器 fuzz 固定時數 | `EMBNET_FUZZ target=<名稱> hours=<N> cov=<N>% crashes=0` |
-| 通訊故障 | 在 Link 層注入遺失、重複、亂序、毀損、延遲，檢查接收端的判定 | `EMBNET_FAULT PASS kind=<類型> injected=<N> detected=<N>` |
+| 畸形輸入 | 每個解析器 fuzz 固定時數；覆蓋率用 `cargo fuzz coverage` 對語料庫重跑 | `EMBNET_FUZZ target=<名稱> hours=<N> corpus=<N> cov_metric=<line\|region> cov=<N>% crashes=0` |
+| 通訊故障 | 在模擬 Link 以固定 seed 注入遺失、重複、亂序、毀損、延遲，檢查接收端的判定 | `EMBNET_FAULT PASS kind=<類型> seed=<N> injected=<N> detected=<N>` |
 | 偽造 | 以隨機 MAC 送假框，檢查全部被拒且計數正確 | `EMBNET_FORGE PASS sent=<N> accepted=0 counted=<N>` |
 | FV 同步 | 讓接收端連續漏收超過截短 FV 的範圍，檢查重新同步所需時間與用掉的失敗預算 | `EMBNET_FV_RESYNC recover_ms=<N>` |
 | 洪泛隔離 | 一條 Link 以線速洪泛，量其他 Link 的 p99 | `EMBNET_FLOOD link=<名稱> other_p99_delta_us=<N>` |

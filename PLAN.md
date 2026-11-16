@@ -29,7 +29,7 @@
 | 10 | `docs/30-safety-security/03-trust-zones.md` | Trust zone、Bridge 當防火牆、STRIDE | 完成 |
 | 11 | `docs/40-rust-embedded/01-no-alloc.md` | `no_std` 與不配置記憶體：緩衝由誰持有 | 完成 |
 | 12 | `docs/40-rust-embedded/02-sans-io.md` | sans-IO：把協定和 I/O、時鐘分開 | 完成 |
-| 13 | `docs/40-rust-embedded/03-testing.md` | fuzz、性質測試與 Miri | 未開始 |
+| 13 | `docs/40-rust-embedded/03-testing.md` | fuzz、性質測試、Miri 與 Kani | 完成 |
 | 14 | `docs/40-rust-embedded/04-latency-measurement.md` | 延遲分布怎麼量：p99、DWT 週期計數器、時戳 | 未開始 |
 | 15 | 全部 | 專家與學生審查，套用修正 | 未開始 |
 
