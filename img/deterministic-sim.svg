@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" width="1000" height="380" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="380" fill="#ffffff"/>
+  <defs>
+    <marker id="ds" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">決定性模擬：同一個 seed，永遠得到同一串事件</text>
+
+  <g font-size="13" text-anchor="middle">
+    <rect x="40" y="80" width="180" height="70" rx="10" fill="#e3f0fb" stroke="#3b7dc4"/><text x="130" y="110">Node 核心 A</text><text x="130" y="130" font-size="11" fill="#555">發佈 Subject</text>
+    <rect x="410" y="80" width="180" height="70" rx="10" fill="#fde7cc" stroke="#e07b00"/><text x="500" y="110">Bridge 核心</text><text x="500" y="130" font-size="11" fill="#555">轉送</text>
+    <rect x="780" y="80" width="180" height="70" rx="10" fill="#e3f0fb" stroke="#3b7dc4"/><text x="870" y="110">Node 核心 B</text><text x="870" y="130" font-size="11" fill="#555">訂閱並檢查 E2E</text>
+
+    <rect x="240" y="88" width="150" height="54" rx="8" fill="#ffffff" stroke="#999" stroke-dasharray="5 3"/><text x="315" y="112" font-size="12">模擬 Link</text><text x="315" y="130" font-size="11" fill="#555">遺失、重複、延遲</text>
+    <rect x="610" y="88" width="150" height="54" rx="8" fill="#ffffff" stroke="#999" stroke-dasharray="5 3"/><text x="685" y="112" font-size="12">模擬 Link</text><text x="685" y="130" font-size="11" fill="#555">亂序、毀損</text>
+  </g>
+  <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#ds)">
+    <path d="M220,115 H236"/><path d="M390,115 H406"/><path d="M590,115 H606"/><path d="M760,115 H776"/>
+  </g>
+
+  <rect x="240" y="176" width="520" height="56" rx="10" fill="#f2f2f2" stroke="#666"/>
+  <text x="500" y="200" font-size="13" text-anchor="middle">虛擬時鐘與 seed 固定的亂數產生器</text>
+  <text x="500" y="220" font-size="11" text-anchor="middle" fill="#555">決定每個故障何時發生、時間怎麼前進；同一個 seed 重跑結果完全相同</text>
+  <g stroke="#999" stroke-width="1.5" stroke-dasharray="4 3" fill="none">
+    <path d="M315,142 V176"/><path d="M685,142 V176"/>
+  </g>
+
+  <rect x="30" y="252" width="940" height="118" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="276">• FoundationDB：在單一執行緒的程序裡模擬整個叢集，以軟體取代磁碟、網路與機器，同一串事件可無限次重播（官方文件；Wilson 2014）。</text>
+    <text x="48" y="300">• TigerBeetle 的 VOPR：時鐘、網路、磁碟全換成模擬，時間可以任意加速；故障由 seed 決定，用 seed 加 commit hash 精確重現失敗。</text>
+    <text x="48" y="324">• Firezone：sans-IO 的核心在測試裡直接互傳輸出，時間用加法快轉，不需要真的 socket；再用參考狀態機搭配 proptest 跑大量情境。</text>
+    <text x="48" y="348">• embnet-rs 的核心本來就是 sans-IO，所以不需要 turmoil 這類模擬 tokio 的框架，直接在測試中傳 now 與位元組即可（推論）。</text>
+  </g>
+</svg>

@@ -109,7 +109,7 @@ P1 定案前，這一節都是草案。
 |---|---|---|
 | `embnet-core` | 線格式、Transfer 的分片與重組、去重複、E2E 保護。`no_std`、不配置記憶體、`forbid(unsafe_code)` | 編碼與解碼函式，不碰 I/O 與時鐘 |
 | `embnet-node` | Native node 端：publish、subscribe、call，以及 Heartbeat | 緩衝由呼叫者持有 |
-| `embnet-bridge` | 轉送表、Trust zone 檢查、限流、每條出口的有界佇列、Adapter | `on_frame(link, now, bytes)` 與 `poll(now)`，兩者都回傳要送出的 Frame |
+| `embnet-bridge` | 轉送表、Trust zone 檢查、限流、每條出口的有界佇列、Adapter | `on_frame(link, now, bytes)`、`handle_timeout(now)` 輸入；`poll_transmit(buf)` 把一個 Frame 寫進呼叫者的緩衝，`poll_timeout()` 回報下次時刻（`docs/40-rust-embedded/02`） |
 | `embnet-config` | 從設定檔產生 ID、型別雜湊、轉送表與 Adapter 對應表，並在建置期驗證 | 建置期工具，輸出常數表 |
 | `embnet-link-*` | 各 Link 的 framing 與驅動：`can`、`uart`、`udp`、`spi`、`i2c`、`modbus` | 實作同一個 Link trait |
 

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="1000" height="420" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="420" fill="#ffffff"/>
+  <defs>
+    <marker id="sl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">外層的事件迴圈：等、餵、排空、問下次時間</text>
+
+  <g font-size="13" text-anchor="middle">
+    <rect x="60" y="70" width="240" height="64" rx="10" fill="#f2f2f2" stroke="#666"/>
+    <text x="180" y="96">① 等待</text><text x="180" y="118" font-size="11" fill="#555">有 Frame 進來，或到了下次時刻</text>
+
+    <rect x="380" y="70" width="240" height="64" rx="10" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="500" y="96">② 餵給核心</text><text x="500" y="118" font-size="11" fill="#555">on_frame 或 handle_timeout，帶上 now</text>
+
+    <rect x="380" y="190" width="240" height="64" rx="10" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="500" y="216">③ 排空輸出</text><text x="500" y="238" font-size="11" fill="#555">反覆 poll_transmit，直到沒有東西可送</text>
+
+    <rect x="60" y="190" width="240" height="64" rx="10" fill="#e3f0fb" stroke="#3b7dc4"/>
+    <text x="180" y="216">④ 問下次時間</text><text x="180" y="238" font-size="11" fill="#555">poll_timeout，重設計時器</text>
+  </g>
+  <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#sl)">
+    <path d="M300,102 H376"/><path d="M500,134 V186"/><path d="M380,222 H304"/><path d="M180,190 V138"/>
+  </g>
+
+  <rect x="680" y="70" width="290" height="184" rx="10" fill="#fdecea" stroke="#e5a0a0"/>
+  <text x="698" y="96" font-size="14" font-weight="bold" fill="#c62828">外層容易寫錯的地方</text>
+  <g font-size="12" fill="#333">
+    <text x="698" y="122">• 輸入之後沒有排空輸出：</text>
+    <text x="710" y="140">str0m 規定每次變更後都要完整排空</text>
+    <text x="698" y="166">• 下次時刻沒有往前推：</text>
+    <text x="710" y="184">迴圈不停空轉（Firezone 的經驗）</text>
+    <text x="698" y="210">• 一次把所有收到的 Frame 都處理完：</text>
+    <text x="710" y="228">洪泛時卡死，smoltcp 因此拆出</text>
+    <text x="710" y="246">有界的 poll_ingress_single</text>
+  </g>
+
+  <rect x="30" y="280" width="940" height="130" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="304">• 輸出緩衝的三種所有權：寫進呼叫者的緩衝（quinn-proto 的 poll_transmit、rustls 的 unbuffered API）；</text>
+    <text x="60" y="324">核心內部有佇列、外層逐次取出（str0m、quinn 的 poll）；讀寫呼叫者給的 Read、Write（rustls，需要 std）。</text>
+    <text x="48" y="348">• embnet-rs 選第一種：Frame 寫進外層給的緩衝，配合 docs/40-rust-embedded/01 的「緩衝由呼叫者持有」。</text>
+    <text x="48" y="372">• 時間要單調遞增；提早呼叫 handle_timeout 只是白做工，晚呼叫才會影響延遲（quinn-proto、smoltcp 的文件）。</text>
+    <text x="48" y="396" fill="#777">代價：循序的流程要拆成狀態，程式碼比 async/await 長；外層的事件迴圈要自己寫（Firezone 2024，The downsides 段）。</text>
+  </g>
+</svg>

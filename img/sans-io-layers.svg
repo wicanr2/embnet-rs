@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" width="1000" height="440" font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="440" fill="#ffffff"/>
+  <defs>
+    <marker id="si" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+  </defs>
+  <text x="30" y="30" font-size="17" font-weight="bold" fill="#222">sans-IO：核心只吃資料與時間，只吐資料與「下次叫醒我的時間」</text>
+
+  <!-- core -->
+  <rect x="340" y="70" width="320" height="200" rx="14" fill="#e3f0fb" stroke="#3b7dc4" stroke-width="2"/>
+  <text x="500" y="100" font-size="15" font-weight="bold" text-anchor="middle" fill="#2a5d94">embnet-core / embnet-bridge</text>
+  <text x="500" y="122" font-size="12" text-anchor="middle" fill="#555">純狀態機：沒有 socket、沒有中斷、沒有時鐘</text>
+  <g font-size="12" fill="#333">
+    <text x="360" y="156">輸入</text>
+    <text x="370" y="176">• on_frame(link, now, bytes)</text>
+    <text x="370" y="194">• handle_timeout(now)</text>
+    <text x="360" y="216">輸出</text>
+    <text x="370" y="236">• poll_transmit → 要送的 Frame</text><text x="370" y="256">• poll_timeout → 下次時刻</text>
+  </g>
+
+  <!-- shells -->
+  <g font-size="12">
+    <rect x="30" y="70" width="270" height="80" rx="10" fill="#f2f2f2" stroke="#666"/>
+    <text x="45" y="94" font-weight="bold" font-size="13">Linux 外層（std）</text>
+    <text x="45" y="116">socket、SocketCAN、單調時鐘</text>
+    <text x="45" y="136">事件迴圈：tokio 或一般迴圈</text>
+
+    <rect x="30" y="175" width="270" height="85" rx="10" fill="#fff3e0" stroke="#e07b00"/>
+    <text x="45" y="199" font-weight="bold" font-size="13">MCU 外層（no_std）</text>
+    <text x="45" y="221">CAN、UART、SPI 驅動與 DMA、硬體計時器</text>
+    <text x="45" y="241">事件迴圈：embassy 或中斷驅動</text>
+
+    <rect x="700" y="70" width="270" height="190" rx="10" fill="#e8f5e9" stroke="#2e7d32"/>
+    <text x="715" y="94" font-weight="bold" font-size="13">測試外層（主機）</text>
+    <text x="715" y="118">• 時間是一個數字，可以任意快轉</text>
+    <text x="715" y="140">• 兩個核心的輸出直接接到對方的輸入，</text>
+    <text x="727" y="158">不需要真的 socket</text>
+    <text x="715" y="180">• 用固定 seed 注入遺失、重複、亂序、</text>
+    <text x="727" y="198">延遲；失敗時用同一個 seed 重現</text>
+    <text x="715" y="220">• fuzz 直接餵 on_frame 任意位元組</text>
+  </g>
+  <g stroke="#555" stroke-width="2" fill="none" marker-end="url(#si)">
+    <path d="M300,110 H336"/><path d="M300,218 H336"/><path d="M696,165 H664"/>
+  </g>
+
+  <rect x="30" y="286" width="940" height="144" rx="10" fill="#f7f7f7" stroke="#ccc"/>
+  <g font-size="12" fill="#333">
+    <text x="48" y="310">• 原始主張：協定實作不含任何網路 I/O，也不含任何非同步流程控制，只是一組同步函式；I/O 與流程控制推到程式的邊緣（sans-io.readthedocs.io）。</text>
+    <text x="48" y="334">• quinn-proto：「不含網路程式碼，也不向作業系統取得任何時間戳」，因此完全決定性。str0m：「從不自己呼叫 Instant::now()，所有時間都是外部輸入」。</text>
+    <text x="48" y="358">• smoltcp：Interface::poll(timestamp, device, sockets) 的時間由呼叫者給；poll_at 回報下次該呼叫的時刻。embassy-net 就是包住 smoltcp 的 async 外層。</text>
+    <text x="48" y="382">• 同一份核心換三個外層，就同時得到 Linux 的 Bridge、MCU 的 Bridge 與可重現的模擬測試。</text>
+    <text x="48" y="406" fill="#777">函式名稱是 embnet-rs 的草案；P2 實作時定案。</text>
+  </g>
+</svg>
