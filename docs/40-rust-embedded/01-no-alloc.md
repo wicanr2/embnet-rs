@@ -161,7 +161,7 @@ Power of Ten 第 1 條禁止遞迴，理由之一就是：沒有遞迴，堆疊�
 | DMA 緩衝必須是 `'static`，`link_section` 屬於 unsafe | DMA 與記憶體區段只在 Link crate 處理（`CLAUDE.md` 的 unsafe 規則補上韌體 crate） |
 | 堆疊溢位在 Cortex-M 上是靜默的 | 韌體一律用 `flip-link`；P5 用 `paint-stack` 量高水位，並嘗試 `cargo-call-stack` 靜態分析（`003` K-26） |
 | 解析外部輸入不得 panic | 核心啟用 `indexing_slicing`、`arithmetic_side_effects`、`unwrap_used`；解析函式在主機端 unwind 建置加 `#[no_panic]` 驗證；fuzz 補足剩下的（`docs/40-rust-embedded/03`） |
-| Bridge 要 fail-silent | 現場韌體的 panic 處理器停止輸出並重設；重設次數記錄在非揮發記憶體，避免無限重設迴圈（P5 定義） |
+| Bridge 要 fail-silent | panic 處理器先停止所有 Link 的輸出，取消控制器中尚未送出的框；再把 panic 的位置與訊息寫進重設後仍保留的 RAM 區，平台有預留快閃區時再複製過去，只保留最近幾筆。有快閃紀錄時設一個「有未讀的異常 log」旗標，隨 Heartbeat 發佈，上位系統看到後用 Service 讀取並清除。恢復方式由部署設定選擇：停住等人處理，或由看門狗重設、連續重設超過上限就停住（`002` 第 2.2 節）。寫保留 RAM 需要 `#[link_section]`，放在韌體 crate |
 | 程式大小要可比較 | `001` 的 `EMBNET_SIZE` 通過行用 `cargo size` 的 `.text`、`.rodata`、`.data`、`.bss`，profile 固定為 `opt-level = "z"`、`lto = "fat"`、`codegen-units = 1` |
 
 ## 來源
