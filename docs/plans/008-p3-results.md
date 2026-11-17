@@ -50,7 +50,7 @@ EMBNET_BRIDGE_STATS env=board-loopback forwarded=10021 no_route=0 local=21 queue
 | E2E 原樣通過 Bridge | motor 端 500 筆 `speed_cmd` 全部 OK |
 | Service 跨網段 | 50 次 request 都拿到 response，涵蓋 Transfer-ID 在模數 32 上繞圈 |
 | 未列入轉送表與限流 | 未列出的 Subject 被丟棄並計數；10 倍速率的洪泛被入口限流擋下 448 筆 |
-| 負載轉折點 | `speed_cmd`（優先等級最高）從使用率 12% 到 102%，最大延遲一直在 520 到 670 µs；同一條 CAN 上的 `motor_state`（優先等級 4）在 80% 附近開始上升，102% 時到約 1 ms。量到的值都低於依優先等級算出的上限 |
+| 負載轉折點 | `speed_cmd`（優先等級最高）從使用率 12% 到 102%，最大延遲一直在 520 到 670 µs；同一條 CAN 上的 `motor_state`（優先等級 4）從使用率 72% 起開始上升（688 到 848 µs），102% 時到 998 µs。量到的值都低於依優先等級算出的上限 |
 
 模擬過程中找到並修正的設計缺口：**`protected` Subject 跨 Bridge 時，接收端收不到 E2E Sync**，所有結果都是 NOSYNC。現在轉送表會自動附帶同一發佈者、同一路徑的 Sync 規則（`docs/spec/06-forwarding.md` 第五節）。
 
