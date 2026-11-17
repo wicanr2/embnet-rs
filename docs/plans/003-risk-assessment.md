@@ -1,6 +1,6 @@
 # 003 風險評估
 
-狀態：草案，待審查。術語依 `CONTEXT.md`。編號 `K-xx` 供 `001` 的里程碑引用。
+狀態：隨各里程碑的實測更新；已由實測或實作確認的項目在「成因」欄註明出處。術語依 `CONTEXT.md`。編號 `K-xx` 供 `001` 的里程碑引用。
 
 每項風險寫明成因、最早在哪裡看得出來，以及怎麼降低。看得出來的時間點愈早，代價愈小，
 所以多數風險都安排在 P0 或 P1 用計算或小實驗先確認。
@@ -132,8 +132,8 @@ P3 加一項負載測試：逐步提高送進 Bridge 的流量，從出口容量
 |---|---|---|---|---|
 | K-10 | 規格和實作一起錯，測試卻全綠 | 不與 Cyphal 相容，沒有外部對照組 | P1 之後的每個里程碑 | test vector 至少一份由獨立的 Python 程式產生；規格先於實作合入 |
 | K-11 | 借用的 Cyphal 設計日後改變 | Cyphal v1.1 目前只有論壇上的早期預覽，作者自述還不是正式的 RFC | P0 | 不相容就不受影響；借用時記下對應的 Cyphal 版本與章節 |
-| K-12 | 想沿用的既有程式碼授權不相容 | canadensis 等專案的授權尚未逐一確認 | P0 | 沿用任何程式碼前先記下授權；與 MIT 不相容就只參考設計 |
-| K-13 | 跨 Link 轉送時 Transfer-ID 對不上 | Cyphal/CAN 的 Transfer-ID 是 5 位元循環，UDP 是 64 位元；Cyphal 社群的結論是兩者沒有直接對應、Service 無法跨網段 | P1 寫規格時 | Transfer-ID 定位為 Link 層的欄位，Bridge 為每個跨 Link 的 session 維護對應表與進行中的 request；端到端的順序與去重複改由 E2E 序號負責（K-06；見 `docs/20-protocol/01` 第十一節） |
+| K-12 | 想沿用的既有程式碼授權不相容 | P0 已確認：canadensis、emcyphal 為 MIT OR Apache-2.0，libcanard 為 MIT，探針的 133 個相依全部是寬鬆授權（`005` 第六節）；目前沒有沿用任何程式碼 | 已確認 | 沿用任何程式碼前先記下授權；與 MIT 不相容就只參考設計 |
+| K-13 | 跨 Link 轉送時 Transfer-ID 對不上 | Cyphal/CAN 的 Transfer-ID 是 5 位元循環，UDP 是 64 位元；Cyphal 社群的結論是兩者沒有直接對應、Service 無法跨網段 | 已處理 | Transfer-ID 定位為 Link 層的欄位；Bridge 以 32 位元展開值在模數 32 與 256 之間對應（`docs/spec/06-forwarding.md` 第三節），模擬中 Service 跨網段 50 次都對得上（`008` 第三節）；端到端的順序由 E2E 序號負責（K-06） |
 
 ## 四、Safety 與 Security
 

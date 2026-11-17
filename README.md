@@ -7,10 +7,11 @@
 涵蓋 CAN/CAN FD、UART/RS-485、Ethernet/UDP，也補上 Cyphal 沒有定義的 SPI、I²C 與 Modbus。
 核心同時跑在 Linux（`std`）與 MCU（`no_std`、不配置記憶體）上。線格式自訂，不與 Cyphal 相容。
 
-**現況：P3 的 Bridge 核心完成，模擬與 NUCLEO-F767ZI 的 CAN loopback 驗證通過。** 進度見 `PLAN.md`，規格見 [docs/spec](docs/spec/README.md)。
+**現況：P0 到 P3 完成，成果總結在 [009](docs/plans/009-results-summary.md)。** 進度見 `PLAN.md`，規格見 [docs/spec](docs/spec/README.md)。
 
 ## 從哪裡開始讀
 
+- 想知道目前做到哪裡、結果如何：[009 成果總結](docs/plans/009-results-summary.md)。
 - 想知道這個專案要做什麼：[001 計畫](docs/plans/001-plan.md) 的第一、二節。
 - 想知道會遇到什麼問題：[003 風險評估](docs/plans/003-risk-assessment.md)，第一節是 Bridge 會不會成為瓶頸。
 - 不熟嵌入式：知識庫依下表由上而下讀。[Polled link](docs/10-buses/03-polled-links.md) 用到 Subject 等 pub/sub 概念，可以放到 [Cyphal 的設計](docs/20-protocol/01-cyphal-design.md) 之後再讀。
@@ -37,6 +38,7 @@
 | [006-p1-results.md](docs/plans/006-p1-results.md) | P1 結果：規格與實作的對應、每一步的成本、還沒有答案的決定 |
 | [007-p2-results.md](docs/plans/007-p2-results.md) | P2 結果：故障注入、fuzz、體積，以及實板上的週期數與 bxCAN 送出順序 |
 | [008-p3-results.md](docs/plans/008-p3-results.md) | P3 結果：Bridge 的模擬驗證、負載轉折點、實板 CAN1 與 CAN3 的 loopback 單跳延遲 |
+| [009-results-summary.md](docs/plans/009-results-summary.md) | P0 到 P3 的成果總結：結論、建議、假設、有效性檢討、開放項目 |
 
 ## 知識庫
 

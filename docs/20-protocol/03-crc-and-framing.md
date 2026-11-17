@@ -180,7 +180,7 @@ framing 錯了，CRC 的保證可能跟著失效。FAA 報告指出兩種情況�
 | 同名 CRC 參數不同，算出來的值就不同 | 規格一律寫完整參數與 RevEng 名稱；test vector 收錄 `"123456789"` 的 check 值，作為不依賴本專案實作的對照（`003` K-10） |
 | CRC 是線性的，擋不住偽造 | 需要防偽造的 Subject 用截短 MAC（`002` 第四節） |
 | Cyphal/CAN 的多框 CRC 與 E2E CRC 是兩層 | P1 評估 E2E CRC 能不能取代多框 CRC，省下 classic CAN 的空間 |
-| COBS 開銷固定、錯誤後立即重新同步，Cyphal/serial 也用 COBS | UART framing 傾向改用 COBS 加 CRC，取代 `xrce-rs` 的 HDLC 式；P1 定案 |
+| COBS 開銷固定、錯誤後立即重新同步，Cyphal/serial 也用 COBS | UART framing 定為 COBS 分界、datagram 帶 CRC-32C（`docs/spec/04-datagram-links.md`） |
 | framing 出錯可能讓 CRC 失效 | 不用長度欄位界定 UART 框；COBS 解碼器的越界情況列為 fuzz 的重點 |
 | `cobs` 是 MIT/Apache，`corncobs` 是 MPL-2.0 | 優先用 `cobs` 或自寫；選 `corncobs` 要先確認授權條件可以接受 |
 

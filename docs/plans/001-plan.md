@@ -1,6 +1,6 @@
 # 001 計畫：設計取向、架構與里程碑
 
-狀態：草案，待審查。術語依 `CONTEXT.md`。
+狀態：P0 到 P3 已執行，結果在 `005` 到 `008`，總結在 `009`。線格式以 `docs/spec/` 為準。術語依 `CONTEXT.md`。
 
 ## 一、要回答的問題
 
@@ -51,7 +51,7 @@ Cyphal 是為車載與航空的內部匯流排設計的 pub/sub 協定。它的�
 | 介面 | 誰能主動發話 | 單框 payload | 鏈路自帶完整性檢查 | Bridge 要做的事 |
 |---|---|---|---|---|
 | CAN / CAN FD | 任何 Node，按 ID 仲裁 | 8 B（classic）、64 B（FD） | 有 CRC | 本身就是主要傳輸，Bridge 只在跨 Link 時介入 |
-| UART / RS-485 | 點對點雙方都可以；RS-485 多點時要仲裁或輪詢 | 由 framing 決定 | 無，靠 framing 的 CRC（HDLC 或 COBS，P1 定案） | framing；多點時排程 |
+| UART / RS-485 | 點對點雙方都可以；RS-485 多點時要仲裁或輪詢 | 由 framing 決定 | 無，靠 datagram 的 CRC-32C（COBS 分界） | framing；多點時排程 |
 | Ethernet / UDP | 任何 Node | 約 1472 B | 有 FCS 與 UDP checksum | 對外 Trust zone 的邊界 |
 | SPI / I²C | 只有主端 | 由交易長度決定 | **沒有** | 當主端輪詢 Mailbox，或由 Node 拉中斷線通知 |
 | Modbus RTU | 只有主端 | 一次最多讀 125 個暫存器（250 B） | 有 CRC-16 | Adapter 輪詢，把暫存器對應成 Subject |
@@ -79,7 +79,7 @@ Cyphal 是為車載與航空的內部匯流排設計的 pub/sub 協定。它的�
 
 ## 五、架構草案
 
-P1 定案前，這一節都是草案。
+這一節是最初的架構規劃。線格式已寫進 `docs/spec/`（0.2 版），兩者不同時以規格為準。
 
 ```
    CAN 匯流排：Node A ⇄ Node B        （同匯流排直接互通，不經 Bridge）
@@ -90,9 +90,9 @@ P1 定案前，這一節都是草案。
         └── Modbus RTU（Adapter）─ Legacy device E
 ```
 
-### 5.1 CAN ID 配置（草案）
+### 5.1 CAN ID 配置
 
-以 29 位元延伸 ID 為準：
+以 29 位元延伸 ID 為準（定案的位元位置見 `docs/spec/01-can-transport.md` 第一節）：
 
 | Transfer 種類 | 欄位與位元數 | 合計 | 剩餘 |
 |---|---|---|---|
@@ -188,7 +188,7 @@ P1 定案前，這一節都是草案。
 
 - **目標：** 跨 Link 轉送可用，並找出負載的轉折點。
 - **工作：** `embnet-bridge` 的轉送表、Trust zone 檢查、入口限流、依 Priority 排序的出口佇列；
-  `embnet-link-udp`、`embnet-link-uart`（framing 依 P1 定案）；負載測試（`003` 第 1.6 節）。
+  `embnet-link-udp`、`embnet-link-uart`（COBS，`docs/spec/04-datagram-links.md`）；負載測試（`003` 第 1.6 節）。
 - **完成條件：** CAN 與 UDP、CAN 與 UART 雙向都有 `EMBNET_HOP PASS`；有 `EMBNET_LOAD` 的轉折點數字；
   未列入轉送表的 Transfer 全部被拒。
 - **風險：** `003` 第一節、K-06、K-09、K-22。

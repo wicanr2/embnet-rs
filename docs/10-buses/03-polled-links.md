@@ -58,7 +58,7 @@ I²C 有兩種標準化的通知方式（SMBus Specification 3.3.1）：
 
 ## 三、embnet-rs 的 Mailbox 草案
 
-依上面的共通形式，Polled link 的 Mailbox 草案如下。正式格式在 P1 寫進 `docs/spec/`，在 P4 實作。
+依上面的共通形式，Polled link 的 Mailbox 草案如下。正式格式在 P4 寫進 `docs/spec/` 並實作；規格 0.2 版還沒有涵蓋 Polled link。
 
 <p align="center"><img src="../../img/polled-mailbox.svg" width="880" alt="SPI Mailbox 的時序：Node 把 Transfer 放進 Mailbox、拉高 DRDY，Bridge 發起一次全雙工交易，MOSI 帶 Bridge 要給 Node 的資料，MISO 帶 Node 的 Transfer，Mailbox 空了就放低 DRDY"></p>
 

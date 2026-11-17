@@ -165,7 +165,7 @@ Cho 與 Shin（ACM CCS 2016）展示了 bus-off 攻擊。攻擊者算準受害�
 
 ## 七、STM32 的兩種 CAN 控制器
 
-embnet-rs 的參考板還沒決定，候選有 STM32F4（bxCAN）與 STM32G4、H7（FDCAN）。
+embnet-rs 的參考板定為 NUCLEO-F767ZI（STM32F767，三個 bxCAN，`docs/plans/001` 第十節）。下表也列出有 FDCAN 的 STM32G4、H7 作為對照。
 
 | 項目 | bxCAN（STM32F4，RM0090） | FDCAN（STM32G4，RM0440） | FDCAN（STM32H7，RM0433） |
 |---|---|---|---|

@@ -154,7 +154,7 @@ embnet-rs 的線格式不和任何現有實作相容，所以對照組要自己�
 - **embedded-test**（0.7.3）：搭配 `probe-rs`，一次燒錄所有測試，每個測試前重設裝置，輸出與 libtest 相容。
 - **defmt-test**（0.5.1）：在裝置上跑單元測試，測試循序執行。
 - **QEMU**：Embedded Rust Book 的例子模擬 LM3S6965（Cortex-M3），不是 Cortex-M4F，測不到 FPU 相關的行為。
-- **Renode**：整合 Robot Framework，可以寫「等待 UART 輸出某行」「等待送出封包」之類的測試（`003` K-31：它對 STM32 CAN 的支援還沒確認）。
+- **Renode**：整合 Robot Framework，可以寫「等待 UART 輸出某行」「等待送出封包」之類的測試（Renode 1.17.0 有 bxCAN 模型，但送出順序不依 ID、錯誤計數器不會累加，`docs/plans/005` 第四節）。
 
 ## 九、對 embnet-rs 的影響
 

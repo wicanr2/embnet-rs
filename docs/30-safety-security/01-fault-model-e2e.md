@@ -152,7 +152,7 @@ ODVA 2022 第 2、4 頁）。OPC UA Safety 的上限則依錯誤統計區間而�
 | 觀察 | 對設計的影響 |
 |---|---|
 | Black channel 讓中間元件不需認證，但安全層要假設它們會出錯 | Bridge 維持一般開發；`protected` Subject 的安全層只在 Node 兩端。E2E 欄位只綁與 Link 無關的邏輯標頭，以 Transfer 為單位，Bridge 不改寫（`002` 第 2.1 節） |
-| 四個機制涵蓋八類錯誤：CRC、序號、Data ID、期限 | E2E 標頭草案：E2E 序號、CRC；Data ID（Subject-ID）與 Type hash 不上線，只算進 CRC；期限由接收端本地計時 |
+| 四個機制涵蓋八類錯誤：CRC、序號、Data ID、期限 | E2E-32（`docs/spec/02-e2e.md`）：E2E 序號、CRC；Data ID（Subject-ID）與 Type hash 不上線，只算進 CRC；期限由接收端本地計時 |
 | 序號範圍必須大於路徑上可能暫存的訊息數，而 black channel 下暫存量沒有可信的上限 | E2E 序號與 Transfer-ID 分開；完整寬度的序號算進 CRC，線上只送低位（`003` K-16） |
 | 只靠序號偵測不到延遲；本地看門狗只能偵測停止更新 | `protected` Subject 必須週期發佈，接收端以看門狗判斷停止更新，看門狗時間不小於 network calculus 算出的延遲上限；要限制資料年齡時，加序號回送或對時（`003` K-03） |
 | 單筆檢查要累積成狀態 | `embnet-node` 提供 AUTOSAR 式的接收狀態機，參數在設定檔中依 Subject 指定 |

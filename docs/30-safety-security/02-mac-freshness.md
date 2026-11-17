@@ -141,7 +141,7 @@ CMAC 與 HMAC 都是對稱金鑰：驗證用的金鑰就是產生用的金鑰。
 
 ## 十、對 embnet-rs 的影響
 
-依上面各節，`protected` Subject 在 CAN 單框中的配置草案如下（P1 定案）：
+依上面各節，`protected` Subject 在 CAN 單框中的配置如下，正式格式見 `docs/spec/05-mac.md`：
 
 <p align="center"><img src="../../img/can-auth-layout.svg" width="900" alt="protected Subject 的單框配置草案：classic CAN 為 2 B 資料、1 B 序號、4 B MAC、1 B Tail；CAN FD 為 53 B 資料、2 B 序號、8 B MAC、1 B Tail"></p>
 

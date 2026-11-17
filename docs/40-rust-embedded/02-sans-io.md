@@ -104,7 +104,7 @@ Firezone 的文章列了三個缺點（The downsides 段）：
 
 | 觀察 | 對設計的影響 |
 |---|---|
-| 計時器由核心回報、外層排程 | 核心介面草案改為四個入口：`on_frame(link, now, bytes)`、`handle_timeout(now)`、`poll_transmit(link, now, buf)`、`poll_timeout()`（`001` 第 5.2 節） |
+| 計時器由核心回報、外層排程 | 已實作。`embnet-node`：`on_frame(now, id, bytes)`、`poll_transmit(buf)`、`handle_timeout(now)`、`poll_timeout()`；`embnet-bridge`：`on_can(link, now, id, bytes)`、`on_datagram(link, now, bytes)`、`poll_transmit(link, now, buf)`、`handle_timeout(now)`，Bridge 的 `poll_timeout` 尚未實作 |
 | 每次呼叫的工作量要有上限 | `on_frame` 一次只處理一個 Frame；`poll_transmit` 一次只產出一個 Frame；外層決定每輪處理多少 |
 | 輸出寫進呼叫者的緩衝 | `poll_transmit` 由外層對發送端有空位的 Link 呼叫，寫進外層給的 `&mut [u8]`，回傳長度；帶 `now` 讓核心能丟棄逾期的 Transfer |
 | 時間要單調、不綁時鐘 | 核心自訂微秒計數的時間型別；外層負責從 SocketCAN 時戳、`std::time::Instant` 或硬體計時器換算 |

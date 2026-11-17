@@ -35,7 +35,7 @@
 
 ## 第二階段：開工
 
-依 `docs/plans/001` 第七節從 P0 開始。參考板（NUCLEO-F767ZI）、`vcan`、UART framing 已決定（`001` 第十節）。
+依 `docs/plans/001` 第七節推進。參考板（NUCLEO-F767ZI）、`vcan`、UART framing 已決定（`001` 第十節）。P0 到 P3 的成果總結在 `docs/plans/009-results-summary.md`。
 
 | 里程碑 | 執行細節 | 狀態 |
 |---|---|---|
